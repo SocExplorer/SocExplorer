@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=SocExplorer
+Type=Application
+GenericName=SocExplorer
+
+Comment=Software to monitor and explore Soc devices.
+
+Exec=socexplorer
+Icon=/etc/SocExplorer/logo-lpp-cutted.png
+Terminal=false
+Type=Application
+Categories=Application;Programming;
+Name[fr_FR]=SocExplorer

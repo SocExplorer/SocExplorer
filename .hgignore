@@ -1,0 +1,39 @@
+# use glob syntax.
+syntax: glob
+
+moc_*
+Makefil*
+qrc_*
+*.qm
+*.tex
+*.html
+*log*
+*.dot
+*.css
+*.md5
+*.eps
+*.pdf
+*.toc
+*.map
+*.sty
+*.3
+*.js
+*.aux
+*.idx
+*.orig
+*.o
+*.dll
+*.a
+*.bin
+*~
+*.pro.user
+src/PythonQt/tests/PythonQtTest
+src/PythonQt/generator/pythonqt_generator
+src/object_script.LPPMON.Debug
+src/object_script.LPPMON.Release
+src/plugins/common/.preprocessed.tmp
+src/object_script.lppmon.Debug
+src/object_script.lppmon.Release
+*.exe
+syntax: regexp
+bin/*
