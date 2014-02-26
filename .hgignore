@@ -29,11 +29,7 @@ qrc_*
 *.pro.user
 src/PythonQt/tests/PythonQtTest
 src/PythonQt/generator/pythonqt_generator
-src/object_script.LPPMON.Debug
-src/object_script.LPPMON.Release
 src/plugins/common/.preprocessed.tmp
-src/object_script.lppmon.Debug
-src/object_script.lppmon.Release
 *.exe
 syntax: regexp
 bin/*
