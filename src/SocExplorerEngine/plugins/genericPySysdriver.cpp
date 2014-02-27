@@ -98,6 +98,6 @@ bool genericPySysdriver::loadbin(unsigned int address,QString file)
 
 QString genericPySysdriver::instance()
 {
-    return plugin->instanceName;
+    return plugin->instanceName();
 }
 

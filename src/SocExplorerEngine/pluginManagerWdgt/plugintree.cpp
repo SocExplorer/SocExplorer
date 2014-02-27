@@ -13,6 +13,7 @@ plugintree::plugintree(QWidget *parent) :
     this->setAcceptDrops(true);
     this->setDragDropMode(QAbstractItemView::DropOnly);
     connect(this,SIGNAL(itemChanged(QTreeWidgetItem*,int)),this,SLOT(pluginselectedslt(QTreeWidgetItem*,int)));
+    connect(this,SIGNAL(itemSelectionChanged()),this,SLOT(itemSelectionChangedslt()));
     this->setHeaderLabels(QStringList()<<"Loaded plugins");
     emit this->geteplugintree();
 }
@@ -24,6 +25,14 @@ void plugintree::pluginselectedslt(QTreeWidgetItem *item, int column)
     emit this->pluginselected(item->text(0));
 }
 
+void plugintree::itemSelectionChangedslt()
+{
+    if(this->selectedItems().count()==1)
+    {
+        emit this->pluginselected(this->selectedItems().first()->text(0));
+    }
+}
+
 void plugintree::treeChanged(const QList<socexplorerplugin*>& drivers)
 {
     this->clear();
@@ -31,7 +40,7 @@ void plugintree::treeChanged(const QList<socexplorerplugin*>& drivers)
     {
         QTreeWidgetItem* currentItem=new QTreeWidgetItem;
         currentItem->setIcon(0,QSvgIcon(":/images/server.svg"));
-        currentItem->setText(0,drivers.at(i)->instanceName);
+        currentItem->setText(0,drivers.at(i)->instanceName());
         this->addTopLevelItem(currentItem);
         if(drivers.at(i)->childs.count()!=0)
         {
@@ -48,7 +57,7 @@ void plugintree::addplugin(socexplorerplugin *driver, QTreeWidgetItem *item)
     {
         QTreeWidgetItem* currentItem=new QTreeWidgetItem;
         currentItem->setIcon(0,QSvgIcon(":/images/server.svg"));
-        currentItem->setText(0,driver->childs.at(i)->instanceName);
+        currentItem->setText(0,driver->childs.at(i)->instanceName());
         item->addChild(currentItem);
         if(driver->childs.at(i)->childs.count()!=0)
         {

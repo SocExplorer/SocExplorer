@@ -75,6 +75,7 @@ pluginmanagerWDGT::pluginmanagerWDGT(QWidget *parent) :
     connect(this->treeview,SIGNAL(loadSysDriverToParent(QString,QString)),this,SIGNAL(loadSysDriverToParent(QString,QString)));
     connect(this->treeview,SIGNAL(changeSysDriverInstName(QString,QString)),this,SIGNAL(changeSysDriverInstName(QString,QString)));
     connect(this->treeview,SIGNAL(closeSysDriver(QString)),this,SIGNAL(closeSysDriver(QString)));
+    connect(this->treeview,SIGNAL(pluginselected(QString)),this,SIGNAL(pluginselected(QString)));
     this->rootLoadable = false;
     this->childLoadable = false;
     this->pluginTable->refreshPluginList();

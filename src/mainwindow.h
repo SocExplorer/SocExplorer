@@ -62,7 +62,7 @@ public slots:
     void updateText();
     void setLangage(QAction* action);
     void showAboutBox();
-
+    void pluginselected(const QString& instanceName);
 
 signals:
     void translateSig();

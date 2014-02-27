@@ -217,7 +217,7 @@ void SocExplorerEngine::message(socexplorerplugin *sender, const QString &messag
     if(!_self)
         init();
     if(loglvl>=debugLevel)
-        qDebug()<< QTime::currentTime().toString()+" " + sender->instanceName+":"+message;
+        qDebug()<< QTime::currentTime().toString()+" " + sender->instanceName()+":"+message;
 }
 
 

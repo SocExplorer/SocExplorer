@@ -10,6 +10,7 @@ dockablePluginManager::dockablePluginManager(QWidget *parent) :
     connect(this,SIGNAL(treeChanged(QList<socexplorerplugin*>)),this->managerGui,SIGNAL(treeChanged(QList<socexplorerplugin*>)));
     connect(this->managerGui,SIGNAL(changeSysDriverInstName(QString,QString)),this,SIGNAL(changeSysDriverInstName(QString,QString)));
     connect(this->managerGui,SIGNAL(closeSysDriver(QString)),this,SIGNAL(closeSysDriver(QString)));
+    connect(this->managerGui,SIGNAL(pluginselected(QString)),this,SIGNAL(pluginselected(QString)));
     this->setWidget(this->managerGui);
     this->setWindowTitle(this->managerGui->windowTitle());
 }

@@ -61,7 +61,7 @@ signals:
 public slots:
         void treeChanged(const QList<socexplorerplugin*>& drivers);
         void pluginselectedslt( QTreeWidgetItem * item, int column);
-
+        void itemSelectionChangedslt();
 
 private:
         void addplugin(socexplorerplugin* driver,QTreeWidgetItem* item);

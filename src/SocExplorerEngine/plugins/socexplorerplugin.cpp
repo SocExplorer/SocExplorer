@@ -31,9 +31,14 @@ int socexplorerplugin::baseAddress(){return this->BaseAddress;}
 
 void socexplorerplugin::setBaseAddress(unsigned int baseAddress){this->BaseAddress = baseAddress;}
 
+QString socexplorerplugin::instanceName()
+{
+    return this->_instanceName;
+}
+
 int socexplorerplugin::registermenu(QMenu *menu)
 {
-    this->menu = menu->addMenu(this->instanceName);
+    this->menu = menu->addMenu(this->_instanceName);
     this->closeAction = this->menu->addAction(tr("Close plugin"));
     QObject::connect(this->closeAction,SIGNAL(triggered()),this,SLOT(closeMe()));
     this->ChildsMenu = this->menu->addMenu(QString("Childs"));
@@ -41,7 +46,7 @@ int socexplorerplugin::registermenu(QMenu *menu)
     {
         this->childs.at(i)->registermenu(this->ChildsMenu);
     }
-    if(this->pyObject!=NULL)emit this->registerObject((QObject*)this->pyObject,this->instanceName);
+    if(this->pyObject!=NULL)emit this->registerObject((QObject*)this->pyObject,this->instanceName());
     return 0;
 }
 
@@ -74,8 +79,10 @@ void socexplorerplugin::activate(bool flag){this->setEnabled(flag);emit this->ac
 
 void socexplorerplugin::setInstanceName(const QString &newName)
 {
-    this->instanceName = newName;
-    this->menu->setTitle(this->instanceName);
+    this->_instanceName = newName;
+    if(this->menu)
+        this->menu->setTitle(this->_instanceName);
+    this->setWindowTitle(newName);
 }
 
 void socexplorerplugin::makeGenericPyWrapper()

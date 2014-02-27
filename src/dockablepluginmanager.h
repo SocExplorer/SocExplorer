@@ -39,6 +39,7 @@ signals:
     void treeChanged(const QList<socexplorerplugin*>& drivers);
     void changeSysDriverInstName(const QString newinstanceName,const QString previnstanceName);
     void closeSysDriver(const QString instanceName);
+    void pluginselected(const QString& instanceName);
 public slots:
 
 private:

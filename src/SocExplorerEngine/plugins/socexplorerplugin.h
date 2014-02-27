@@ -86,8 +86,11 @@ public:
     //! Default plugin constructor, any plugin should call this constructor. This constructor creates a
     //! default python wrapper instance. If you want to connect your own python wrapper, you have to clear
     //! createPyObject option and instanciate your own genericPySysdriver derivated object.
-    socexplorerplugin(QWidget *parent = 0,bool createPyObject=true)
+    socexplorerplugin(QWidget *parent = 0,bool createPyObject=true):QDockWidget(parent)
     {
+        closeAction=NULL;
+        menu=NULL;
+        ChildsMenu=NULL;
         this->Connected = false;
         this->setFeatures(QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetVerticalTitleBar);
         _Name = new QString(driver_Name);
@@ -126,7 +129,7 @@ public:
     QList<socexplorerplugin*> childs;
     socexplorerplugin* parent;
     QAction* closeAction;
-    QString  instanceName;
+    QString  instanceName();
     QMenu* menu;
     QMenu* ChildsMenu;
 
@@ -167,6 +170,7 @@ protected:
     QString* _Author;
     QString* _Version;
     QString* _Description;
+    QString  _instanceName;
     int _canBeChild;
     int _canBeRoot;
     int _VID;

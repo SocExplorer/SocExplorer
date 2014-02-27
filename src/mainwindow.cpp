@@ -36,9 +36,9 @@ LPMONMainWindow::LPMONMainWindow(QString ScriptToEval, QWidget *parent)
     this->setAcceptDrops(true);
     this->pluginManager->setRootLoadable(true);
     this->PythonConsoleInst->pyConsoleRunFile(ScriptToEval);
-    QProgressBar* test = SocExplorerEngine::getProgressBar("test",10);
-    statusBar()->setFixedHeight(statusBar()->height());
-    SocExplorerEngine::deleteProgressBar(test);
+//    QProgressBar* test = SocExplorerEngine::getProgressBar("test",10);
+//    statusBar()->setFixedHeight(statusBar()->height());
+//    SocExplorerEngine::deleteProgressBar(test);
 }
 
 
@@ -64,7 +64,8 @@ void LPMONMainWindow::makeObjects(QString ScriptToEval)
     SocExplorerEngine::xmlModel()->scanXmlFiles();
     this->regExplorer = new regsExplorer();
     this->regExplorer->setAllowedAreas(Qt::AllDockWidgetAreas);
-    this->pluginsDockContainer->addDockWidget(Qt::TopDockWidgetArea,this->regExplorer);
+//    this->pluginsDockContainer->addDockWidget(Qt::TopDockWidgetArea,this->regExplorer);
+    this->addPluginInterface(this->regExplorer);
     this->PythonConsoleInst = new PythonConsole(socexplorerproxy::self());
     this->PythonConsoleInst->addObject("SocExplorerEngine",SocExplorerEngine::self());
     this->pluginManager = new dockablePluginManager();
@@ -98,8 +99,10 @@ void LPMONMainWindow::makeConnections()
     connect(this->pluginManager,SIGNAL(changeSysDriverInstName(QString,QString)),this->PythonConsoleInst,SLOT(changeSysDriverInstName(QString,QString)));
     connect(this->pluginManager,SIGNAL(closeSysDriver(QString)),socexplorerproxy::self(),SLOT(closeSysDriver(QString)));
     connect(this->pluginManager,SIGNAL(closeSysDriver(QString)),this->PythonConsoleInst,SLOT(removeDriver(QString)));
+    connect(this->pluginManager,SIGNAL(pluginselected(QString)),this,SLOT(pluginselected(QString)));
     connect(this->about,SIGNAL(triggered()),this,SLOT(showAboutBox()));
     connect(this->exploreRegs,SIGNAL(triggered()),this->regExplorer,SLOT(show()));
+
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDrviver(QString)),socexplorerproxy::self(),SLOT(loadSysDriver(QString)));
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDriverToParent(QString,QString)),socexplorerproxy::self(),SLOT(loadSysDriverToParent(QString,QString)));
 
@@ -205,6 +208,14 @@ void LPMONMainWindow::updateText()
 void LPMONMainWindow::showAboutBox()
 {
     p_about->show();
+}
+
+void LPMONMainWindow::pluginselected(const QString &instanceName)
+{
+    socexplorerplugin* drv=socexplorerproxy::self()->getSysDriver(instanceName);
+//    if(drv)
+//        drv->activate(true);
+// TODO add plugin widget auto focus
 }
 
 

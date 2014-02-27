@@ -95,7 +95,7 @@ void socexplorerproxy::loadSysDriver(const QString name, const QString instanceN
 void socexplorerproxy::loadSysDriver(socexplorerplugin *driver, const QString instanceName)
 {
     if(!_self)init();
-    driver->instanceName.append(instanceName);
+    driver->setInstanceName(instanceName);
     driver->parent = NULL;
     drivers->append(driver);
     linearDriverList->append(driver);
@@ -158,7 +158,7 @@ void socexplorerproxy::loadSysDriverToParent(socexplorerplugin *driver,socexplor
     if(!_self)init();
     linearDriverList->append(driver);
     driver->parent = parent;
-    driver->instanceName.append(instanceName);
+    driver->setInstanceName(instanceName);
     parent->childs.append(driver);
     connectChildToProxy(driver);
     connectChildToParent(parent,driver);
@@ -204,18 +204,14 @@ void socexplorerproxy::loadChild(socexplorerplugin *parent)
 void socexplorerproxy::connectChildToParent(socexplorerplugin *parent, socexplorerplugin *child)
 {
     if(!_self)init();
-    //connect(child,SIGNAL(WriteSig(uint*,uint,uint)),parent,SLOT(Write(uint*,uint,uint)));
-    //connect(child,SIGNAL(ReadSig(uint*,uint,uint)),parent,SLOT(Read(uint*,uint,uint)));
-    connect(parent,SIGNAL(activateSig(bool)),child,SLOT(activate(bool)));//,Qt::DirectConnection);
+    connect(parent,SIGNAL(activateSig(bool)),child,SLOT(activate(bool)));
     child->activate(parent->isConnected());
 }
 
 void socexplorerproxy::disconnectChildToParent(socexplorerplugin *child)
 {
     if(!_self)init();
-    //disconnect(child,SIGNAL(WriteSig(uint*,uint,uint)),child->parent,SLOT(Write(uint*,uint,uint)));
-   // disconnect(child,SIGNAL(ReadSig(uint*,uint,uint)),child->parent,SLOT(Read(uint*,uint,uint)));
-    disconnect(child->parent,SIGNAL(activateSig(bool)),child,SLOT(activate(bool)));//,Qt::DirectConnection);
+    disconnect(child->parent,SIGNAL(activateSig(bool)),child,SLOT(activate(bool)));
 }
 
 
@@ -252,7 +248,7 @@ QString socexplorerproxy::getinstanceName(const QString& baseName)
 void socexplorerproxy::changeSysDriverInstName(socexplorerplugin* driver)
 {
     if(!_self)init();
-    QString prevName(driver->instanceName);
+    QString prevName(driver->instanceName());
 }
 
 bool socexplorerproxy::instanceNameIsValid(const QString& instanceName)
@@ -260,7 +256,7 @@ bool socexplorerproxy::instanceNameIsValid(const QString& instanceName)
     if(!_self)init();
     for(int k=0;k<linearDriverList->count();k++)
     {
-        if(!linearDriverList->at(k)->instanceName.compare(instanceName))
+        if(!linearDriverList->at(k)->instanceName().compare(instanceName))
             return false;
     }
     return true;
@@ -271,7 +267,7 @@ socexplorerplugin *socexplorerproxy::findPlugin(const QString &instanceName)
     if(!_self)init();
     for(int k=0;k<linearDriverList->count();k++)
     {
-        if(linearDriverList->at(k)->instanceName.compare(instanceName))
+        if(linearDriverList->at(k)->instanceName().compare(instanceName))
             return linearDriverList->at(k);
     }
     return NULL;
@@ -304,7 +300,7 @@ socexplorerplugin* socexplorerproxy::getSysDriver(const QString instanceName)
     if(!_self)init();
     for(int i=0;i<linearDriverList->count();i++)
     {
-        if(!linearDriverList->at(i)->instanceName.compare(instanceName))
+        if(!linearDriverList->at(i)->instanceName().compare(instanceName))
             return linearDriverList->at(i);
     }
     return NULL;
