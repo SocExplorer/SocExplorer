@@ -136,7 +136,7 @@ int pluginloader::p_checklibraryCustom(const QString fileName)
     unixPluginLoader lib(fileName);
     if(NULL!=lib.resolve("socexplorerpluginCreateObject"))
     {
-        if(NULL!=lib.resolve("socexplorernpluginpid"))
+        if(NULL!=lib.resolve("socexplorerpluginpid"))
         {
             if(NULL!=lib.resolve("socexplorerpluginvid"))
             {

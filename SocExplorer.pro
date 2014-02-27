@@ -14,8 +14,8 @@ SUBDIRS = \
     src/SocExplorer_TCP_Terminal
 
 
-SocExplorer.path = $$[QT_INSTALL_PREFIX]/mkspecs/features
-SocExplorer.files = \
+socexplorercfg.path = $$[QT_INSTALL_PREFIX]/mkspecs/features
+socexplorercfg.files = \
     src/SocExplorerEngine/plugins/socexplorerplugin.prf
 
 
@@ -32,7 +32,7 @@ unix{
                     Qt_Creator_Wizard/SocExplorerPlugin/wizard.xml
     INSTALLS+=Wizard SocExplorer icon
 }
-    INSTALLS+=SocExplorer
+    INSTALLS+=socexplorercfg
 
 
 
