@@ -1,6 +1,7 @@
 #include <PythonQt.h>
 #include <QObject>
 #include <QVariant>
+#include <SocExplorerPlot.h>
 #include <elfparser.h>
 #include <memsizewdgt.h>
 #include <qhexedit.h>
@@ -86,6 +87,47 @@ void delete_QHexSpinBox(QHexSpinBox* obj) { delete obj; }
    QString  textFromValue(QHexSpinBox* theWrappedObject, int  value) const;
    QValidator::State  validate(QHexSpinBox* theWrappedObject, QString&  input, int&  pos) const;
    int  valueFromText(QHexSpinBox* theWrappedObject, const QString&  text) const;
+};
+
+
+
+
+
+class PythonQtShell_SocExplorerPlot : public SocExplorerPlot
+{
+public:
+    PythonQtShell_SocExplorerPlot(QWidget*  parent = 0):SocExplorerPlot(parent),_wrapper(NULL) {};
+
+   ~PythonQtShell_SocExplorerPlot();
+
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtWrapper_SocExplorerPlot : public QObject
+{ Q_OBJECT
+public:
+public slots:
+SocExplorerPlot* new_SocExplorerPlot(QWidget*  parent = 0);
+void delete_SocExplorerPlot(SocExplorerPlot* obj) { delete obj; } 
+   int  addGraph(SocExplorerPlot* theWrappedObject);
+   void addGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QList<QVariant >  x, QList<QVariant >  y);
+   void addGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QVariant  x, QVariant  y);
+   QPen  getGraphPen(SocExplorerPlot* theWrappedObject, int  graphIndex);
+   void rescaleAxis(SocExplorerPlot* theWrappedObject);
+   void setGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QList<QVariant >  x, QList<QVariant >  y);
+   void setGraphLineStyle(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  lineStyle);
+   void setGraphName(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  name);
+   void setGraphPen(SocExplorerPlot* theWrappedObject, int  graphIndex, QPen  pen);
+   void setGraphScatterStyle(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  scatterStyle);
+   void setLegendFont(SocExplorerPlot* theWrappedObject, QFont  font);
+   void setLegendSelectedFont(SocExplorerPlot* theWrappedObject, QFont  font);
+   void setTitle(SocExplorerPlot* theWrappedObject, QString  title);
+   void setXaxisLabel(SocExplorerPlot* theWrappedObject, QString  label);
+   void setXaxisRange(SocExplorerPlot* theWrappedObject, double  lower, double  upper);
+   void setYaxisLabel(SocExplorerPlot* theWrappedObject, QString  label);
+   void setYaxisRange(SocExplorerPlot* theWrappedObject, double  lower, double  upper);
+   void show(SocExplorerPlot* theWrappedObject);
 };
 
 

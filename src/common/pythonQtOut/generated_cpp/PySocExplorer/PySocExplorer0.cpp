@@ -200,6 +200,106 @@ int  PythonQtWrapper_QHexSpinBox::valueFromText(QHexSpinBox* theWrappedObject, c
 
 
 
+PythonQtShell_SocExplorerPlot::~PythonQtShell_SocExplorerPlot() {
+  PythonQtPrivate* priv = PythonQt::priv();
+  if (priv) { priv->shellClassDeleted(this); }
+}
+SocExplorerPlot* PythonQtWrapper_SocExplorerPlot::new_SocExplorerPlot(QWidget*  parent)
+{ 
+return new PythonQtShell_SocExplorerPlot(parent); }
+
+int  PythonQtWrapper_SocExplorerPlot::addGraph(SocExplorerPlot* theWrappedObject)
+{
+  return ( theWrappedObject->addGraph());
+}
+
+void PythonQtWrapper_SocExplorerPlot::addGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QList<QVariant >  x, QList<QVariant >  y)
+{
+  ( theWrappedObject->addGraphData(graphIndex, x, y));
+}
+
+void PythonQtWrapper_SocExplorerPlot::addGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QVariant  x, QVariant  y)
+{
+  ( theWrappedObject->addGraphData(graphIndex, x, y));
+}
+
+QPen  PythonQtWrapper_SocExplorerPlot::getGraphPen(SocExplorerPlot* theWrappedObject, int  graphIndex)
+{
+  return ( theWrappedObject->getGraphPen(graphIndex));
+}
+
+void PythonQtWrapper_SocExplorerPlot::rescaleAxis(SocExplorerPlot* theWrappedObject)
+{
+  ( theWrappedObject->rescaleAxis());
+}
+
+void PythonQtWrapper_SocExplorerPlot::setGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QList<QVariant >  x, QList<QVariant >  y)
+{
+  ( theWrappedObject->setGraphData(graphIndex, x, y));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setGraphLineStyle(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  lineStyle)
+{
+  ( theWrappedObject->setGraphLineStyle(graphIndex, lineStyle));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setGraphName(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  name)
+{
+  ( theWrappedObject->setGraphName(graphIndex, name));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setGraphPen(SocExplorerPlot* theWrappedObject, int  graphIndex, QPen  pen)
+{
+  ( theWrappedObject->setGraphPen(graphIndex, pen));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setGraphScatterStyle(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  scatterStyle)
+{
+  ( theWrappedObject->setGraphScatterStyle(graphIndex, scatterStyle));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setLegendFont(SocExplorerPlot* theWrappedObject, QFont  font)
+{
+  ( theWrappedObject->setLegendFont(font));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setLegendSelectedFont(SocExplorerPlot* theWrappedObject, QFont  font)
+{
+  ( theWrappedObject->setLegendSelectedFont(font));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setTitle(SocExplorerPlot* theWrappedObject, QString  title)
+{
+  ( theWrappedObject->setTitle(title));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setXaxisLabel(SocExplorerPlot* theWrappedObject, QString  label)
+{
+  ( theWrappedObject->setXaxisLabel(label));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setXaxisRange(SocExplorerPlot* theWrappedObject, double  lower, double  upper)
+{
+  ( theWrappedObject->setXaxisRange(lower, upper));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setYaxisLabel(SocExplorerPlot* theWrappedObject, QString  label)
+{
+  ( theWrappedObject->setYaxisLabel(label));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setYaxisRange(SocExplorerPlot* theWrappedObject, double  lower, double  upper)
+{
+  ( theWrappedObject->setYaxisRange(lower, upper));
+}
+
+void PythonQtWrapper_SocExplorerPlot::show(SocExplorerPlot* theWrappedObject)
+{
+  ( theWrappedObject->show());
+}
+
+
+
 TCP_Terminal_Client* PythonQtWrapper_TCP_Terminal_Client::new_TCP_Terminal_Client(QObject*  parent)
 { 
 return new TCP_Terminal_Client(parent); }

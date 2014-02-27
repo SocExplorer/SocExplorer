@@ -31,5 +31,6 @@ src/PythonQt/tests/PythonQtTest
 src/PythonQt/generator/pythonqt_generator
 src/plugins/common/.preprocessed.tmp
 *.exe
+src/common/.preprocessed.tmp
 syntax: regexp
 bin/*
