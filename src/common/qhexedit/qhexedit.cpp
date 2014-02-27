@@ -7,7 +7,7 @@ QHexEdit::QHexEdit(QWidget *parent) : QScrollArea(parent)
 {
     qHexEdit_p = new QHexEditPrivate(this);
     setWidget(qHexEdit_p);
-    setWidgetResizable(true);
+    //setWidgetResizable(true);
 
     connect(qHexEdit_p, SIGNAL(currentAddressChanged(int)), this, SIGNAL(currentAddressChanged(int)));
     connect(qHexEdit_p, SIGNAL(currentSizeChanged(int)), this, SIGNAL(currentSizeChanged(int)));
