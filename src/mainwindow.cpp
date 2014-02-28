@@ -213,8 +213,8 @@ void LPMONMainWindow::showAboutBox()
 void LPMONMainWindow::pluginselected(const QString &instanceName)
 {
     socexplorerplugin* drv=socexplorerproxy::self()->getSysDriver(instanceName);
-//    if(drv)
-//        drv->activate(true);
+    if(drv)
+        drv->raise();
 // TODO add plugin widget auto focus
 }
 
