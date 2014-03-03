@@ -36,15 +36,13 @@ LPMONMainWindow::LPMONMainWindow(QString ScriptToEval, QWidget *parent)
     this->setAcceptDrops(true);
     this->pluginManager->setRootLoadable(true);
     this->PythonConsoleInst->pyConsoleRunFile(ScriptToEval);
-//    QProgressBar* test = SocExplorerEngine::getProgressBar("test",10);
-//    statusBar()->setFixedHeight(statusBar()->height());
-//    SocExplorerEngine::deleteProgressBar(test);
 }
 
 
 void LPMONMainWindow::makeObjects(QString ScriptToEval)
 {
     Q_UNUSED(ScriptToEval)
+    this->p_pluginGUIlist = new QList<QDockWidget*>();
     pluginsDockContainer = new QMainWindow;
     pluginsDockContainer->setWindowFlags(Qt::Widget);
     pluginsDockContainer->setDockNestingEnabled(true);
@@ -64,13 +62,13 @@ void LPMONMainWindow::makeObjects(QString ScriptToEval)
     SocExplorerEngine::xmlModel()->scanXmlFiles();
     this->regExplorer = new regsExplorer();
     this->regExplorer->setAllowedAreas(Qt::AllDockWidgetAreas);
-//    this->pluginsDockContainer->addDockWidget(Qt::TopDockWidgetArea,this->regExplorer);
     this->addPluginInterface(this->regExplorer);
     this->PythonConsoleInst = new PythonConsole(socexplorerproxy::self());
     this->PythonConsoleInst->addObject("SocExplorerEngine",SocExplorerEngine::self());
     this->pluginManager = new dockablePluginManager();
     this->toolpane = new toolBar;
     this->p_about = new aboutsocexplorer();
+
 }
 
 void LPMONMainWindow::makeLayout()
@@ -89,6 +87,7 @@ void LPMONMainWindow::makeConnections()
     connect(socexplorerproxy::self(),SIGNAL(clearMenu()),this,SLOT(clearMenu()));
     connect(this,SIGNAL(translateSig()),socexplorerproxy::self(),SLOT(updateText()));
     connect(socexplorerproxy::self(),SIGNAL(addPluginGUI(QDockWidget*)),this,SLOT(addPluginInterface(QDockWidget*)));
+    connect(socexplorerproxy::self(),SIGNAL(removePluginGUI(QDockWidget*)),this,SLOT(removePluginInterface(QDockWidget*)));
     connect(this->ManagePlugins,SIGNAL(triggered()),this,SLOT(launchPluginManager()));
     connect(this->Quit,SIGNAL(triggered()),qApp,SLOT(quit()));
     connect(this,SIGNAL(registerObject(QObject*,QString)),this->PythonConsoleInst,SLOT(registerObject(QObject*,QString)));
@@ -122,13 +121,18 @@ void LPMONMainWindow::launchPluginManager()
 
 void LPMONMainWindow::addPluginInterface(QDockWidget *plugin)
 {
-    static QDockWidget* last=NULL;
     plugin->setAllowedAreas(Qt::AllDockWidgetAreas);
     this->pluginsDockContainer->addDockWidget(Qt::TopDockWidgetArea,plugin);
-    if(last!=NULL)
-        this->pluginsDockContainer->tabifyDockWidget(last,plugin);
-    last = plugin;
+    if(p_pluginGUIlist->count()!=0)
+        this->pluginsDockContainer->tabifyDockWidget(p_pluginGUIlist->last(),plugin);
+    p_pluginGUIlist->append(plugin);
 
+}
+
+void LPMONMainWindow::removePluginInterface(QDockWidget *plugin)
+{
+    p_pluginGUIlist->removeOne(plugin);
+    this->pluginsDockContainer->removeDockWidget(plugin);
 }
 
 
@@ -159,6 +163,7 @@ void LPMONMainWindow::makeMenu()
 LPMONMainWindow::~LPMONMainWindow()
 {
     delete this->p_about;
+    delete this->p_pluginGUIlist;
 }
 
 
@@ -215,7 +220,6 @@ void LPMONMainWindow::pluginselected(const QString &instanceName)
     socexplorerplugin* drv=socexplorerproxy::self()->getSysDriver(instanceName);
     if(drv)
         drv->raise();
-// TODO add plugin widget auto focus
 }
 
 

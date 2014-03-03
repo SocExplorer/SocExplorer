@@ -58,6 +58,7 @@ public:
 public slots:
     void launchPluginManager();
     void addPluginInterface(QDockWidget* plugin);
+    void removePluginInterface(QDockWidget* plugin);
     void clearMenu();
     void updateText();
     void setLangage(QAction* action);
@@ -79,7 +80,7 @@ private:
     dockablePluginManager* pluginManager;
     regsExplorer* regExplorer;
     aboutsocexplorer* p_about;
-
+    QList<QDockWidget*>* p_pluginGUIlist;
 };
 
 #endif // MAINWINDOW_H

@@ -59,6 +59,7 @@ public:
 
 signals:
     void addPluginGUI(QDockWidget* plugin);
+    void removePluginGUI(QDockWidget* plugin);
     int registermenu(QMainWindow* menuHolder);
     void clearMenu();
     QStringList findDrivers(int VID,int PID);
@@ -77,7 +78,7 @@ public slots:
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriverToParent(socexplorerplugin *driver,socexplorerplugin *parent, const QString instanceName);
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void changeSysDriverInstName(const QString instanceName);
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void changeSysDriverInstName(const QString newinstanceName,const QString previnstanceName);
-    QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadChild(socexplorerplugin* parent);
+ //   QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadChild(socexplorerplugin* parent);
     void updateText();
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void closeSysDriverFromDriver(socexplorerplugin* driver);
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void closeSysDriver(socexplorerplugin* driver,bool recursive=false);
