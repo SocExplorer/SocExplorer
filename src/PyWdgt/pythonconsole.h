@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 --  This file is a part of the SocExplorer Software
---  Copyright (C) 2011, Laboratory of Plasmas Physic - CNRS
+--  Copyright (C) 2011, Plasma Physics Laboratory - CNRS
 --
 --  This program is free software; you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@
 #include "pythonqtscriptingconsoledandd.h"
 #include <QMainWindow>
 #include "../proxy/socexplorerproxy.h"
-class LPMONMainWindow;
+class SocExplorerMainWindow;
 class PythonConsole : public QWidget
 {
     Q_OBJECT

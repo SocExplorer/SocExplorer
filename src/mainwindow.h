@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 --  This file is a part of the SocExplorer Software
---  Copyright (C) 2011, Laboratory of Plasmas Physic - CNRS
+--  Copyright (C) 2011, Plasma Physics Laboratory - CNRS
 --
 --  This program is free software; you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -39,13 +39,13 @@
 #include "toolbar.h"
 #include "regsExplorer/regsexplorer.h"
 
-class LPMONMainWindow : public QMainWindow
+class SocExplorerMainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    LPMONMainWindow(QString ScriptToEval,QWidget *parent = 0);
-    ~LPMONMainWindow();
+    SocExplorerMainWindow(QString ScriptToEval,QWidget *parent = 0);
+    ~SocExplorerMainWindow();
     QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction;
     QActionGroup*langActionGrp;
     QMenu* FileMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu;

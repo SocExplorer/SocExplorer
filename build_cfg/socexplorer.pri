@@ -22,6 +22,6 @@ unix:DESTDIR = $${SOCEXPLORER_ROOT}/bin/linux/
 
 
 metrics_cccc.target = metrics_cccc
-metrics_cccc.commands = cccc $$SOURCES $$HEADERS
+metrics_cccc.commands = cccc $(SOURCES) $(HEADERS)
 
 QMAKE_EXTRA_TARGETS += metrics_cccc

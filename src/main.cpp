@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 --  This file is a part of the SocExplorer Software
---  Copyright (C) 2011, Laboratory of Plasmas Physic - CNRS
+--  Copyright (C) 2011, Plasma Physics Laboratory - CNRS
 --
 --  This program is free software; you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     QStringList args= a.arguments();
     for(int i=0;i<args.count()-1;i++)
     {
-        if((args.at(i).compare("&")==0) || (args.at(i).compare("--execute")==0))
+        if((args.at(i).compare("-e")==0) || (args.at(i).compare("--execute")==0))
         {
             scriptToEval = args.at(i+1);
             if(!QFile::exists(scriptToEval))
@@ -53,9 +53,17 @@ int main(int argc, char *argv[])
                 qDebug() << "Will execute" << scriptToEval;
             break;
         }
+        if((args.at(i).compare("-d")==0) || (args.at(i).compare("--debug-level")==0))
+        {
+            bool success;
+            int lvl;
+            lvl = args.at(i+1).toInt(&success,10);
+            if(success)
+                SocExplorerEngine::setLogLevel(lvl);
+        }
     }
 
-    LPMONMainWindow w(scriptToEval);
+    SocExplorerMainWindow w(scriptToEval);
     w.show();
     return a.exec();
 }

@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 --  This file is a part of the SocExplorer Software
---  Copyright (C) 2012, Laboratory of Plasmas Physic - CNRS
+--  Copyright (C) 2012, Plasma Physics Laboratory - CNRS
 --
 --  This program is free software; you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -80,6 +80,7 @@ public:
      static void addSOC(socexplorerplugin* rootPlugin);
      static void removeSOC(socexplorerplugin* rootPlugin);
      static void message(socexplorerplugin* sender,const QString& message,int debugLevel=0);
+     static void setLogLevel(int level);
 signals:
      void enumDeviceAdded(socExplorerEnumDevice* device);
 public slots:

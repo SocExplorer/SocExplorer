@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 --  This file is a part of the SocExplorer Software
---  Copyright (C) 2011, Laboratory of Plasmas Physic - CNRS
+--  Copyright (C) 2011, Plasma Physics Laboratory - CNRS
 --
 --  This program is free software; you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #include "mainwindow.h"
 #include <QDockWidget>
 
-LPMONMainWindow::LPMONMainWindow(QString ScriptToEval, QWidget *parent)
+SocExplorerMainWindow::SocExplorerMainWindow(QString ScriptToEval, QWidget *parent)
     : QMainWindow(parent)
 {
     QCoreApplication::setApplicationName("SocExplorer");
@@ -39,7 +39,7 @@ LPMONMainWindow::LPMONMainWindow(QString ScriptToEval, QWidget *parent)
 }
 
 
-void LPMONMainWindow::makeObjects(QString ScriptToEval)
+void SocExplorerMainWindow::makeObjects(QString ScriptToEval)
 {
     Q_UNUSED(ScriptToEval)
     this->p_pluginGUIlist = new QList<QDockWidget*>();
@@ -71,7 +71,7 @@ void LPMONMainWindow::makeObjects(QString ScriptToEval)
 
 }
 
-void LPMONMainWindow::makeLayout()
+void SocExplorerMainWindow::makeLayout()
 {
     this->mainWidget->addWidget(pluginsDockContainer);
     this->mainWidget->addWidget(this->PythonConsoleInst);
@@ -82,7 +82,7 @@ void LPMONMainWindow::makeLayout()
 }
 
 
-void LPMONMainWindow::makeConnections()
+void SocExplorerMainWindow::makeConnections()
 {
     connect(socexplorerproxy::self(),SIGNAL(clearMenu()),this,SLOT(clearMenu()));
     connect(this,SIGNAL(translateSig()),socexplorerproxy::self(),SLOT(updateText()));
@@ -108,7 +108,7 @@ void LPMONMainWindow::makeConnections()
 }
 
 
-void LPMONMainWindow::launchPluginManager()
+void SocExplorerMainWindow::launchPluginManager()
 {
 
     if(this->pluginManager->isHidden())
@@ -119,7 +119,7 @@ void LPMONMainWindow::launchPluginManager()
 }
 
 
-void LPMONMainWindow::addPluginInterface(QDockWidget *plugin)
+void SocExplorerMainWindow::addPluginInterface(QDockWidget *plugin)
 {
     plugin->setAllowedAreas(Qt::AllDockWidgetAreas);
     this->pluginsDockContainer->addDockWidget(Qt::TopDockWidgetArea,plugin);
@@ -129,21 +129,21 @@ void LPMONMainWindow::addPluginInterface(QDockWidget *plugin)
 
 }
 
-void LPMONMainWindow::removePluginInterface(QDockWidget *plugin)
+void SocExplorerMainWindow::removePluginInterface(QDockWidget *plugin)
 {
     p_pluginGUIlist->removeOne(plugin);
     this->pluginsDockContainer->removeDockWidget(plugin);
 }
 
 
-void LPMONMainWindow::clearMenu()
+void SocExplorerMainWindow::clearMenu()
 {
     this->menuBar()->clear();
     this->makeMenu();
 }
 
 
-void LPMONMainWindow::makeMenu()
+void SocExplorerMainWindow::makeMenu()
 {
     this->FileMenu = menuBar()->addMenu(tr("&File"));
     this->PluginsMenu = menuBar()->addMenu(tr("&Plugins"));
@@ -160,14 +160,14 @@ void LPMONMainWindow::makeMenu()
 }
 
 
-LPMONMainWindow::~LPMONMainWindow()
+SocExplorerMainWindow::~SocExplorerMainWindow()
 {
     delete this->p_about;
     delete this->p_pluginGUIlist;
 }
 
 
-void LPMONMainWindow::setLangage(QAction *action)
+void SocExplorerMainWindow::setLangage(QAction *action)
 {
     QString local = action->data().toString();
     QString qmPath = QDir(QString("translations")).absolutePath();
@@ -177,7 +177,7 @@ void LPMONMainWindow::setLangage(QAction *action)
 }
 
 
-void LPMONMainWindow::createLangMenu()
+void SocExplorerMainWindow::createLangMenu()
 {
     this->langMenu = menuBar()->addMenu(tr("&Langue"));
     this->langActionGrp = new QActionGroup(this);
@@ -203,19 +203,19 @@ void LPMONMainWindow::createLangMenu()
 }
 
 
-void LPMONMainWindow::updateText()
+void SocExplorerMainWindow::updateText()
 {
     emit this->translateSig();
 }
 
 
 
-void LPMONMainWindow::showAboutBox()
+void SocExplorerMainWindow::showAboutBox()
 {
     p_about->show();
 }
 
-void LPMONMainWindow::pluginselected(const QString &instanceName)
+void SocExplorerMainWindow::pluginselected(const QString &instanceName)
 {
     socexplorerplugin* drv=socexplorerproxy::self()->getSysDriver(instanceName);
     if(drv)
@@ -224,7 +224,7 @@ void LPMONMainWindow::pluginselected(const QString &instanceName)
 
 
 
-void LPMONMainWindow::closeEvent(QCloseEvent *event)
+void SocExplorerMainWindow::closeEvent(QCloseEvent *event)
 {
     socexplorerproxy::self()->close();
     qApp->closeAllWindows();

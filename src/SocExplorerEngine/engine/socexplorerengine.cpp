@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 --  This file is a part of the SocExplorer Software
---  Copyright (C) 2012, Laboratory of Plasmas Physic - CNRS
+--  Copyright (C) 2012, Plasma Physics Laboratory - CNRS
 --
 --  This program is free software; you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -218,6 +218,13 @@ void SocExplorerEngine::message(socexplorerplugin *sender, const QString &messag
         init();
     if(loglvl>=debugLevel)
         qDebug()<< QTime::currentTime().toString()+" " + sender->instanceName()+":"+message;
+}
+
+void SocExplorerEngine::setLogLevel(int level)
+{
+    if(!_self)
+        init();
+    loglvl = level;
 }
 
 
