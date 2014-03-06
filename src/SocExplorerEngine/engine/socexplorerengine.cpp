@@ -224,6 +224,7 @@ void SocExplorerEngine::setLogLevel(int level)
 {
     if(!_self)
         init();
+    printf("Set log level to %d\n",level);
     loglvl = level;
 }
 

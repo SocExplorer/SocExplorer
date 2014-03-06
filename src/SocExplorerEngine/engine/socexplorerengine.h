@@ -49,6 +49,31 @@
 #endif
 
 
+class SOCEXPLORER_SDK_EXPORT SocExplorerAutoProgressBar
+{
+public:
+    SocExplorerAutoProgressBar(QProgressBar* progressBar=NULL)
+    {
+        this->p_progressbar=progressBar;
+    }
+     ~SocExplorerAutoProgressBar()
+    {
+        if(p_progressbar)
+        {
+            delete p_progressbar;
+        }
+    }
+    void setProgressBar(QProgressBar* progressBar)
+    {
+        this->p_progressbar=progressBar;
+    }
+    void setValue(int value)
+    {
+        p_progressbar->setValue(value);
+    }
+private:
+    QProgressBar* p_progressbar;
+};
 
 //! SocExplorerEngine is a pure static class which aims to provide services for both SocExplorer software and plugins.
 

@@ -59,7 +59,9 @@ int main(int argc, char *argv[])
             int lvl;
             lvl = args.at(i+1).toInt(&success,10);
             if(success)
+            {
                 SocExplorerEngine::setLogLevel(lvl);
+            }
         }
     }
 
