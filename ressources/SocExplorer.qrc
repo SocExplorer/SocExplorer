@@ -16,4 +16,7 @@
     <qresource prefix="/about">
         <file alias="about.html">txt/about.html</file>
     </qresource>
+    <qresource prefix="/styles">
+        <file alias="SocExplorer.css">Styles/SocExplorer.css</file>
+    </qresource>
 </RCC>

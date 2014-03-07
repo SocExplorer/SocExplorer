@@ -114,8 +114,13 @@ HEADERS  += mainwindow.h \
 
 include ( NicePyConsole/NicePyConsole.pri)
 
-win32:RESOURCES = $${SOCEXPLORER_ROOT}/ressources/socexplorer.qrc
-unix:RESOURCES += $${SOCEXPLORER_ROOT}/ressources/socexplorer.qrc
+win32{
+    RESOURCES = ../ressources/SocExplorer.qrc
+}
+
+unix{
+    RESOURCES = ../ressources/SocExplorer.qrc
+}
 
 TRANSLATIONS = ../translations/socexplorer_fr.ts \
     ../translations/socexplorer_en.ts

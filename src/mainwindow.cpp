@@ -36,6 +36,12 @@ SocExplorerMainWindow::SocExplorerMainWindow(QString ScriptToEval, QWidget *pare
     this->setAcceptDrops(true);
     this->pluginManager->setRootLoadable(true);
     this->PythonConsoleInst->pyConsoleRunFile(ScriptToEval);
+    QFile file(":/styles/SocExplorer.css");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qApp->setStyleSheet(file.readAll());
+        file.close();
+    }
 }
 
 
@@ -162,8 +168,6 @@ void SocExplorerMainWindow::makeMenu()
 
 SocExplorerMainWindow::~SocExplorerMainWindow()
 {
-    delete this->p_about;
-    delete this->p_pluginGUIlist;
 }
 
 
