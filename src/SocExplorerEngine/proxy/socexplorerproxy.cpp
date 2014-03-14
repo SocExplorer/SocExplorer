@@ -190,16 +190,6 @@ void socexplorerproxy::changeSysDriverInstName(const QString newinstanceName, co
     emit _self->treeChanged(QList<socexplorerplugin*>(*drivers));
 }
 
-//void socexplorerproxy::loadChild(socexplorerplugin *parent)
-//{
-//    if(!_self)init();
-//    parent = parent;
-//    pluginmanagerWDGT* pluginmanager0 = new pluginmanagerWDGT;
-//    pluginmanager0->setChildLoadable(true);
-//    pluginmanager0->connect(pluginmanager0,SIGNAL(loadSysDrviver(QString)),_self,SLOT(loadSysDriverToParent(QString)));
-//    pluginmanager0->show();
-//}
-
 
 void socexplorerproxy::connectChildToParent(socexplorerplugin *parent, socexplorerplugin *child)
 {
