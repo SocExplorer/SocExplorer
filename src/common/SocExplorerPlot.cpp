@@ -80,6 +80,11 @@ void SocExplorerPlot::setLegendSelectedFont(QFont font)
     this->repaint();
 }
 
+void SocExplorerPlot::setAdaptativeSampling(int graphIndex, bool enable)
+{
+    this->m_plot->graph(graphIndex)->setAdaptiveSampling(enable);
+}
+
 int SocExplorerPlot::addGraph()
 {
     this->m_plot->addGraph();

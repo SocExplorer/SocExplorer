@@ -115,6 +115,7 @@ void delete_SocExplorerPlot(SocExplorerPlot* obj) { delete obj; }
    void addGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QVariant  x, QVariant  y);
    QPen  getGraphPen(SocExplorerPlot* theWrappedObject, int  graphIndex);
    void rescaleAxis(SocExplorerPlot* theWrappedObject);
+   void setAdaptativeSampling(SocExplorerPlot* theWrappedObject, int  graphIndex, bool  enable);
    void setGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QList<QVariant >  x, QList<QVariant >  y);
    void setGraphLineStyle(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  lineStyle);
    void setGraphName(SocExplorerPlot* theWrappedObject, int  graphIndex, QString  name);

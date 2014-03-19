@@ -233,6 +233,11 @@ void PythonQtWrapper_SocExplorerPlot::rescaleAxis(SocExplorerPlot* theWrappedObj
   ( theWrappedObject->rescaleAxis());
 }
 
+void PythonQtWrapper_SocExplorerPlot::setAdaptativeSampling(SocExplorerPlot* theWrappedObject, int  graphIndex, bool  enable)
+{
+  ( theWrappedObject->setAdaptativeSampling(graphIndex, enable));
+}
+
 void PythonQtWrapper_SocExplorerPlot::setGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QList<QVariant >  x, QList<QVariant >  y)
 {
   ( theWrappedObject->setGraphData(graphIndex, x, y));

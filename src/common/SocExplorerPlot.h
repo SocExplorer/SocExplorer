@@ -18,6 +18,7 @@ public:
     void rescaleAxis();
     void setLegendFont(QFont font);
     void setLegendSelectedFont(QFont font);
+    void setAdaptativeSampling(int graphIndex,bool enable);
     int addGraph();
     void setGraphName(int graphIndex,QString name);
     void setGraphData(int graphIndex, QList<QVariant> x, QList<QVariant> y);

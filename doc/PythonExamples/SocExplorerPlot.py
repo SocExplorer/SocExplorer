@@ -1,4 +1,4 @@
-#!/usr/bin/lppmon -e 
+#!/usr/bin/socexplorer -e 
 import numpy as np
 freq1 = 30
 freq2 = 300
@@ -15,7 +15,7 @@ input_sig2 = np.sin(2 * np.pi * freq2 * time_vec)
 input_sig = input_sig1 + input_sig2
 
 
-plot=Pylppmon.LppMonPlot()
+plot=PySocExplorer.SocExplorerPlot()
 plot.setTitle("demo")
 plot.setXaxisLabel("Time(s)")
 plot.setYaxisLabel("Values")
