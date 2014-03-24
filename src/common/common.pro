@@ -11,6 +11,7 @@ win32:CONFIG -= static
 win32:INCLUDEPATH += $${PWD}/elf/libelfWin32/include
 win32:INCLUDEPATH += $${PWD}/elf/libelfWin32/include/libelf
 win32:DEFINES+=_ELF_WINDOWS_
+DEFINES+=RS232_debug
 
 win32:LIBS += $${PWD}/elf/libelfWin32/bin/libelf.a
 unix:LIBS += -lelf
@@ -37,8 +38,8 @@ header.files = \
     elf/elfinfowdgt.h \
     elf/elfparser.h \
     elf/elffile.h \
-    qipdialogbox.h
-
+    qipdialogbox.h \
+    lppserial/src/RS232.h
 
 win32{
     elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/libelf
@@ -82,7 +83,8 @@ HEADERS += \
     elf/elffile.h \
     qipdialogbox.h \
     PySocExplorer.h \
-    SocExplorerPlot.h
+    SocExplorerPlot.h \
+    lppserial/src/RS232.h
 
 
 SOURCES += \
@@ -101,6 +103,9 @@ SOURCES += \
     elf/elffile.cpp \
     qipdialogbox.cpp \
     SocExplorerPlot.cpp
+
+unix:SOURCES += lppserial/src/RS232_unix.c
+win32:SOURCES += lppserial/src/RS232_win.c
 
 
 
