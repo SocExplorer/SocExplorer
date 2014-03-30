@@ -31,7 +31,7 @@ To build it on linux you can look here https://hephaistos.lpp.polytechnique.fr/r
 If you can't access to it, first you will need a working qt5 kit with all the development packages.
  Step 1:
   You need to get a modified version of PythonQt, you can clone it from our repository
-```bash
+```Bash
   hg clone https://hephaistos.lpp.polytechnique.fr/rhodecode/HG_REPOSITORIES/LPP/INSTRUMENTATION/USERS/JEANDET/PythonQt PythonQt
   cd PythonQt
   qmake-qt5 
@@ -40,7 +40,7 @@ If you can't access to it, first you will need a working qt5 kit with all the de
 ```
  Step 2:
   Get and install SocExplorer
-```bash
+```Bash
   hg clone https://hephaistos.lpp.polytechnique.fr/rhodecode/HG_REPOSITORIES/LPP/INSTRUMENTATION/SocExplorer SocExplorer
   cd SocExplorer
   qmake-qt5
@@ -51,7 +51,7 @@ If you can't access to it, first you will need a working qt5 kit with all the de
 ```
  Step 3:
   Get and install SocExplorer main plugins
-```bash
+```Bash
   hg clone https://hephaistos.lpp.polytechnique.fr/rhodecode/HG_REPOSITORIES/LPP/INSTRUMENTATION/SocExplorerPlugins SocExplorerPlugins
   qmake-qt5
   make 
