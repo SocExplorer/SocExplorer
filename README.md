@@ -21,7 +21,7 @@ later version.
 Wiki
 ----
 
-More details  here https://hephaistos.lpp.polytechnique.fr/redmine/projects/socexplorer/wiki
+More details  [here](https://hephaistos.lpp.polytechnique.fr/redmine/projects/socexplorer/wiki)
 
 How to build
 ------------
@@ -61,7 +61,7 @@ If you can't access to it, first you will need a working qt5 kit with all the de
 Bug repports
 ------------
 
-To repport any bug you can either send a mail at alexis.jeandet@member.fsf.org or repport an issue here https://hephaistos.lpp.polytechnique.fr/redmine/projects/socexplorer/issues
+To repport any bug you can either send a [mail](mailto:alexis.jeandet@member.fsf.org) or repport an issue [here](https://hephaistos.lpp.polytechnique.fr/redmine/projects/socexplorer/issues)
 
 
 
