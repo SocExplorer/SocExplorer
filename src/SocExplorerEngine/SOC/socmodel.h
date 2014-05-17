@@ -92,6 +92,7 @@ public:
 public slots:
     //void setRegValue(qint32 baseAddress,qint32 value);
     qint32 getEnumDeviceBaseAddress(int VID,int PID,int count=0);
+    qint32 getEnumDeviceCount(int VID,int PID);
     socExplorerEnumDevice* addEnumDevice(int VID, int PID, qint32 baseAddress, const QString& name);
     int addEnumDevice(socExplorerEnumDevice* device);
     void writeReg(qint32 address,qint32 value);

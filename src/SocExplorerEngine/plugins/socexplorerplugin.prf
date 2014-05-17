@@ -19,7 +19,7 @@ unix {
     SOCEXPLORER_PLUGINS_INSTALL_PATH = $${SOCEXPLORER_ROOT_PLUGINS_INSTALL_PATH}"/.SocExplorer/plugins"
 }
 
-isEmpty(SOCEXPLORER_SDK_BUILD){
+isEmpty( SOCEXPLORER_SDK_BUILD ){
     message( "building a plugin" )
     QT += core gui xml
     contains(QT_MAJOR_VERSION, 5) {

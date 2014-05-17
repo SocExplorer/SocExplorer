@@ -45,6 +45,19 @@ qint32 SOCModel::getEnumDeviceBaseAddress(int VID, int PID, int count)
     return -1;
 }
 
+qint32 SOCModel::getEnumDeviceCount(int VID, int PID)
+{
+    qint32 count =0;
+    for(int i=0;i<p_enumeratedDevices.count();i++)
+    {
+        if((p_enumeratedDevices.at(i)->VID()==VID) && (p_enumeratedDevices.at(i)->PID()==PID))
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
 socExplorerEnumDevice *SOCModel::addEnumDevice( int VID, int PID, qint32 baseAddress, const QString &name)
 {
     if(enumDeviceExists(baseAddress))

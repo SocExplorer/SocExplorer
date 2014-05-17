@@ -119,6 +119,25 @@ qint32 SocExplorerEngine::getEnumDeviceBaseAddress(socexplorerplugin *plugin, in
     return soc->getEnumDeviceBaseAddress(VID,PID,count);
 }
 
+qint32 SocExplorerEngine::getEnumDeviceCount(socexplorerplugin *plugin, int VID, int PID)
+{
+    if(plugin==NULL)return 0;
+    SOCModel* soc = plugin2Soc(plugin);
+    if(soc==NULL)
+        return 0;
+    return soc->getEnumDeviceCount(VID,PID);
+}
+
+qint32 SocExplorerEngine::getEnumDeviceCount(const QString &rootPlugin, int VID, int PID)
+{
+    socexplorerplugin* plugin = socexplorerproxy::findPlugin(rootPlugin);
+    if(plugin==NULL)return 0;
+    SOCModel* soc = plugin2Soc(plugin);
+    if(soc==NULL)
+        return 0;
+    return soc->getEnumDeviceCount(VID,PID);
+}
+
 int SocExplorerEngine::addEnumDevice(const QString &rootPlugin, int VID, int PID, qint32 baseAddress, const QString &name)
 {
     socexplorerplugin* plugin = socexplorerproxy::findPlugin(rootPlugin);

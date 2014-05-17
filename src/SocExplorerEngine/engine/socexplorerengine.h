@@ -114,6 +114,8 @@ public slots:
      QString getSocExplorerBranch(){return SocExplorerEngine::SocExplorerBranch();}
      qint32 getEnumDeviceBaseAddress(const QString& rootPlugin,int VID,int PID,int count=0);
      qint32 getEnumDeviceBaseAddress(socexplorerplugin* plugin,int VID,int PID,int count=0);
+     qint32 getEnumDeviceCount(socexplorerplugin* plugin,int VID,int PID);
+     qint32 getEnumDeviceCount(const QString& rootPlugin,int VID,int PID);
      int addEnumDevice(const QString& rootPlugin,int VID,int PID,qint32 baseAddress,const QString& name);
 
 private:
