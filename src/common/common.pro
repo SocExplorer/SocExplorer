@@ -1,6 +1,6 @@
 SOCEXPLORER_ROOT = \"$${PWD}/../..\"
 include($${PWD}/../../build_cfg/socexplorer.pri)
-
+include($${PWD}/lppserial/lppserial.pri)
 
 TEMPLATE = lib
 TARGET = socexplorercommon$${DEBUG_EXT}
@@ -83,8 +83,7 @@ HEADERS += \
     elf/elffile.h \
     qipdialogbox.h \
     PySocExplorer.h \
-    SocExplorerPlot.h \
-    lppserial/src/RS232.h
+    SocExplorerPlot.h
 
 
 SOURCES += \
@@ -104,8 +103,6 @@ SOURCES += \
     qipdialogbox.cpp \
     SocExplorerPlot.cpp
 
-unix:SOURCES += lppserial/src/RS232_unix.c
-win32:SOURCES += lppserial/src/RS232_win.c
 
 
 

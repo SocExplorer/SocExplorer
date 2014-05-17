@@ -20,6 +20,7 @@
 --                     Mail : alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
 #include <abstractexecfile.h>
+#include <elf.h>
 #ifndef ELFFILE_H
 #define ELFFILE_H
 
