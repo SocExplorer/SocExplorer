@@ -25,236 +25,254 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void elfresolveMachine(Elf64_Half	e_machine,char* MachineName)
+QString elfresolveMachine(Elf64_Half	e_machine)
 {
-
+    QString machineName;
     //Update from with bash script don't write it by yourself!
     switch(e_machine)
     {
-    case EM_NONE   :
-        strcpy(MachineName,"No machine");
+    case EM_NONE:
+        machineName = " No machine ";
         break;
-    case EM_M32   :
-        strcpy(MachineName,"AT&T WE 32100");
+    case EM_M32:
+        machineName = " AT&T WE 32100 ";
         break;
-    case EM_SPARC   :
-        strcpy(MachineName,"SUN SPARC");
+    case EM_SPARC:
+        machineName = " SUN SPARC ";
         break;
-    case EM_386   :
-        strcpy(MachineName,"Intel 80386");
+    case EM_386:
+        machineName = " Intel 80386 ";
         break;
-    case EM_68K   :
-        strcpy(MachineName,"Motorola m68k family");
+    case EM_68K:
+        machineName = " Motorola m68k family ";
         break;
-    case EM_88K   :
-        strcpy(MachineName,"Motorola m88k family");
+    case EM_88K:
+        machineName = " Motorola m88k family ";
         break;
-    case EM_860   :
-        strcpy(MachineName,"Intel 80860");
+    case EM_860:
+        machineName = " Intel 80860 ";
         break;
-    case EM_MIPS   :
-        strcpy(MachineName,"MIPS R3000 big-endian");
+    case EM_MIPS:
+        machineName = " MIPS R3000 big-endian ";
         break;
-    case EM_S370  :
-        strcpy(MachineName,"IBM System\/370");
+    case EM_S370:
+        machineName = " IBM System/370 ";
         break;
-    case EM_MIPS_RS3_LE   :
-        strcpy(MachineName,"MIPS R3000 little-endian");
+    case EM_MIPS_RS3_LE:
+        machineName = " MIPS R3000 little-endian ";
         break;
-    case EM_PARISC   :
-        strcpy(MachineName,"HPPA");
+    case EM_PARISC:
+        machineName = " HPPA ";
         break;
-    case EM_VPP500   :
-        strcpy(MachineName,"Fujitsu VPP500");
+    case EM_VPP500:
+        machineName = " Fujitsu VPP500 ";
         break;
-    case EM_SPARC32PLUS   :
-        strcpy(MachineName,"Sun's \"v8plus\"");
+    case EM_SPARC32PLUS:
+        machineName = " Sun's \"v8plus\" ";
         break;
-    case EM_960   :
-        strcpy(MachineName,"Intel 80960");
+    case EM_960:
+        machineName = " Intel 80960 ";
         break;
-    case EM_PPC   :
-        strcpy(MachineName,"PowerPC");
+    case EM_PPC:
+        machineName = " PowerPC ";
         break;
-    case EM_PPC64   :
-        strcpy(MachineName,"PowerPC 64-bit");
+    case EM_PPC64:
+        machineName = " PowerPC 64-bit ";
         break;
-    case EM_S390   :
-        strcpy(MachineName,"IBM S390");
+    case EM_S390:
+        machineName = " IBM S390 ";
         break;
-    case EM_V800   :
-        strcpy(MachineName,"NEC V800 series");
+    case EM_V800:
+        machineName = " NEC V800 series ";
         break;
-    case EM_FR20   :
-        strcpy(MachineName,"Fujitsu FR20");
+    case EM_FR20:
+        machineName = " Fujitsu FR20 ";
         break;
-    case EM_RH32   :
-        strcpy(MachineName,"TRW RH-32");
+    case EM_RH32:
+        machineName = " TRW RH-32 ";
         break;
-    case EM_RCE   :
-        strcpy(MachineName,"Motorola RCE");
+    case EM_RCE:
+        machineName = " Motorola RCE ";
         break;
-    case EM_ARM   :
-        strcpy(MachineName,"ARM");
+    case EM_ARM:
+        machineName = " ARM ";
         break;
-    case EM_SH   :
-        strcpy(MachineName,"Hitachi SH");
+    case EM_FAKE_ALPHA:
+        machineName = " Digital Alpha ";
         break;
-    case EM_SPARCV9   :
-        strcpy(MachineName,"SPARC v9 64-bit");
+    case EM_SH:
+        machineName = " Hitachi SH ";
         break;
-    case EM_TRICORE   :
-        strcpy(MachineName,"Siemens Tricore");
+    case EM_SPARCV9:
+        machineName = " SPARC v9 64-bit ";
         break;
-    case EM_ARC   :
-        strcpy(MachineName,"Argonaut RISC Core");
+    case EM_TRICORE:
+        machineName = " Siemens Tricore ";
         break;
-    case EM_H8_300 :
-        strcpy(MachineName,"Hitachi H8\/300");
+    case EM_ARC:
+        machineName = " Argonaut RISC Core ";
         break;
-    case EM_H8_300H  :
-        strcpy(MachineName,"Hitachi H8\/300H");
+    case EM_H8_300:
+        machineName = " Hitachi H8/300 ";
         break;
-    case EM_H8S   :
-        strcpy(MachineName,"Hitachi H8S");
+    case EM_H8_300H:
+        machineName = " Hitachi H8/300H ";
         break;
-    case EM_H8_500  :
-        strcpy(MachineName,"Hitachi H8\/500");
+    case EM_H8S:
+        machineName = " Hitachi H8S ";
         break;
-    case EM_IA_64   :
-        strcpy(MachineName,"Intel Merced");
+    case EM_H8_500:
+        machineName = " Hitachi H8/500 ";
         break;
-    case EM_MIPS_X   :
-        strcpy(MachineName,"Stanford MIPS-X");
+    case EM_IA_64:
+        machineName = " Intel Merced ";
         break;
-    case EM_COLDFIRE   :
-        strcpy(MachineName,"Motorola Coldfire");
+    case EM_MIPS_X:
+        machineName = " Stanford MIPS-X ";
         break;
-    case EM_68HC12   :
-        strcpy(MachineName,"Motorola M68HC12");
+    case EM_COLDFIRE:
+        machineName = " Motorola Coldfire ";
         break;
-    case EM_MMA   :
-        strcpy(MachineName,"Fujitsu MMA Multimedia Accelerator");
+    case EM_68HC12:
+        machineName = " Motorola M68HC12 ";
         break;
-    case EM_PCP   :
-        strcpy(MachineName,"Siemens PCP");
+    case EM_MMA:
+        machineName = " Fujitsu MMA Multimedia Accelerator";
         break;
-    case EM_NCPU   :
-        strcpy(MachineName,"Sony nCPU embeeded RISC");
+    case EM_PCP:
+        machineName = " Siemens PCP ";
         break;
-    case EM_NDR1   :
-        strcpy(MachineName,"Denso NDR1 microprocessor");
+    case EM_NCPU:
+        machineName = " Sony nCPU embeeded RISC ";
         break;
-    case EM_STARCORE :
-        strcpy(MachineName,"Motorola Start*Core processor");
+    case EM_NDR1:
+        machineName = " Denso NDR1 microprocessor ";
         break;
-    case EM_ME16   :
-        strcpy(MachineName,"Toyota ME16 processor");
+    case EM_STARCORE:
+        machineName = " Motorola Start*Core processor ";
         break;
-    case EM_ST100   :
-        strcpy(MachineName,"STMicroelectronic ST100 processor");
+    case EM_ME16:
+        machineName = " Toyota ME16 processor ";
         break;
-    case EM_TINYJ   :
-        strcpy(MachineName,"Advanced Logic Corp. Tinyj emb.fam");
+    case EM_ST100:
+        machineName = " STMicroelectronic ST100 processor ";
         break;
-    case EM_X86_64   :
-        strcpy(MachineName,"AMD x86-64 architecture");
+    case EM_TINYJ:
+        machineName = " Advanced Logic Corp. Tinyj emb.fam";
         break;
-    case EM_PDSP   :
-        strcpy(MachineName,"Sony DSP Processor");
+    case EM_X86_64:
+        machineName = " AMD x86-64 architecture ";
         break;
-    case EM_FX66 :
-        strcpy(MachineName,"Siemens FX66 microcontroller");
+    case EM_PDSP:
+        machineName = " Sony DSP Processor ";
         break;
-    case EM_ST9PLUS :
-        strcpy(MachineName,"STMicroelectronics ST9+ 8\/16 mc");
+    case EM_FX66:
+        machineName = " Siemens FX66 microcontroller ";
         break;
-    case EM_ST7   :
-        strcpy(MachineName,"STmicroelectronics ST7 8 bit mc");
+    case EM_ST9PLUS:
+        machineName = " STMicroelectronics ST9+ 8/16 mc ";
         break;
-    case EM_68HC16   :
-        strcpy(MachineName,"Motorola MC68HC16 microcontroller");
+    case EM_ST7:
+        machineName = " STmicroelectronics ST7 8 bit mc ";
         break;
-    case EM_68HC11   :
-        strcpy(MachineName,"Motorola MC68HC11 microcontroller");
+    case EM_68HC16:
+        machineName = " Motorola MC68HC16 microcontroller ";
         break;
-    case EM_68HC08   :
-        strcpy(MachineName,"Motorola MC68HC08 microcontroller");
+    case EM_68HC11:
+        machineName = " Motorola MC68HC11 microcontroller ";
         break;
-    case EM_68HC05   :
-        strcpy(MachineName,"Motorola MC68HC05 microcontroller");
+    case EM_68HC08:
+        machineName = " Motorola MC68HC08 microcontroller ";
         break;
-    case EM_SVX   :
-        strcpy(MachineName,"Silicon Graphics SVx");
+    case EM_68HC05:
+        machineName = " Motorola MC68HC05 microcontroller ";
         break;
-    case EM_ST19   :
-        strcpy(MachineName,"STMicroelectronics ST19 8 bit mc");
+    case EM_SVX:
+        machineName = " Silicon Graphics SVx ";
         break;
-    case EM_VAX   :
-        strcpy(MachineName,"Digital VAX");
+    case EM_ST19:
+        machineName = " STMicroelectronics ST19 8 bit mc ";
         break;
-    case EM_CRIS   :
-        strcpy(MachineName,"Axis Communications 32-bit embedded processor");
+    case EM_VAX:
+        machineName = " Digital VAX ";
         break;
-    case EM_JAVELIN   :
-        strcpy(MachineName,"Infineon Technologies 32-bit embedded processor");
+    case EM_CRIS:
+        machineName = " Axis Communications 32-bit embedded processor ";
         break;
-    case EM_FIREPATH   :
-        strcpy(MachineName,"Element 14 64-bit DSP Processor");
+    case EM_JAVELIN:
+        machineName = " Infineon Technologies 32-bit embedded processor ";
         break;
-    case EM_ZSP   :
-        strcpy(MachineName,"LSI Logic 16-bit DSP Processor");
+    case EM_FIREPATH:
+        machineName = " Element 14 64-bit DSP Processor ";
         break;
-    case EM_MMIX   :
-        strcpy(MachineName,"Donald Knuth's educational 64-bit processor");
+    case EM_ZSP:
+        machineName = " LSI Logic 16-bit DSP Processor ";
         break;
-    case EM_HUANY   :
-        strcpy(MachineName,"Harvard University machine-independent object files");
+    case EM_MMIX:
+        machineName = " Donald Knuth's educational 64-bit processor ";
         break;
-    case EM_PRISM   :
-        strcpy(MachineName,"SiTera Prism");
+    case EM_HUANY:
+        machineName = " Harvard University machine-independent object files ";
         break;
-    case EM_AVR   :
-        strcpy(MachineName,"Atmel AVR 8-bit microcontroller");
+    case EM_PRISM:
+        machineName = " SiTera Prism ";
         break;
-    case EM_FR30   :
-        strcpy(MachineName,"Fujitsu FR30");
+    case EM_AVR:
+        machineName = " Atmel AVR 8-bit microcontroller ";
         break;
-    case EM_D10V   :
-        strcpy(MachineName,"Mitsubishi D10V");
+    case EM_FR30:
+        machineName = " Fujitsu FR30 ";
         break;
-    case EM_D30V   :
-        strcpy(MachineName,"Mitsubishi D30V");
+    case EM_D10V:
+        machineName = " Mitsubishi D10V ";
         break;
-    case EM_V850   :
-        strcpy(MachineName,"NEC v850");
+    case EM_D30V:
+        machineName = " Mitsubishi D30V ";
         break;
-    case EM_M32R   :
-        strcpy(MachineName,"Mitsubishi M32R");
+    case EM_V850:
+        machineName = " NEC v850 ";
         break;
-    case EM_MN10300   :
-        strcpy(MachineName,"Matsushita MN10300");
+    case EM_M32R:
+        machineName = " Mitsubishi M32R ";
         break;
-    case EM_MN10200   :
-        strcpy(MachineName,"Matsushita MN10200");
+    case EM_MN10300:
+        machineName = " Matsushita MN10300 ";
         break;
-    case EM_PJ   :
-        strcpy(MachineName,"picoJava");
+    case EM_MN10200:
+        machineName = " Matsushita MN10200 ";
         break;
-    case EM_OPENRISC   :
-        strcpy(MachineName,"OpenRISC 32-bit embedded processor");
+    case EM_PJ:
+        machineName = " picoJava ";
         break;
-    case EM_ARC_A5   :
-        strcpy(MachineName,"ARC Cores Tangent-A5");
+    case EM_OPENRISC:
+        machineName = " OpenRISC 32-bit embedded processor ";
         break;
-    case EM_XTENSA   :
-        strcpy(MachineName,"Tensilica Xtensa Architecture");
+    case EM_ARC_A5:
+        machineName = " ARC Cores Tangent-A5 ";
+        break;
+    case EM_XTENSA:
+        machineName = " Tensilica Xtensa Architecture ";
+        break;
+    case EM_AARCH64:
+        machineName = " ARM AARCH64 ";
+        break;
+    case EM_TILEPRO:
+        machineName = " Tilera TILEPro ";
+        break;
+    case EM_MICROBLAZE:
+        machineName = " Xilinx MicroBlaze ";
+        break;
+    case EM_TILEGX:
+        machineName = " Tilera TILE-Gx ";
+        break;
+    case EM_NUM:
+        machineName = "";
         break;
     default:
-        strcpy(MachineName,"Unknow Machine");
+        machineName ="Unknow Machine";
         break;
     }
-
+    return machineName;
 }
 
 
@@ -318,14 +336,11 @@ bool elfparser::iself()
 
 QString elfparser::getArchitecture()
 {
-    QString arch("");
-    char archName[256]="";
     if(this->e!=NULL)
     {
-        elfresolveMachine(this->ehdr.e_machine,archName);
-        arch = archName;
+        return elfresolveMachine(this->ehdr.e_machine);
     }
-    return arch;
+    return "";
 }
 
 

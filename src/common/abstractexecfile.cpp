@@ -31,31 +31,6 @@ abstractExecFile::abstractExecFile(const QString &File, QObject *parent)
 
 }
 
-bool abstractExecFile::openFile(const QString &File)
-{
-
-}
-
-bool abstractExecFile::isopened()
-{
-
-}
-
-int abstractExecFile::setFilename(const QString &name)
-{
-
-}
-
-int abstractExecFile::closeFile()
-{
-
-}
-
-QList<codeFragment> abstractExecFile::getFragments()
-{
-
-}
-
 
 codeFragment::codeFragment()
 {

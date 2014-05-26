@@ -39,15 +39,16 @@ class abstractExecFile : public QObject
 public:
     abstractExecFile(QObject *parent = 0);
     abstractExecFile(const QString& File,QObject *parent = 0);
-    virtual bool openFile(const QString& File);
-    virtual bool isopened();
-    virtual int setFilename(const QString& name);
-    virtual int closeFile();
-    virtual QList<codeFragment> getFragments();
+    virtual bool openFile(const QString& File)=0;
+    virtual bool isopened()=0;
+    virtual int closeFile()=0;
+    virtual QList<codeFragment> getFragments()=0;
 signals:
 
 public slots:
 
+protected:
+    QString p_fileName;
 };
 
 #endif // ABSTRACTEXECFILE_H

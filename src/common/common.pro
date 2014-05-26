@@ -83,7 +83,8 @@ HEADERS += \
     elf/elffile.h \
     qipdialogbox.h \
     PySocExplorer.h \
-    SocExplorerPlot.h
+    SocExplorerPlot.h \
+    elf/elffilewidget.h
 
 
 SOURCES += \
@@ -101,7 +102,11 @@ SOURCES += \
     abstractexecfile.cpp \
     elf/elffile.cpp \
     qipdialogbox.cpp \
-    SocExplorerPlot.cpp
+    SocExplorerPlot.cpp \
+    elf/elffilewidget.cpp
+
+FORMS += \
+    elf/elffilewidget.ui
 
 
 

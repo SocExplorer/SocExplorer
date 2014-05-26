@@ -21,6 +21,9 @@
 ----------------------------------------------------------------------------*/
 #include <abstractexecfile.h>
 #include <elf.h>
+#include "elfparser.h"
+#include <QStringList>
+
 #ifndef ELFFILE_H
 #define ELFFILE_H
 
@@ -30,10 +33,17 @@ class ElfFile : public abstractExecFile
 public:
     ElfFile(QObject *parent = 0);
     ElfFile(const QString& File,QObject *parent = 0);
-
+    bool openFile(const QString& File);
+    bool isopened();
+    int closeFile();
+    QList<codeFragment> getFragments();
+    QList<codeFragment> getFragments(QStringList fragmentList);
 signals:
 
 public slots:
+private:
+    elfparser parser;
+    codeFragment getFragment(const QString& name);
 
 };
 
