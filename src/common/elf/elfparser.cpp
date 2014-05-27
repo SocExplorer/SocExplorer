@@ -321,6 +321,17 @@ int elfparser::closeFile()
     return 0;
 }
 
+QString elfparser::getClass()
+{
+    if(this->e!=NULL)
+    {
+        int eclass = gelf_getclass(this->e);
+        if(eclass==ELFCLASS32)return "ELF32";
+        if(eclass==ELFCLASS64)return "ELF64";
+    }
+    return "none";
+}
+
 
 bool elfparser::isopened()
 {
@@ -372,6 +383,16 @@ QString elfparser::getType()
         }
     }
     return kind;
+}
+
+QString elfparser::getEndianness()
+{
+    if(this->e!=NULL)
+    {
+        if(this->ehdr.e_ident[EI_DATA]==ELFDATA2LSB)return "2's complement, little endian";
+        if(this->ehdr.e_ident[EI_DATA]==ELFDATA2MSB)return "2's complement, big endian";
+    }
+    return "none";
 }
 
 

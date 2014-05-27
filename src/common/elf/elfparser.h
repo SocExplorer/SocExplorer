@@ -49,8 +49,10 @@ public:
     bool isopened();
     int setFilename(const QString& name);
     int closeFile();
+    QString getClass();
     QString getArchitecture();
     QString getType();
+    QString getEndianness();
     int32_t getVersion();
     int getSectioncount();
     int getSegmentcount();
@@ -82,7 +84,6 @@ private:
     Elf_Data * data;
     size_t SectionCount,SegmentCount, shstrndx;
     QList<GElf_Phdr*> Segments;
-    //QList<GElf_Shdr*> Sections;
     QList<Elf_Section*> sections;
 
 };

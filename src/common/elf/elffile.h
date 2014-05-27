@@ -27,7 +27,7 @@
 #ifndef ELFFILE_H
 #define ELFFILE_H
 
-class ElfFile : public abstractExecFile
+class ElfFile : public abstractExecFile, public elfparser
 {
     Q_OBJECT
 public:
@@ -38,11 +38,12 @@ public:
     int closeFile();
     QList<codeFragment> getFragments();
     QList<codeFragment> getFragments(QStringList fragmentList);
+//    elfparser parser;
+
 signals:
 
 public slots:
 private:
-    elfparser parser;
     codeFragment getFragment(const QString& name);
 
 };

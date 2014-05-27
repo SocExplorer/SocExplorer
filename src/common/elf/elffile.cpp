@@ -29,61 +29,58 @@ ElfFile::ElfFile(QObject *parent) :
 }
 
 ElfFile::ElfFile(const QString &File, QObject *parent)
-    :abstractExecFile(parent)
+    :abstractExecFile(parent),elfparser()
 {
     this->p_fileName = File;
-    parser.setFilename(File);
+    setFilename(File);
 }
 
 bool ElfFile::openFile(const QString &File)
 {
     this->p_fileName = File;
-    parser.setFilename(File);
+    return setFilename(File);
 }
 
 bool ElfFile::isopened()
 {
-    return parser.isopened();
+    return elfparser::isopened();
 }
 
 int ElfFile::closeFile()
 {
-    return parser.closeFile();
+    return elfparser::closeFile();
 }
 
-QList<codeFragment> ElfFile::getFragments()
-{
-    QList<codeFragment> fragments;
-    if (parser.isopened())
-    {
-        fragments.append(getFragment(".text"));
-        fragments.append(getFragment(".data"));
-    }
-}
 
 QList<codeFragment> ElfFile::getFragments(QStringList fragmentList)
 {
     QList<codeFragment> fragments;
-    if (parser.isopened())
+    if (isopened())
     {
         for(int i =0;i<fragmentList.count();i++)
         {
             fragments.append(getFragment(fragmentList.at(i)));
         }
     }
+    return fragments;
+}
+
+QList<codeFragment> ElfFile::getFragments()
+{
+    return getFragments(QStringList()<<".data"<<".text");
 }
 
 codeFragment ElfFile::getFragment(const QString &name)
 {
     codeFragment fragment;
-    for(int i=0;i<parser.getSectioncount();i++)
+    for(int i=0;i<getSectioncount();i++)
     {
-        if(parser.getSectionName(i) == name)
+        if(getSectionName(i) == name)
         {
             fragment.data =NULL;
-            fragment.size = parser.getSectionDatasz(i);
-            fragment.address = parser.getSectionPaddr(i);
-            parser.getSectionData(i,&fragment.data);
+            fragment.size = getSectionDatasz(i);
+            fragment.address = getSectionPaddr(i);
+            getSectionData(i,&fragment.data);
         }
     }
 
