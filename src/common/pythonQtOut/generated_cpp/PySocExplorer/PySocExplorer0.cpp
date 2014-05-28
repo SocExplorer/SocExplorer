@@ -3,6 +3,32 @@
 #include <PythonQtMethodInfo.h>
 #include <PythonQtSignalReceiver.h>
 #include <QVariant>
+#include <elffile.h>
+
+ElfFile* PythonQtWrapper_ElfFile::new_ElfFile(QObject*  parent)
+{ 
+return new ElfFile(parent); }
+
+ElfFile* PythonQtWrapper_ElfFile::new_ElfFile(const QString&  File, QObject*  parent)
+{ 
+return new ElfFile(File, parent); }
+
+int  PythonQtWrapper_ElfFile::closeFile(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->closeFile());
+}
+
+bool  PythonQtWrapper_ElfFile::isopened(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->isopened());
+}
+
+bool  PythonQtWrapper_ElfFile::openFile(ElfFile* theWrappedObject, const QString&  File)
+{
+  return ( theWrappedObject->openFile(File));
+}
+
+
 
 MemSizeWdgt* PythonQtWrapper_MemSizeWdgt::new_MemSizeWdgt(QWidget*  parent)
 { 
@@ -447,6 +473,12 @@ QString  PythonQtWrapper_XByteArray::toRedableString(XByteArray* theWrappedObjec
 
 
 
+elfFileWidget* PythonQtWrapper_elfFileWidget::new_elfFileWidget(QWidget*  parent)
+{ 
+return new elfFileWidget(parent); }
+
+
+
 elfparser* PythonQtWrapper_elfparser::new_elfparser()
 { 
 return new elfparser(); }
@@ -456,9 +488,24 @@ int  PythonQtWrapper_elfparser::closeFile(elfparser* theWrappedObject)
   return ( theWrappedObject->closeFile());
 }
 
+QString  PythonQtWrapper_elfparser::getABI(elfparser* theWrappedObject)
+{
+  return ( theWrappedObject->getABI());
+}
+
 QString  PythonQtWrapper_elfparser::getArchitecture(elfparser* theWrappedObject)
 {
   return ( theWrappedObject->getArchitecture());
+}
+
+QString  PythonQtWrapper_elfparser::getClass(elfparser* theWrappedObject)
+{
+  return ( theWrappedObject->getClass());
+}
+
+QString  PythonQtWrapper_elfparser::getEndianness(elfparser* theWrappedObject)
+{
+  return ( theWrappedObject->getEndianness());
 }
 
 bool  PythonQtWrapper_elfparser::getSectionData(elfparser* theWrappedObject, int  index, char**  buffer)

@@ -2,12 +2,30 @@
 #include <QObject>
 #include <QVariant>
 #include <SocExplorerPlot.h>
+#include <elffile.h>
+#include <elffilewidget.h>
 #include <elfparser.h>
 #include <memsizewdgt.h>
 #include <qhexedit.h>
 #include <qhexspinbox.h>
 #include <tcp_terminal_client.h>
 #include <xbytearray.h>
+
+
+
+class PythonQtWrapper_ElfFile : public QObject
+{ Q_OBJECT
+public:
+public slots:
+ElfFile* new_ElfFile(QObject*  parent = 0);
+ElfFile* new_ElfFile(const QString&  File, QObject*  parent = 0);
+void delete_ElfFile(ElfFile* obj) { delete obj; } 
+   int  closeFile(ElfFile* theWrappedObject);
+   bool  isopened(ElfFile* theWrappedObject);
+   bool  openFile(ElfFile* theWrappedObject, const QString&  File);
+};
+
+
 
 
 
@@ -185,6 +203,18 @@ void delete_XByteArray(XByteArray* obj) { delete obj; }
 
 
 
+class PythonQtWrapper_elfFileWidget : public QObject
+{ Q_OBJECT
+public:
+public slots:
+elfFileWidget* new_elfFileWidget(QWidget*  parent = 0);
+void delete_elfFileWidget(elfFileWidget* obj) { delete obj; } 
+};
+
+
+
+
+
 class PythonQtWrapper_elfparser : public QObject
 { Q_OBJECT
 public:
@@ -192,7 +222,10 @@ public slots:
 elfparser* new_elfparser();
 void delete_elfparser(elfparser* obj) { delete obj; } 
    int  closeFile(elfparser* theWrappedObject);
+   QString  getABI(elfparser* theWrappedObject);
    QString  getArchitecture(elfparser* theWrappedObject);
+   QString  getClass(elfparser* theWrappedObject);
+   QString  getEndianness(elfparser* theWrappedObject);
    bool  getSectionData(elfparser* theWrappedObject, int  index, char**  buffer);
    QString  getSectionName(elfparser* theWrappedObject, int  index);
    QString  getSectionType(elfparser* theWrappedObject, int  index);

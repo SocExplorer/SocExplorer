@@ -53,7 +53,9 @@ public:
     QString getArchitecture();
     QString getType();
     QString getEndianness();
+    QString getABI();
     int32_t getVersion();
+    int64_t getEntryPointAddress();
     int getSectioncount();
     int getSegmentcount();
     QString getSegmentType(int index);

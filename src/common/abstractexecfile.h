@@ -33,19 +33,15 @@ public:
     quint32 address;
 };
 
-class abstractExecFile : public QObject
+class abstractExecFile
 {
-    Q_OBJECT
 public:
-    abstractExecFile(QObject *parent = 0);
-    abstractExecFile(const QString& File,QObject *parent = 0);
+    abstractExecFile();
+    abstractExecFile(const QString& File);
     virtual bool openFile(const QString& File)=0;
     virtual bool isopened()=0;
     virtual int closeFile()=0;
     virtual QList<codeFragment> getFragments()=0;
-signals:
-
-public slots:
 
 protected:
     QString p_fileName;

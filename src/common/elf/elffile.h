@@ -27,7 +27,7 @@
 #ifndef ELFFILE_H
 #define ELFFILE_H
 
-class ElfFile : public abstractExecFile, public elfparser
+class ElfFile :public QObject, public abstractExecFile, public elfparser
 {
     Q_OBJECT
 public:

@@ -38,6 +38,7 @@ header.files = \
     elf/elfinfowdgt.h \
     elf/elfparser.h \
     elf/elffile.h \
+    elf/elffilewidget.h \
     qipdialogbox.h \
     lppserial/src/RS232.h
 

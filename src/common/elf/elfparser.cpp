@@ -395,12 +395,44 @@ QString elfparser::getEndianness()
     return "none";
 }
 
+QString elfparser::getABI()
+{
+    if(this->e!=NULL)
+    {
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_NONE)return "UNIX System V ABI";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_SYSV)return "Alias";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_HPUX)return "HP-UX";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_NETBSD)return "NetBSD";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_GNU)return "Object uses GNU ELF extensions";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_LINUX)return "Compatibility alias";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_SOLARIS)return "Sun Solaris";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_AIX)return "IBM AIX";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_IRIX)return "SGI Irix";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_FREEBSD)return "FreeBSD";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_TRU64)return "Compaq TRU64 UNIX";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_MODESTO)return " Novell Modesto";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_OPENBSD)return "OpenBSD";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_ARM_AEABI)return "ARM EABI";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_ARM)return "ARM";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_STANDALONE)return "Standalone (embedded) application";
+    }
+    return "none";
+}
+
 
 int32_t  elfparser::getVersion()
 {
     if(this->e!=NULL)
     {
         return this->ehdr.e_version;
+    }
+}
+
+int64_t elfparser::getEntryPointAddress()
+{
+    if(this->e!=NULL)
+    {
+        return this->ehdr.e_entry;
     }
 }
 

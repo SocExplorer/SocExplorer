@@ -23,13 +23,13 @@
 ----------------------------------------------------------------------------*/
 #include "elffile.h"
 
-ElfFile::ElfFile(QObject *parent) :
-    abstractExecFile(parent)
+ElfFile::ElfFile(QObject *parent)
+    :QObject(parent),abstractExecFile(),elfparser()
 {
 }
 
 ElfFile::ElfFile(const QString &File, QObject *parent)
-    :abstractExecFile(parent),elfparser()
+    :QObject(parent),abstractExecFile(),elfparser()
 {
     this->p_fileName = File;
     setFilename(File);

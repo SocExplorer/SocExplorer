@@ -21,12 +21,11 @@
 ----------------------------------------------------------------------------*/
 #include "abstractexecfile.h"
 
-abstractExecFile::abstractExecFile(QObject *parent) :
-    QObject(parent)
+abstractExecFile::abstractExecFile()
 {
 }
 
-abstractExecFile::abstractExecFile(const QString &File, QObject *parent)
+abstractExecFile::abstractExecFile(const QString &File)
 {
 
 }
