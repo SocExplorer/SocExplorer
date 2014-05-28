@@ -420,7 +420,7 @@ QString elfparser::getABI()
 }
 
 
-int32_t  elfparser::getVersion()
+qint32 elfparser::getVersion()
 {
     if(this->e!=NULL)
     {
@@ -428,7 +428,7 @@ int32_t  elfparser::getVersion()
     }
 }
 
-int64_t elfparser::getEntryPointAddress()
+qint64 elfparser::getEntryPointAddress()
 {
     if(this->e!=NULL)
     {
@@ -508,7 +508,7 @@ QString elfparser::getSegmentType(int index)
 }
 
 
-int64_t elfparser::getSegmentOffset(int index)
+qint64 elfparser::getSegmentOffset(int index)
 {
     int64_t Offset;
     if(this->e!=NULL)
@@ -522,7 +522,7 @@ int64_t elfparser::getSegmentOffset(int index)
 }
 
 
-int64_t elfparser::getSegmentVaddr(int index)
+qint64 elfparser::getSegmentVaddr(int index)
 {
     int64_t Vaddr = 0;
     if(this->e!=NULL)
@@ -536,7 +536,7 @@ int64_t elfparser::getSegmentVaddr(int index)
 }
 
 
-int64_t elfparser::getSegmentPaddr(int index)
+qint64 elfparser::getSegmentPaddr(int index)
 {
     int64_t Paddr=0;
     if(this->e!=NULL)
@@ -549,7 +549,7 @@ int64_t elfparser::getSegmentPaddr(int index)
     return Paddr;
 }
 
-int64_t elfparser::getSectionPaddr(int index)
+qint64 elfparser::getSectionPaddr(int index)
 {
     int64_t Paddr=0;
     if(this->e!=NULL)
@@ -563,7 +563,7 @@ int64_t elfparser::getSectionPaddr(int index)
 }
 
 
-int64_t elfparser::getSegmentFilesz(int index)
+qint64 elfparser::getSegmentFilesz(int index)
 {
     int64_t FileSz=0;
     if(this->e!=NULL)
@@ -576,7 +576,7 @@ int64_t elfparser::getSegmentFilesz(int index)
     return FileSz;
 }
 
-int64_t elfparser::getSectionDatasz(int index)
+qint64 elfparser::getSectionDatasz(int index)
 {
     int64_t DataSz=0;
     if(this->e!=NULL)
@@ -603,7 +603,7 @@ bool elfparser::getSectionData(int index, char **buffer)
 }
 
 
-int64_t elfparser::getSegmentMemsz(int index)
+qint64 elfparser::getSegmentMemsz(int index)
 {
     int64_t MemSz=0;
     if(this->e!=NULL)
@@ -616,7 +616,7 @@ int64_t elfparser::getSegmentMemsz(int index)
     return MemSz;
 }
 
-int64_t elfparser::getSectionMemsz(int index)
+qint64 elfparser::getSectionMemsz(int index)
 {
     int64_t MemSz=0;
     if(this->e!=NULL)
