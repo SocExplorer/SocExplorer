@@ -1,7 +1,7 @@
 #ifndef ELFFILEWIDGET_H
 #define ELFFILEWIDGET_H
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include "elffile.h"
 
 namespace Ui {
@@ -13,8 +13,9 @@ class elfFileWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit elfFileWidget(QWidget *parent = 0);
+    elfFileWidget(QWidget *parent = 0);
     ~elfFileWidget();
+
 public slots:
     void updateElfFile(ElfFile* file);
 

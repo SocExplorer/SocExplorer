@@ -27,19 +27,7 @@
 #include <stdio.h>
 #include <QList>
 #include <stdint.h>
-
-class Elf_Section
-{
-public:
-    Elf_Section(){}
-    Elf_Section(Elf_Data*  data,GElf_Shdr* section_header)
-    {
-        this->data = data;
-        this->section_header = section_header;
-    }
-    Elf_Data*  data;
-    GElf_Shdr* section_header;
-};
+#include "elffile.h"
 
 class elfparser
 {
@@ -54,7 +42,7 @@ public:
     QString getType();
     QString getEndianness();
     QString getABI();
-    qint32 getVersion();
+    qint64 getVersion();
     qint64 getEntryPointAddress();
     int getSectioncount();
     int getSegmentcount();

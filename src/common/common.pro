@@ -109,6 +109,9 @@ SOURCES += \
 FORMS += \
     elf/elffilewidget.ui
 
+OTHER_FILES += \
+    ./pythongenerator.sh \
+    ./pythonQtgeneratorCfg.txt
 
 
 

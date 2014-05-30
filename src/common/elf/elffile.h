@@ -20,31 +20,82 @@
 --                     Mail : alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
 #include <abstractexecfile.h>
-#include <elf.h>
-#include "elfparser.h"
-#include <QStringList>
-
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
+#include <libelf.h>
+#include <gelf.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 #ifndef ELFFILE_H
 #define ELFFILE_H
 
-class ElfFile :public QObject, public abstractExecFile, public elfparser
+class Elf_Section
 {
-    Q_OBJECT
 public:
-    ElfFile(QObject *parent = 0);
-    ElfFile(const QString& File,QObject *parent = 0);
+    Elf_Section(){}
+    Elf_Section(Elf_Data*  data,GElf_Shdr* section_header)
+    {
+        this->data = data;
+        this->section_header = section_header;
+    }
+    Elf_Data*  data;
+    GElf_Shdr* section_header;
+};
+
+class ElfFile : public abstractExecFile
+{
+       Q_OBJECT
+public:
+    ElfFile();
+    ElfFile(const QString& File);
     bool openFile(const QString& File);
     bool isopened();
     int closeFile();
-    QList<codeFragment> getFragments();
-    QList<codeFragment> getFragments(QStringList fragmentList);
-//    elfparser parser;
+    QList<codeFragment*> getFragments();
+    QList<codeFragment*> getFragments(QStringList fragmentList);
 
-signals:
+    QString getClass();
+    QString getArchitecture();
+    QString getType();
+    QString getEndianness();
+    QString getABI();
+    qint64 getVersion();
+    qint64 getEntryPointAddress();
+    int getSectioncount();
+    int getSegmentcount();
+    QString getSegmentType(int index);
+    qint64 getSegmentOffset(int index);
+    qint64 getSegmentVaddr(int index);
+    qint64 getSegmentPaddr(int index);
+    qint64 getSectionPaddr(int index);
+    qint64 getSegmentFilesz(int index);
+    qint64 getSectionDatasz(int index);
+    bool getSectionData(int index, char **buffer);
+    qint64 getSegmentMemsz(int index);
+    qint64 getSectionMemsz(int index);
+    QString getSegmentFlags(int index);
+    QString getSectionName(int index);
+    QString getSectionType(int index);
+    bool iself();
+    static bool isElf(const QString& File);
 
-public slots:
 private:
-    codeFragment getFragment(const QString& name);
+    codeFragment* getFragment(const QString& name);
+    void updateSections();
+    void updateSegments();
+    int elfFile;
+    bool opened;
+    bool type_elf;
+    Elf* e;
+    Elf_Kind ek;
+    GElf_Ehdr ehdr;
+    Elf_Scn * scn;
+    Elf_Data * data;
+    size_t SectionCount,SegmentCount, shstrndx;
+    QList<GElf_Phdr*> Segments;
+    QList<Elf_Section*> sections;
 
 };
 

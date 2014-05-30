@@ -1,11 +1,12 @@
-#include <QObject>
-#include <QWidget>
+#include <QtCore/QObject>
+#include <QtWidgets/QtWidgets>
 #include "qhexspinbox.h"
 #include "memsizewdgt.h"
 #include "qhexedit/qhexedit.h"
 #include "SocExplorerPlot.h"
 #include "tcp_terminal_client.h"
 #include "elf/elfparser.h"
-#include "elf/abstractexecfile.h"
+#include "abstractexecfile.h"
 #include "elf/elffile.h"
 #include "elf/elffilewidget.h"
+#include "elf/elfinfowdgt.h"

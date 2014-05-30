@@ -3,29 +3,277 @@
 #include <PythonQtMethodInfo.h>
 #include <PythonQtSignalReceiver.h>
 #include <QVariant>
+#include <abstractexecfile.h>
 #include <elffile.h>
+#include <elfparser.h>
 
-ElfFile* PythonQtWrapper_ElfFile::new_ElfFile(QObject*  parent)
+PythonQtShell_ElfFile::~PythonQtShell_ElfFile() {
+  PythonQtPrivate* priv = PythonQt::priv();
+  if (priv) { priv->shellClassDeleted(this); }
+}
+int  PythonQtShell_ElfFile::closeFile()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "closeFile");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"int"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      int returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("closeFile", methodInfo, result);
+        } else {
+          returnValue = *((int*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return ElfFile::closeFile();
+}
+QList<codeFragment* >  PythonQtShell_ElfFile::getFragments()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "getFragments");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"QList<codeFragment* >"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      QList<codeFragment* > returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("getFragments", methodInfo, result);
+        } else {
+          returnValue = *((QList<codeFragment* >*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return ElfFile::getFragments();
+}
+bool  PythonQtShell_ElfFile::isopened()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "isopened");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"bool"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      bool returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("isopened", methodInfo, result);
+        } else {
+          returnValue = *((bool*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return ElfFile::isopened();
+}
+bool  PythonQtShell_ElfFile::openFile(const QString&  File)
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "openFile");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"bool" , "const QString&"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(2, argumentList);
+      bool returnValue;
+    void* args[2] = {NULL, (void*)&File};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("openFile", methodInfo, result);
+        } else {
+          returnValue = *((bool*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return ElfFile::openFile(File);
+}
+ElfFile* PythonQtWrapper_ElfFile::new_ElfFile()
 { 
-return new ElfFile(parent); }
+return new PythonQtShell_ElfFile(); }
 
-ElfFile* PythonQtWrapper_ElfFile::new_ElfFile(const QString&  File, QObject*  parent)
+ElfFile* PythonQtWrapper_ElfFile::new_ElfFile(const QString&  File)
 { 
-return new ElfFile(File, parent); }
+return new PythonQtShell_ElfFile(File); }
 
 int  PythonQtWrapper_ElfFile::closeFile(ElfFile* theWrappedObject)
 {
-  return ( theWrappedObject->closeFile());
+  return ( ((PythonQtPublicPromoter_ElfFile*)theWrappedObject)->promoted_closeFile());
+}
+
+QString  PythonQtWrapper_ElfFile::getABI(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getABI());
+}
+
+QString  PythonQtWrapper_ElfFile::getArchitecture(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getArchitecture());
+}
+
+QString  PythonQtWrapper_ElfFile::getClass(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getClass());
+}
+
+QString  PythonQtWrapper_ElfFile::getEndianness(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getEndianness());
+}
+
+qint64  PythonQtWrapper_ElfFile::getEntryPointAddress(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getEntryPointAddress());
+}
+
+QList<codeFragment* >  PythonQtWrapper_ElfFile::getFragments(ElfFile* theWrappedObject)
+{
+  return ( ((PythonQtPublicPromoter_ElfFile*)theWrappedObject)->promoted_getFragments());
+}
+
+QList<codeFragment* >  PythonQtWrapper_ElfFile::getFragments(ElfFile* theWrappedObject, QStringList  fragmentList)
+{
+  return ( theWrappedObject->getFragments(fragmentList));
+}
+
+bool  PythonQtWrapper_ElfFile::getSectionData(ElfFile* theWrappedObject, int  index, char**  buffer)
+{
+  return ( theWrappedObject->getSectionData(index, buffer));
+}
+
+qint64  PythonQtWrapper_ElfFile::getSectionDatasz(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionDatasz(index));
+}
+
+qint64  PythonQtWrapper_ElfFile::getSectionMemsz(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionMemsz(index));
+}
+
+QString  PythonQtWrapper_ElfFile::getSectionName(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionName(index));
+}
+
+qint64  PythonQtWrapper_ElfFile::getSectionPaddr(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionPaddr(index));
+}
+
+QString  PythonQtWrapper_ElfFile::getSectionType(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionType(index));
+}
+
+int  PythonQtWrapper_ElfFile::getSectioncount(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getSectioncount());
+}
+
+qint64  PythonQtWrapper_ElfFile::getSegmentFilesz(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentFilesz(index));
+}
+
+QString  PythonQtWrapper_ElfFile::getSegmentFlags(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentFlags(index));
+}
+
+qint64  PythonQtWrapper_ElfFile::getSegmentMemsz(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentMemsz(index));
+}
+
+qint64  PythonQtWrapper_ElfFile::getSegmentOffset(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentOffset(index));
+}
+
+qint64  PythonQtWrapper_ElfFile::getSegmentPaddr(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentPaddr(index));
+}
+
+QString  PythonQtWrapper_ElfFile::getSegmentType(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentType(index));
+}
+
+qint64  PythonQtWrapper_ElfFile::getSegmentVaddr(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentVaddr(index));
+}
+
+int  PythonQtWrapper_ElfFile::getSegmentcount(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getSegmentcount());
+}
+
+QString  PythonQtWrapper_ElfFile::getType(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getType());
+}
+
+qint64  PythonQtWrapper_ElfFile::getVersion(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getVersion());
+}
+
+bool  PythonQtWrapper_ElfFile::static_ElfFile_isElf(const QString&  File)
+{
+  return (ElfFile::isElf(File));
+}
+
+bool  PythonQtWrapper_ElfFile::iself(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->iself());
 }
 
 bool  PythonQtWrapper_ElfFile::isopened(ElfFile* theWrappedObject)
 {
-  return ( theWrappedObject->isopened());
+  return ( ((PythonQtPublicPromoter_ElfFile*)theWrappedObject)->promoted_isopened());
 }
 
 bool  PythonQtWrapper_ElfFile::openFile(ElfFile* theWrappedObject, const QString&  File)
 {
-  return ( theWrappedObject->openFile(File));
+  return ( ((PythonQtPublicPromoter_ElfFile*)theWrappedObject)->promoted_openFile(File));
 }
 
 
@@ -473,9 +721,147 @@ QString  PythonQtWrapper_XByteArray::toRedableString(XByteArray* theWrappedObjec
 
 
 
+PythonQtShell_abstractExecFile::~PythonQtShell_abstractExecFile() {
+  PythonQtPrivate* priv = PythonQt::priv();
+  if (priv) { priv->shellClassDeleted(this); }
+}
+int  PythonQtShell_abstractExecFile::closeFile()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "closeFile");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"int"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      int returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("closeFile", methodInfo, result);
+        } else {
+          returnValue = *((int*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return int();
+}
+QList<codeFragment* >  PythonQtShell_abstractExecFile::getFragments()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "getFragments");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"QList<codeFragment* >"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      QList<codeFragment* > returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("getFragments", methodInfo, result);
+        } else {
+          returnValue = *((QList<codeFragment* >*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return QList<codeFragment* >();
+}
+bool  PythonQtShell_abstractExecFile::isopened()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "isopened");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"bool"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      bool returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("isopened", methodInfo, result);
+        } else {
+          returnValue = *((bool*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return bool();
+}
+bool  PythonQtShell_abstractExecFile::openFile(const QString&  File)
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "openFile");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"bool" , "const QString&"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(2, argumentList);
+      bool returnValue;
+    void* args[2] = {NULL, (void*)&File};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("openFile", methodInfo, result);
+        } else {
+          returnValue = *((bool*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return bool();
+}
+abstractExecFile* PythonQtWrapper_abstractExecFile::new_abstractExecFile()
+{ 
+return new PythonQtShell_abstractExecFile(); }
+
+
+
+PythonQtShell_codeFragment::~PythonQtShell_codeFragment() {
+  PythonQtPrivate* priv = PythonQt::priv();
+  if (priv) { priv->shellClassDeleted(this); }
+}
+codeFragment* PythonQtWrapper_codeFragment::new_codeFragment()
+{ 
+return new PythonQtShell_codeFragment(); }
+
+
+
 elfFileWidget* PythonQtWrapper_elfFileWidget::new_elfFileWidget(QWidget*  parent)
 { 
 return new elfFileWidget(parent); }
+
+
+
+elfInfoWdgt* PythonQtWrapper_elfInfoWdgt::new_elfInfoWdgt(QWidget*  parent)
+{ 
+return new elfInfoWdgt(parent); }
 
 
 
@@ -508,14 +894,34 @@ QString  PythonQtWrapper_elfparser::getEndianness(elfparser* theWrappedObject)
   return ( theWrappedObject->getEndianness());
 }
 
+qint64  PythonQtWrapper_elfparser::getEntryPointAddress(elfparser* theWrappedObject)
+{
+  return ( theWrappedObject->getEntryPointAddress());
+}
+
 bool  PythonQtWrapper_elfparser::getSectionData(elfparser* theWrappedObject, int  index, char**  buffer)
 {
   return ( theWrappedObject->getSectionData(index, buffer));
 }
 
+qint64  PythonQtWrapper_elfparser::getSectionDatasz(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionDatasz(index));
+}
+
+qint64  PythonQtWrapper_elfparser::getSectionMemsz(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionMemsz(index));
+}
+
 QString  PythonQtWrapper_elfparser::getSectionName(elfparser* theWrappedObject, int  index)
 {
   return ( theWrappedObject->getSectionName(index));
+}
+
+qint64  PythonQtWrapper_elfparser::getSectionPaddr(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSectionPaddr(index));
 }
 
 QString  PythonQtWrapper_elfparser::getSectionType(elfparser* theWrappedObject, int  index)
@@ -528,14 +934,39 @@ int  PythonQtWrapper_elfparser::getSectioncount(elfparser* theWrappedObject)
   return ( theWrappedObject->getSectioncount());
 }
 
+qint64  PythonQtWrapper_elfparser::getSegmentFilesz(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentFilesz(index));
+}
+
 QString  PythonQtWrapper_elfparser::getSegmentFlags(elfparser* theWrappedObject, int  index)
 {
   return ( theWrappedObject->getSegmentFlags(index));
 }
 
+qint64  PythonQtWrapper_elfparser::getSegmentMemsz(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentMemsz(index));
+}
+
+qint64  PythonQtWrapper_elfparser::getSegmentOffset(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentOffset(index));
+}
+
+qint64  PythonQtWrapper_elfparser::getSegmentPaddr(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentPaddr(index));
+}
+
 QString  PythonQtWrapper_elfparser::getSegmentType(elfparser* theWrappedObject, int  index)
 {
   return ( theWrappedObject->getSegmentType(index));
+}
+
+qint64  PythonQtWrapper_elfparser::getSegmentVaddr(elfparser* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSegmentVaddr(index));
 }
 
 int  PythonQtWrapper_elfparser::getSegmentcount(elfparser* theWrappedObject)
@@ -546,6 +977,11 @@ int  PythonQtWrapper_elfparser::getSegmentcount(elfparser* theWrappedObject)
 QString  PythonQtWrapper_elfparser::getType(elfparser* theWrappedObject)
 {
   return ( theWrappedObject->getType());
+}
+
+qint64  PythonQtWrapper_elfparser::getVersion(elfparser* theWrappedObject)
+{
+  return ( theWrappedObject->getVersion());
 }
 
 bool  PythonQtWrapper_elfparser::static_elfparser_isElf(const QString&  File)

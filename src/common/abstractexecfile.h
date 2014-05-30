@@ -22,26 +22,27 @@
 #ifndef ABSTRACTEXECFILE_H
 #define ABSTRACTEXECFILE_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
 class codeFragment
 {
 public:
     codeFragment();
+    codeFragment(char* data, quint32 size, quint32 address):data(data),size(size),address(address){}
     char* data;
     quint32 size;
     quint32 address;
 };
 
-class abstractExecFile
+class abstractExecFile : public QObject
 {
+    Q_OBJECT
 public:
-    abstractExecFile();
-    abstractExecFile(const QString& File);
+//    virtual abstractExecFile()=0;
     virtual bool openFile(const QString& File)=0;
     virtual bool isopened()=0;
     virtual int closeFile()=0;
-    virtual QList<codeFragment> getFragments()=0;
+    virtual QList<codeFragment*> getFragments()=0;
 
 protected:
     QString p_fileName;

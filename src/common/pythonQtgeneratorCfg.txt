@@ -1,16 +1,8 @@
 <typesystem package="PySocExplorer" default-superclass="com.trolltech.qt.QtJambiObject">
-    <load-typesystem name=":/trolltech/generator/typesystem_core.txt" generate="yes" />
-    <load-typesystem name=":/trolltech/generator/typesystem_gui.txt" generate="yes" />
-    <load-typesystem name=":/trolltech/generator/typesystem_sql.txt" generate="no" />
-    <load-typesystem name=":/trolltech/generator/typesystem_opengl.txt" generate="no" />
-    <load-typesystem name=":/trolltech/generator/typesystem_svg.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_core.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_gui.txt" generate="no" />
     <load-typesystem name=":/trolltech/generator/typesystem_network.txt" generate="no" />
-    <load-typesystem name=":/trolltech/generator/typesystem_xml.txt" generate="no" />
-    <load-typesystem name=":/trolltech/generator/typesystem_xmlpatterns.txt" generate="no" />
-    <load-typesystem name=":/trolltech/generator/typesystem_webkit.txt" generate="no" />
-    <load-typesystem name=":/trolltech/generator/typesystem_phonon.txt" generate="no" />
 
-    <rejection class="abstractExecFile" />
 
     <object-type name="QHexSpinBox" />
     <object-type name="MemSizeWdgt" />
@@ -18,10 +10,13 @@
     <object-type name="XByteArray" />
     <object-type name="SocExplorerPlot" />
     <object-type name="TCP_Terminal_Client" />
+    <object-type name="codeFragment" />
+    <rejection class="Elf_Section"/>
     <object-type name="elfparser" />
-    <object-type name="abstractExecFile" />
+    <interface-type name="abstractExecFile" />
     <object-type name="ElfFile" />
-    <object-type name="elfFileWidget" />   
+    <object-type name="elfFileWidget" />
+    <object-type name="elfInfoWdgt" />
 
 </typesystem>
 

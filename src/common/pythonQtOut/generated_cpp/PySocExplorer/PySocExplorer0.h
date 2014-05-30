@@ -2,8 +2,10 @@
 #include <QObject>
 #include <QVariant>
 #include <SocExplorerPlot.h>
+#include <abstractexecfile.h>
 #include <elffile.h>
 #include <elffilewidget.h>
+#include <elfinfowdgt.h>
 #include <elfparser.h>
 #include <memsizewdgt.h>
 #include <qhexedit.h>
@@ -13,14 +15,64 @@
 
 
 
+class PythonQtShell_ElfFile : public ElfFile
+{
+public:
+    PythonQtShell_ElfFile():ElfFile(),_wrapper(NULL) {};
+    PythonQtShell_ElfFile(const QString&  File):ElfFile(File),_wrapper(NULL) {};
+
+   ~PythonQtShell_ElfFile();
+
+virtual int  closeFile();
+virtual QList<codeFragment* >  getFragments();
+virtual bool  isopened();
+virtual bool  openFile(const QString&  File);
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtPublicPromoter_ElfFile : public ElfFile
+{ public:
+inline int  promoted_closeFile() { return ElfFile::closeFile(); }
+inline QList<codeFragment* >  promoted_getFragments() { return ElfFile::getFragments(); }
+inline bool  promoted_isopened() { return ElfFile::isopened(); }
+inline bool  promoted_openFile(const QString&  File) { return ElfFile::openFile(File); }
+};
+
 class PythonQtWrapper_ElfFile : public QObject
 { Q_OBJECT
 public:
 public slots:
-ElfFile* new_ElfFile(QObject*  parent = 0);
-ElfFile* new_ElfFile(const QString&  File, QObject*  parent = 0);
+ElfFile* new_ElfFile();
+ElfFile* new_ElfFile(const QString&  File);
 void delete_ElfFile(ElfFile* obj) { delete obj; } 
    int  closeFile(ElfFile* theWrappedObject);
+   QString  getABI(ElfFile* theWrappedObject);
+   QString  getArchitecture(ElfFile* theWrappedObject);
+   QString  getClass(ElfFile* theWrappedObject);
+   QString  getEndianness(ElfFile* theWrappedObject);
+   qint64  getEntryPointAddress(ElfFile* theWrappedObject);
+   QList<codeFragment* >  getFragments(ElfFile* theWrappedObject);
+   QList<codeFragment* >  getFragments(ElfFile* theWrappedObject, QStringList  fragmentList);
+   bool  getSectionData(ElfFile* theWrappedObject, int  index, char**  buffer);
+   qint64  getSectionDatasz(ElfFile* theWrappedObject, int  index);
+   qint64  getSectionMemsz(ElfFile* theWrappedObject, int  index);
+   QString  getSectionName(ElfFile* theWrappedObject, int  index);
+   qint64  getSectionPaddr(ElfFile* theWrappedObject, int  index);
+   QString  getSectionType(ElfFile* theWrappedObject, int  index);
+   int  getSectioncount(ElfFile* theWrappedObject);
+   qint64  getSegmentFilesz(ElfFile* theWrappedObject, int  index);
+   QString  getSegmentFlags(ElfFile* theWrappedObject, int  index);
+   qint64  getSegmentMemsz(ElfFile* theWrappedObject, int  index);
+   qint64  getSegmentOffset(ElfFile* theWrappedObject, int  index);
+   qint64  getSegmentPaddr(ElfFile* theWrappedObject, int  index);
+   QString  getSegmentType(ElfFile* theWrappedObject, int  index);
+   qint64  getSegmentVaddr(ElfFile* theWrappedObject, int  index);
+   int  getSegmentcount(ElfFile* theWrappedObject);
+   QString  getType(ElfFile* theWrappedObject);
+   qint64  getVersion(ElfFile* theWrappedObject);
+   bool  static_ElfFile_isElf(const QString&  File);
+   bool  iself(ElfFile* theWrappedObject);
    bool  isopened(ElfFile* theWrappedObject);
    bool  openFile(ElfFile* theWrappedObject, const QString&  File);
 };
@@ -203,12 +255,76 @@ void delete_XByteArray(XByteArray* obj) { delete obj; }
 
 
 
+class PythonQtShell_abstractExecFile : public abstractExecFile
+{
+public:
+    PythonQtShell_abstractExecFile():abstractExecFile(),_wrapper(NULL) {};
+
+   ~PythonQtShell_abstractExecFile();
+
+virtual int  closeFile();
+virtual QList<codeFragment* >  getFragments();
+virtual bool  isopened();
+virtual bool  openFile(const QString&  File);
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtWrapper_abstractExecFile : public QObject
+{ Q_OBJECT
+public:
+public slots:
+abstractExecFile* new_abstractExecFile();
+void delete_abstractExecFile(abstractExecFile* obj) { delete obj; } 
+};
+
+
+
+
+
+class PythonQtShell_codeFragment : public codeFragment
+{
+public:
+    PythonQtShell_codeFragment():codeFragment(),_wrapper(NULL) {};
+
+   ~PythonQtShell_codeFragment();
+
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtWrapper_codeFragment : public QObject
+{ Q_OBJECT
+public:
+public slots:
+codeFragment* new_codeFragment();
+void delete_codeFragment(codeFragment* obj) { delete obj; } 
+void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
+char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
+};
+
+
+
+
+
 class PythonQtWrapper_elfFileWidget : public QObject
 { Q_OBJECT
 public:
 public slots:
 elfFileWidget* new_elfFileWidget(QWidget*  parent = 0);
 void delete_elfFileWidget(elfFileWidget* obj) { delete obj; } 
+};
+
+
+
+
+
+class PythonQtWrapper_elfInfoWdgt : public QObject
+{ Q_OBJECT
+public:
+public slots:
+elfInfoWdgt* new_elfInfoWdgt(QWidget*  parent = 0);
+void delete_elfInfoWdgt(elfInfoWdgt* obj) { delete obj; } 
 };
 
 
@@ -226,14 +342,24 @@ void delete_elfparser(elfparser* obj) { delete obj; }
    QString  getArchitecture(elfparser* theWrappedObject);
    QString  getClass(elfparser* theWrappedObject);
    QString  getEndianness(elfparser* theWrappedObject);
+   qint64  getEntryPointAddress(elfparser* theWrappedObject);
    bool  getSectionData(elfparser* theWrappedObject, int  index, char**  buffer);
+   qint64  getSectionDatasz(elfparser* theWrappedObject, int  index);
+   qint64  getSectionMemsz(elfparser* theWrappedObject, int  index);
    QString  getSectionName(elfparser* theWrappedObject, int  index);
+   qint64  getSectionPaddr(elfparser* theWrappedObject, int  index);
    QString  getSectionType(elfparser* theWrappedObject, int  index);
    int  getSectioncount(elfparser* theWrappedObject);
+   qint64  getSegmentFilesz(elfparser* theWrappedObject, int  index);
    QString  getSegmentFlags(elfparser* theWrappedObject, int  index);
+   qint64  getSegmentMemsz(elfparser* theWrappedObject, int  index);
+   qint64  getSegmentOffset(elfparser* theWrappedObject, int  index);
+   qint64  getSegmentPaddr(elfparser* theWrappedObject, int  index);
    QString  getSegmentType(elfparser* theWrappedObject, int  index);
+   qint64  getSegmentVaddr(elfparser* theWrappedObject, int  index);
    int  getSegmentcount(elfparser* theWrappedObject);
    QString  getType(elfparser* theWrappedObject);
+   qint64  getVersion(elfparser* theWrappedObject);
    bool  static_elfparser_isElf(const QString&  File);
    bool  iself(elfparser* theWrappedObject);
    bool  isopened(elfparser* theWrappedObject);

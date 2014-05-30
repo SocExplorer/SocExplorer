@@ -21,17 +21,10 @@
 ----------------------------------------------------------------------------*/
 #include "abstractexecfile.h"
 
-abstractExecFile::abstractExecFile()
-{
-}
-
-abstractExecFile::abstractExecFile(const QString &File)
-{
-
-}
-
 
 codeFragment::codeFragment()
 {
-
+    data = NULL;
+    size = 0;
+    address = 0;
 }
