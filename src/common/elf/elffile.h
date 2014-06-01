@@ -40,8 +40,22 @@ public:
         this->data = data;
         this->section_header = section_header;
     }
+    ~Elf_Section()
+    {
+        free(section_header);
+    }
     Elf_Data*  data;
     GElf_Shdr* section_header;
+};
+
+class Elf_Symbol
+{
+public:
+    Elf_Symbol(){}
+    Elf_Symbol(const QString& name,GElf_Sym* sym):name(name),sym(sym){}
+    ~Elf_Symbol(){free(sym);}
+    QString name;
+    GElf_Sym* sym;
 };
 
 class ElfFile : public abstractExecFile
@@ -98,6 +112,7 @@ private:
     size_t SymbolCount,SectionCount,SegmentCount, shstrndx;
     QList<GElf_Phdr*> Segments;
     QList<Elf_Section*> sections;
+    QList<Elf_Symbol*> symbols;
 
 };
 

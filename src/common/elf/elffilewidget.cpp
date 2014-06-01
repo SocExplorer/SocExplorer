@@ -26,7 +26,7 @@ void elfFileWidget::updateElfFile(ElfFile *file)
         this->ui->entryPointLabel->setText(QString("0x%1").arg((uint)p_elf->getEntryPointAddress(),8,16));
         this->ui->typeLabel->setText(p_elf->getType());
         this->ui->sectionCountLabel->setText(QString::number(p_elf->getSectionCount()));
-//        this->ui->symbolCountLabel->setText(p_elf->get);
+        this->ui->symbolCountLabel->setText(QString::number(p_elf->getSymbolCount()));
     }
 }
 

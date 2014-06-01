@@ -61,6 +61,7 @@ bool ElfFile::openFile(const QString &File)
     elf_getshdrstrndx (this->e, &this->shstrndx);
     this->updateSegments();
     this->updateSections();
+    this->updateSymbols();
     this->opened = true;
     return 1;
 }
@@ -751,10 +752,32 @@ void ElfFile::updateSegments()
 
 void ElfFile::updateSymbols()
 {
+    for(int i=0;i<symbols.count();i++)
+    {
+        delete this->symbols.at(i);
+    }
+    this->symbols.clear();
+    updateSections(); //Useless in most case but safer to do it
+    for(int i=0;i<SectionCount;i++)
+    {
+        //First find Symbol table
+        if(this->getSectionName(i)==".symtab")
+        {
+            Elf_Section* sec = sections.at(i);
+            this->SymbolCount =   sec->section_header->sh_size / sec->section_header->sh_entsize;
+            //Then list all symbols
+            for(int j=0;j<this->SymbolCount;j++)
+            {
+                GElf_Sym* esym = (GElf_Sym*)malloc(sizeof(GElf_Sym));
+                gelf_getsym(sec->data, j, esym);
+                QString name = elf_strptr(this->e,sec->section_header->sh_link,esym->st_name);
+                Elf_Symbol* sym = new Elf_Symbol(name,esym);
+                symbols.append(sym);
+            }
+        }
+    }
 
 }
-
-
 
 
 
