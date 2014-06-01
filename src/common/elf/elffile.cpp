@@ -61,6 +61,7 @@ bool ElfFile::openFile(const QString &File)
     elf_getshdrstrndx (this->e, &this->shstrndx);
     this->updateSegments();
     this->updateSections();
+    this->opened = true;
     return 1;
 }
 
@@ -81,6 +82,7 @@ int ElfFile::closeFile()
         close(this->elfFile);
         this->elfFile = NULL;
     }
+    this->opened = false;
     return 0;
 }
 
@@ -106,7 +108,7 @@ QList<codeFragment*> ElfFile::getFragments()
 codeFragment *ElfFile::getFragment(const QString &name)
 {
     codeFragment* fragment= new codeFragment();
-    for(int i=0;i<getSectioncount();i++)
+    for(int i=0;i<getSectionCount();i++)
     {
         if(getSectionName(i) == name)
         {
@@ -392,7 +394,7 @@ QString ElfFile::getClass()
 
 bool ElfFile::iself()
 {
-    return this->type_elf;
+    return (this->getType()!="Unknow");
 }
 
 QString ElfFile::getArchitecture()
@@ -487,13 +489,18 @@ qint64 ElfFile::getEntryPointAddress()
 }
 
 
-int ElfFile::getSectioncount()
+int ElfFile::getSectionCount()
 {
     return (int)this->SectionCount;
 }
 
+int ElfFile::getSymbolCount()
+{
+    return (int)this->SymbolCount;
+}
 
-int ElfFile::getSegmentcount()
+
+int ElfFile::getSegmentCount()
 {
     return (int)this->SegmentCount;
 }
@@ -740,6 +747,11 @@ void ElfFile::updateSegments()
         gelf_getphdr (this->e , i , header );
         this->Segments.append(header);
     }
+}
+
+void ElfFile::updateSymbols()
+{
+
 }
 
 

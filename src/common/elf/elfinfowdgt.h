@@ -22,15 +22,15 @@
 #ifndef ELFINFOWDGT_H
 #define ELFINFOWDGT_H
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include "elfparser.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QTextEdit>
-#include <QTableWidget>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QTableWidget>
 #include <qhexedit.h>
-#include <QSplitter>
+#include <QtWidgets/QSplitter>
 
 class elfInfoWdgt : public QWidget
 {

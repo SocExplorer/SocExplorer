@@ -63,8 +63,9 @@ public:
     QString getABI();
     qint64 getVersion();
     qint64 getEntryPointAddress();
-    int getSectioncount();
-    int getSegmentcount();
+    int getSectionCount();
+    int getSymbolCount();
+    int getSegmentCount();
     QString getSegmentType(int index);
     qint64 getSegmentOffset(int index);
     qint64 getSegmentVaddr(int index);
@@ -85,6 +86,7 @@ private:
     codeFragment* getFragment(const QString& name);
     void updateSections();
     void updateSegments();
+    void updateSymbols();
     int elfFile;
     bool opened;
     bool type_elf;
@@ -93,7 +95,7 @@ private:
     GElf_Ehdr ehdr;
     Elf_Scn * scn;
     Elf_Data * data;
-    size_t SectionCount,SegmentCount, shstrndx;
+    size_t SymbolCount,SectionCount,SegmentCount, shstrndx;
     QList<GElf_Phdr*> Segments;
     QList<Elf_Section*> sections;
 

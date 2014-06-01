@@ -143,7 +143,7 @@
        <item row="1" column="0">
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>Sections</string>
+          <string>Sections &amp; Symbols</string>
          </property>
          <layout class="QFormLayout" name="formLayout_2">
           <item row="0" column="0">
@@ -156,7 +156,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_10">
             <property name="text">
-             <string>Sections begin address:</string>
+             <string>Symbols count:</string>
             </property>
            </widget>
           </item>
@@ -168,7 +168,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLabel" name="sectionBeginLabel">
+           <widget class="QLabel" name="symbolCountLabel">
             <property name="text">
              <string>none</string>
             </property>

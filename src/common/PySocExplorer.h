@@ -10,3 +10,4 @@
 #include "elf/elffile.h"
 #include "elf/elffilewidget.h"
 #include "elf/elfinfowdgt.h"
+#include "QCustomPlot/qcustomplot.h"

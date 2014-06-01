@@ -23,8 +23,10 @@ void elfFileWidget::updateElfFile(ElfFile *file)
         this->ui->machineLabel->setText(p_elf->getArchitecture());
         this->ui->endiannesLabel->setText(p_elf->getEndianness());
         this->ui->abiLabel->setText(p_elf->getABI());
-        this->ui->entryPointLabel->setText("0x"+QString::number(p_elf->getEntryPointAddress(),16,8));
-        this->ui->sectionCountLabel->setText(QString::number(p_elf->getSectioncount()));
+        this->ui->entryPointLabel->setText(QString("0x%1").arg((uint)p_elf->getEntryPointAddress(),8,16));
+        this->ui->typeLabel->setText(p_elf->getType());
+        this->ui->sectionCountLabel->setText(QString::number(p_elf->getSectionCount()));
+//        this->ui->symbolCountLabel->setText(p_elf->get);
     }
 }
 
