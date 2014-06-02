@@ -708,8 +708,12 @@ QString ElfFile::getSegmentFlags(int index)
 
 QString ElfFile::getSectionName(int index)
 {
-    char* nameChr = elf_strptr(this->e , this->shstrndx , this->sections.at(index)->section_header->sh_name);
-    return QString(nameChr);
+    if((index<sections.count()) && (index>=0))
+    {
+        char* nameChr = elf_strptr(this->e , this->shstrndx , this->sections.at(index)->section_header->sh_name);
+        return QString(nameChr);
+    }
+    return "";
 }
 
 
@@ -822,6 +826,162 @@ QString ElfFile::getSectionType(int index)
         }
     }
     return type;
+}
+
+QString ElfFile::getSymbolName(int index)
+{
+    if(this->e!=NULL)
+    {
+        if(index < this->symbols.count())
+        {
+            return symbols.at(index)->name;
+        }
+    }
+    return "";
+}
+
+QString ElfFile::getSymbolType(int index)
+{
+    if(this->e!=NULL)
+    {
+        if(index < this->symbols.count())
+        {
+            int type = GELF_ST_TYPE(symbols.at(index)->sym->st_info);
+            switch(type)
+            {
+            case STT_NOTYPE:
+                return "No Type";
+                break;
+            case STT_OBJECT:
+                return "Object";
+                break;
+            case STT_FUNC:
+                return "Function";
+                break;
+            case STT_SECTION:
+                return "Section";
+                break;
+            case STT_FILE:
+                return "File";
+                break;
+            case STT_COMMON:
+                return "Common data object";
+                break;
+            case STT_TLS:
+                return "Thread-local data object";
+                break;
+            case STT_NUM:
+                return "Number of defined types";
+                break;
+            case STT_LOOS:
+                return "Start of OS-specific";
+                break;
+            case STT_HIOS:
+                return "End of OS-specific";
+                break;
+            case STT_LOPROC:
+                return "Start of processor-specific";
+                break;
+            case STT_HIPROC:
+                return "End of processor-specific";
+                break;
+            default:
+                return "none";
+                break;
+            }
+        }
+    }
+    return "none";
+}
+
+quint64 ElfFile::getSymbolSize(int index)
+{
+    if(this->e!=NULL)
+    {
+        if((index < this->symbols.count()) && (index>=0))
+        {
+            return symbols.at(index)->sym->st_size;
+        }
+    }
+    return 0;
+}
+
+QString ElfFile::getSymbolSectionName(int index)
+{
+    if(this->e!=NULL)
+    {
+        if((index < this->symbols.count()) && (index>=0))
+        {
+           return getSectionName(symbols.at(index)->sym->st_shndx-1);
+        }
+    }
+    return "none";
+}
+
+int ElfFile::getSymbolSectionIndex(int index)
+{
+    if(this->e!=NULL)
+    {
+        if((index < this->symbols.count()) && (index>=0))
+        {
+           return symbols.at(index)->sym->st_shndx;
+        }
+    }
+    return 0;
+}
+
+quint64 ElfFile::getSymbolAddress(int index)
+{
+    if(this->e!=NULL)
+    {
+        if((index < this->symbols.count()) && (index>=0))
+        {
+            return symbols.at(index)->sym->st_value;
+        }
+    }
+    return 0;
+}
+
+QString ElfFile::getSymbolLinkType(int index)
+{
+    if(this->e!=NULL)
+    {
+        if(index < this->symbols.count())
+        {
+            int btype = GELF_ST_BIND(symbols.at(index)->sym->st_info);
+            switch(btype)
+            {
+            case STB_LOCAL:
+                return "Local";
+                break;
+            case STB_GLOBAL:
+                return "Global";
+                break;
+            case STB_WEAK:
+                return "Weak";
+                break;
+            case STB_NUM:
+                return "Number of defined types";
+                break;
+            case STB_LOOS:
+                return "Start of OS-specific";
+                break;
+            case STB_HIOS:
+                return "End of OS-specific";
+                break;
+            case STB_LOPROC:
+                return "Start of processor-specific";
+                break;
+            case STB_HIPROC:
+                return "End of processor-specific";
+                break;
+            default:
+                return "none";
+                break;
+            }
+        }
+    }
+    return "none";
 }
 
 bool ElfFile::isElf(const QString &File)

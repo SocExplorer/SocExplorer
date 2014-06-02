@@ -18,6 +18,7 @@ public:
 
 public slots:
     void updateElfFile(ElfFile* file);
+    void updateSymbols();
 
 private:
     Ui::elfFileWidget *ui;

@@ -1,5 +1,6 @@
 #include "elffilewidget.h"
 #include "ui_elffilewidget.h"
+#include <QtWidgets/QTableWidgetItem>
 
 elfFileWidget::elfFileWidget(QWidget *parent) :
     QWidget(parent),
@@ -28,8 +29,42 @@ void elfFileWidget::updateElfFile(ElfFile *file)
         this->ui->sectionCountLabel->setText(QString::number(p_elf->getSectionCount()));
         this->ui->symbolCountLabel->setText(QString::number(p_elf->getSymbolCount()));
     }
+    updateSymbols();
 }
 
+void elfFileWidget::updateSymbols()
+{
+    this->ui->symbolsList->clear();
+    this->ui->symbolsList->setRowCount(p_elf->getSymbolCount());
+    this->ui->symbolsList->setHorizontalHeaderLabels(QStringList()<<"Value"<<"Size"<<"Type"<<"Link"<<"Section"<<"Name");
+    for(int i=0;i<p_elf->getSymbolCount();i++)
+    {
+        QTableWidgetItem *newItem = new QTableWidgetItem(QString("0x%1").arg(p_elf->getSymbolAddress(i),8,16));
+        newItem->setFlags(newItem->flags() ^ Qt::ItemIsEditable);
+        this->ui->symbolsList->setItem(i, 0, newItem);
+
+        newItem = new QTableWidgetItem(QString("0x%1").arg(p_elf->getSymbolSize(i),8,16));
+        newItem->setFlags(newItem->flags() ^ Qt::ItemIsEditable);
+        this->ui->symbolsList->setItem(i, 1, newItem);
+
+        newItem = new QTableWidgetItem(p_elf->getSymbolType(i));
+        newItem->setFlags(newItem->flags() ^ Qt::ItemIsEditable);
+        this->ui->symbolsList->setItem(i, 2, newItem);
+
+        newItem = new QTableWidgetItem(p_elf->getSymbolLinkType(i));
+        newItem->setFlags(newItem->flags() ^ Qt::ItemIsEditable);
+        this->ui->symbolsList->setItem(i, 3, newItem);
+
+        newItem = new QTableWidgetItem(p_elf->getSymbolSectionName(i));
+        newItem->setFlags(newItem->flags() ^ Qt::ItemIsEditable);
+        this->ui->symbolsList->setItem(i, 4, newItem);
+
+        newItem = new QTableWidgetItem(p_elf->getSymbolName(i));
+        newItem->setFlags(newItem->flags() ^ Qt::ItemIsEditable);
+        this->ui->symbolsList->setItem(i, 5, newItem);
+    }
+    this->ui->symbolsList->resizeColumnsToContents();
+}
 
 
 

@@ -77,22 +77,33 @@ public:
     QString getABI();
     qint64 getVersion();
     qint64 getEntryPointAddress();
+
     int getSectionCount();
     int getSymbolCount();
     int getSegmentCount();
+
     QString getSegmentType(int index);
     qint64 getSegmentOffset(int index);
     qint64 getSegmentVaddr(int index);
     qint64 getSegmentPaddr(int index);
-    qint64 getSectionPaddr(int index);
     qint64 getSegmentFilesz(int index);
     qint64 getSectionDatasz(int index);
-    bool getSectionData(int index, char **buffer);
     qint64 getSegmentMemsz(int index);
-    qint64 getSectionMemsz(int index);
     QString getSegmentFlags(int index);
+
+    bool getSectionData(int index, char **buffer);
+    qint64 getSectionPaddr(int index);
+    qint64 getSectionMemsz(int index);
     QString getSectionName(int index);
     QString getSectionType(int index);
+
+    QString getSymbolName(int index);
+    QString getSymbolType(int index);
+    quint64 getSymbolSize(int index);
+    QString getSymbolSectionName(int index);
+    int getSymbolSectionIndex(int index);
+    quint64 getSymbolAddress(int index);
+    QString getSymbolLinkType(int index);
     bool iself();
     static bool isElf(const QString& File);
 
