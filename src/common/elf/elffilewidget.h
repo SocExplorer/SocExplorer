@@ -19,6 +19,10 @@ public:
 public slots:
     void updateElfFile(ElfFile* file);
     void updateSymbols();
+    void updateSections();
+
+private slots:
+    void sectionCellActivated(int row, int column);
 
 private:
     Ui::elfFileWidget *ui;

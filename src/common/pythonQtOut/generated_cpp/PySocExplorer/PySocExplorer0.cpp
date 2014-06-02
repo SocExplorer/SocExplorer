@@ -210,6 +210,11 @@ QList<codeFragment* >  PythonQtWrapper_ElfFile::getFragments(ElfFile* theWrapped
   return ( theWrappedObject->getFragments(fragmentList));
 }
 
+int  PythonQtWrapper_ElfFile::getSectionCount(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getSectionCount());
+}
+
 bool  PythonQtWrapper_ElfFile::getSectionData(ElfFile* theWrappedObject, int  index, char**  buffer)
 {
   return ( theWrappedObject->getSectionData(index, buffer));
@@ -218,6 +223,11 @@ bool  PythonQtWrapper_ElfFile::getSectionData(ElfFile* theWrappedObject, int  in
 qint64  PythonQtWrapper_ElfFile::getSectionDatasz(ElfFile* theWrappedObject, int  index)
 {
   return ( theWrappedObject->getSectionDatasz(index));
+}
+
+int  PythonQtWrapper_ElfFile::getSectionIndex(ElfFile* theWrappedObject, QString  name)
+{
+  return ( theWrappedObject->getSectionIndex(name));
 }
 
 qint64  PythonQtWrapper_ElfFile::getSectionMemsz(ElfFile* theWrappedObject, int  index)
@@ -240,9 +250,9 @@ QString  PythonQtWrapper_ElfFile::getSectionType(ElfFile* theWrappedObject, int 
   return ( theWrappedObject->getSectionType(index));
 }
 
-int  PythonQtWrapper_ElfFile::getSectioncount(ElfFile* theWrappedObject)
+int  PythonQtWrapper_ElfFile::getSegmentCount(ElfFile* theWrappedObject)
 {
-  return ( theWrappedObject->getSectionCount());
+  return ( theWrappedObject->getSegmentCount());
 }
 
 qint64  PythonQtWrapper_ElfFile::getSegmentFilesz(ElfFile* theWrappedObject, int  index)
@@ -280,9 +290,44 @@ qint64  PythonQtWrapper_ElfFile::getSegmentVaddr(ElfFile* theWrappedObject, int 
   return ( theWrappedObject->getSegmentVaddr(index));
 }
 
-int  PythonQtWrapper_ElfFile::getSegmentcount(ElfFile* theWrappedObject)
+quint64  PythonQtWrapper_ElfFile::getSymbolAddress(ElfFile* theWrappedObject, int  index)
 {
-  return ( theWrappedObject->getSegmentCount());
+  return ( theWrappedObject->getSymbolAddress(index));
+}
+
+int  PythonQtWrapper_ElfFile::getSymbolCount(ElfFile* theWrappedObject)
+{
+  return ( theWrappedObject->getSymbolCount());
+}
+
+QString  PythonQtWrapper_ElfFile::getSymbolLinkType(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSymbolLinkType(index));
+}
+
+QString  PythonQtWrapper_ElfFile::getSymbolName(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSymbolName(index));
+}
+
+int  PythonQtWrapper_ElfFile::getSymbolSectionIndex(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSymbolSectionIndex(index));
+}
+
+QString  PythonQtWrapper_ElfFile::getSymbolSectionName(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSymbolSectionName(index));
+}
+
+quint64  PythonQtWrapper_ElfFile::getSymbolSize(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSymbolSize(index));
+}
+
+QString  PythonQtWrapper_ElfFile::getSymbolType(ElfFile* theWrappedObject, int  index)
+{
+  return ( theWrappedObject->getSymbolType(index));
 }
 
 QString  PythonQtWrapper_ElfFile::getType(ElfFile* theWrappedObject)

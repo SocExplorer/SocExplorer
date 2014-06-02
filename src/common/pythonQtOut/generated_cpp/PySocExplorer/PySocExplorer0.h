@@ -92,13 +92,15 @@ void delete_ElfFile(ElfFile* obj) { delete obj; }
    qint64  getEntryPointAddress(ElfFile* theWrappedObject);
    QList<codeFragment* >  getFragments(ElfFile* theWrappedObject);
    QList<codeFragment* >  getFragments(ElfFile* theWrappedObject, QStringList  fragmentList);
+   int  getSectionCount(ElfFile* theWrappedObject);
    bool  getSectionData(ElfFile* theWrappedObject, int  index, char**  buffer);
    qint64  getSectionDatasz(ElfFile* theWrappedObject, int  index);
+   int  getSectionIndex(ElfFile* theWrappedObject, QString  name);
    qint64  getSectionMemsz(ElfFile* theWrappedObject, int  index);
    QString  getSectionName(ElfFile* theWrappedObject, int  index);
    qint64  getSectionPaddr(ElfFile* theWrappedObject, int  index);
    QString  getSectionType(ElfFile* theWrappedObject, int  index);
-   int  getSectioncount(ElfFile* theWrappedObject);
+   int  getSegmentCount(ElfFile* theWrappedObject);
    qint64  getSegmentFilesz(ElfFile* theWrappedObject, int  index);
    QString  getSegmentFlags(ElfFile* theWrappedObject, int  index);
    qint64  getSegmentMemsz(ElfFile* theWrappedObject, int  index);
@@ -106,7 +108,14 @@ void delete_ElfFile(ElfFile* obj) { delete obj; }
    qint64  getSegmentPaddr(ElfFile* theWrappedObject, int  index);
    QString  getSegmentType(ElfFile* theWrappedObject, int  index);
    qint64  getSegmentVaddr(ElfFile* theWrappedObject, int  index);
-   int  getSegmentcount(ElfFile* theWrappedObject);
+   quint64  getSymbolAddress(ElfFile* theWrappedObject, int  index);
+   int  getSymbolCount(ElfFile* theWrappedObject);
+   QString  getSymbolLinkType(ElfFile* theWrappedObject, int  index);
+   QString  getSymbolName(ElfFile* theWrappedObject, int  index);
+   int  getSymbolSectionIndex(ElfFile* theWrappedObject, int  index);
+   QString  getSymbolSectionName(ElfFile* theWrappedObject, int  index);
+   quint64  getSymbolSize(ElfFile* theWrappedObject, int  index);
+   QString  getSymbolType(ElfFile* theWrappedObject, int  index);
    QString  getType(ElfFile* theWrappedObject);
    qint64  getVersion(ElfFile* theWrappedObject);
    bool  static_ElfFile_isElf(const QString&  File);
@@ -589,12 +598,12 @@ public slots:
 codeFragment* new_codeFragment();
 codeFragment* new_codeFragment(char*  data, unsigned int  size, unsigned int  address);
 void delete_codeFragment(codeFragment* obj) { delete obj; } 
-void py_set_size(codeFragment* theWrappedObject, unsigned int  size){ theWrappedObject->size = size; }
-unsigned int  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
-void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
-char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
 void py_set_address(codeFragment* theWrappedObject, unsigned int  address){ theWrappedObject->address = address; }
 unsigned int  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
+void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
+char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
+void py_set_size(codeFragment* theWrappedObject, unsigned int  size){ theWrappedObject->size = size; }
+unsigned int  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
 };
 
 

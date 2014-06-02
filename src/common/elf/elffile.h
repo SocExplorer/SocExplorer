@@ -64,6 +64,7 @@ class ElfFile : public abstractExecFile
 public:
     ElfFile();
     ElfFile(const QString& File);
+    ~ElfFile();
     bool openFile(const QString& File);
     bool isopened();
     int closeFile();
@@ -96,6 +97,7 @@ public:
     qint64 getSectionMemsz(int index);
     QString getSectionName(int index);
     QString getSectionType(int index);
+    int getSectionIndex(QString name);
 
     QString getSymbolName(int index);
     QString getSymbolType(int index);

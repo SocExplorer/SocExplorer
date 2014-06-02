@@ -40,7 +40,8 @@ header.files = \
     elf/elffile.h \
     elf/elffilewidget.h \
     qipdialogbox.h \
-    lppserial/src/RS232.h
+    lppserial/src/RS232.h \
+    qtablewidgetintitem.h
 
 win32{
     elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/libelf
@@ -85,7 +86,8 @@ HEADERS += \
     qipdialogbox.h \
     PySocExplorer.h \
     SocExplorerPlot.h \
-    elf/elffilewidget.h
+    elf/elffilewidget.h \
+    qtablewidgetintitem.h
 
 
 SOURCES += \
@@ -104,7 +106,8 @@ SOURCES += \
     elf/elffile.cpp \
     qipdialogbox.cpp \
     SocExplorerPlot.cpp \
-    elf/elffilewidget.cpp
+    elf/elffilewidget.cpp \
+    qtablewidgetintitem.cpp
 
 FORMS += \
     elf/elffilewidget.ui

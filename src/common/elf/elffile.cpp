@@ -43,6 +43,28 @@ ElfFile::ElfFile(const QString &File)
     openFile(File);
 }
 
+ElfFile::~ElfFile()
+{
+    closeFile();
+    if(scn)free(scn);
+    if(data)free(data);
+    for(int i=0;i<this->sections.count();i++)
+    {
+        delete this->sections.at(i);
+    }
+    this->sections.clear();
+    for(int i=0;i<this->Segments.count();i++)
+    {
+        free(this->Segments.at(i));
+    }
+    this->Segments.clear();
+    for(int i=0;i<symbols.count();i++)
+    {
+        delete this->symbols.at(i);
+    }
+    this->symbols.clear();
+}
+
 bool ElfFile::openFile(const QString &File)
 {
     this->p_fileName = File;
@@ -826,6 +848,19 @@ QString ElfFile::getSectionType(int index)
         }
     }
     return type;
+}
+
+int ElfFile::getSectionIndex(QString name)
+{
+    if(this->e!=NULL)
+    {
+        for(int i=0;i<sections.count();i++)
+        {
+           if(getSectionName(i)==name)
+               return i;
+        }
+    }
+    return -1;
 }
 
 QString ElfFile::getSymbolName(int index)
