@@ -16,5 +16,7 @@ PythonQt::priv()->registerCPPClass("codeFragment", "", "PySocExplorer", PythonQt
 PythonQt::priv()->registerClass(&elfFileWidget::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_elfFileWidget>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_elfFileWidget>, module, 0);
 PythonQt::priv()->registerClass(&elfInfoWdgt::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_elfInfoWdgt>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_elfInfoWdgt>, module, 0);
 PythonQt::priv()->registerCPPClass("elfparser", "", "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_elfparser>, NULL, module, 0);
+PythonQt::priv()->registerClass(&srecFile::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_srecFile>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_srecFile>, module, 0);
+PythonQt::self()->addParentClass("srecFile", "abstractExecFile",PythonQtUpcastingOffset<srecFile,abstractExecFile>());
 
 }

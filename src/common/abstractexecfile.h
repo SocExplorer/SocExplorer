@@ -45,7 +45,7 @@ public:
     virtual QList<codeFragment*> getFragments()=0;
 
 protected:
-    QString p_fileName;
+     QString p_fileName;
 };
 
 #endif // ABSTRACTEXECFILE_H

@@ -11,3 +11,4 @@
 #include "elf/elffilewidget.h"
 #include "elf/elfinfowdgt.h"
 #include "QCustomPlot/qcustomplot.h"
+#include "srec/srecfile.h"

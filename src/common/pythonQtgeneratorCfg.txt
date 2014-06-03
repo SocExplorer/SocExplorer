@@ -17,6 +17,7 @@
     <object-type name="SocExplorerPlot" />
     <object-type name="TCP_Terminal_Client" />
     <object-type name="codeFragment" />
+    <object-type name="srecFile" />
     <rejection class="Elf_Section"/>
     <object-type name="elfparser" />
     <interface-type name="abstractExecFile">

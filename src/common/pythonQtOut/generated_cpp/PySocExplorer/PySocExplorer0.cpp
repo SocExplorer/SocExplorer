@@ -17,6 +17,7 @@
 #include <qcoreevent.h>
 #include <qcursor.h>
 #include <qevent.h>
+#include <qfile.h>
 #include <qfont.h>
 #include <qgraphicseffect.h>
 #include <qgraphicsproxywidget.h>
@@ -6907,6 +6908,161 @@ bool  PythonQtWrapper_elfparser::isopened(elfparser* theWrappedObject)
 int  PythonQtWrapper_elfparser::setFilename(elfparser* theWrappedObject, const QString&  name)
 {
   return ( theWrappedObject->setFilename(name));
+}
+
+
+
+PythonQtShell_srecFile::~PythonQtShell_srecFile() {
+  PythonQtPrivate* priv = PythonQt::priv();
+  if (priv) { priv->shellClassDeleted(this); }
+}
+int  PythonQtShell_srecFile::closeFile()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "closeFile");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"int"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      int returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("closeFile", methodInfo, result);
+        } else {
+          returnValue = *((int*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return srecFile::closeFile();
+}
+QList<codeFragment* >  PythonQtShell_srecFile::getFragments()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "getFragments");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"QList<codeFragment* >"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      QList<codeFragment* > returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("getFragments", methodInfo, result);
+        } else {
+          returnValue = *((QList<codeFragment* >*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return srecFile::getFragments();
+}
+bool  PythonQtShell_srecFile::isopened()
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "isopened");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"bool"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(1, argumentList);
+      bool returnValue;
+    void* args[1] = {NULL};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("isopened", methodInfo, result);
+        } else {
+          returnValue = *((bool*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return srecFile::isopened();
+}
+bool  PythonQtShell_srecFile::openFile(const QString&  File)
+{
+if (_wrapper) {
+  PyObject* obj = PyObject_GetAttrString((PyObject*)_wrapper, "openFile");
+  PyErr_Clear();
+  if (obj && !PythonQtSlotFunction_Check(obj)) {
+    static const char* argumentList[] ={"bool" , "const QString&"};
+    static const PythonQtMethodInfo* methodInfo = PythonQtMethodInfo::getCachedMethodInfoFromArgumentList(2, argumentList);
+      bool returnValue;
+    void* args[2] = {NULL, (void*)&File};
+    PyObject* result = PythonQtSignalTarget::call(obj, methodInfo, args, true);
+    if (result) {
+      args[0] = PythonQtConv::ConvertPythonToQt(methodInfo->parameters().at(0), result, false, NULL, &returnValue);
+      if (args[0]!=&returnValue) {
+        if (args[0]==NULL) {
+          PythonQt::priv()->handleVirtualOverloadReturnError("openFile", methodInfo, result);
+        } else {
+          returnValue = *((bool*)args[0]);
+        }
+      }
+    }
+    if (result) { Py_DECREF(result); } 
+    Py_DECREF(obj);
+    return returnValue;
+  }
+}
+  return srecFile::openFile(File);
+}
+srecFile* PythonQtWrapper_srecFile::new_srecFile()
+{ 
+return new PythonQtShell_srecFile(); }
+
+srecFile* PythonQtWrapper_srecFile::new_srecFile(const QString&  File)
+{ 
+return new PythonQtShell_srecFile(File); }
+
+srecFile* PythonQtWrapper_srecFile::new_srecFile(const QStringList&  Files)
+{ 
+return new PythonQtShell_srecFile(Files); }
+
+int  PythonQtWrapper_srecFile::closeFile(srecFile* theWrappedObject)
+{
+  return ( ((PythonQtPublicPromoter_srecFile*)theWrappedObject)->promoted_closeFile());
+}
+
+QList<codeFragment* >  PythonQtWrapper_srecFile::getFragments(srecFile* theWrappedObject)
+{
+  return ( ((PythonQtPublicPromoter_srecFile*)theWrappedObject)->promoted_getFragments());
+}
+
+bool  PythonQtWrapper_srecFile::isopened(srecFile* theWrappedObject)
+{
+  return ( ((PythonQtPublicPromoter_srecFile*)theWrappedObject)->promoted_isopened());
+}
+
+bool  PythonQtWrapper_srecFile::openFile(srecFile* theWrappedObject, const QString&  File)
+{
+  return ( ((PythonQtPublicPromoter_srecFile*)theWrappedObject)->promoted_openFile(File));
+}
+
+bool  PythonQtWrapper_srecFile::openFiles(srecFile* theWrappedObject, const QStringList&  Files)
+{
+  return ( theWrappedObject->openFiles(Files));
 }
 
 

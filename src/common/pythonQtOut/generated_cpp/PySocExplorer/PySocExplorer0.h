@@ -18,6 +18,7 @@
 #include <qcoreevent.h>
 #include <qcursor.h>
 #include <qevent.h>
+#include <qfile.h>
 #include <qfont.h>
 #include <qgraphicseffect.h>
 #include <qgraphicsproxywidget.h>
@@ -48,6 +49,7 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qwidget.h>
+#include <srecfile.h>
 #include <tcp_terminal_client.h>
 #include <xbytearray.h>
 
@@ -777,6 +779,50 @@ void delete_elfparser(elfparser* obj) { delete obj; }
    bool  iself(elfparser* theWrappedObject);
    bool  isopened(elfparser* theWrappedObject);
    int  setFilename(elfparser* theWrappedObject, const QString&  name);
+};
+
+
+
+
+
+class PythonQtShell_srecFile : public srecFile
+{
+public:
+    PythonQtShell_srecFile():srecFile(),_wrapper(NULL) {};
+    PythonQtShell_srecFile(const QString&  File):srecFile(File),_wrapper(NULL) {};
+    PythonQtShell_srecFile(const QStringList&  Files):srecFile(Files),_wrapper(NULL) {};
+
+   ~PythonQtShell_srecFile();
+
+virtual int  closeFile();
+virtual QList<codeFragment* >  getFragments();
+virtual bool  isopened();
+virtual bool  openFile(const QString&  File);
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtPublicPromoter_srecFile : public srecFile
+{ public:
+inline int  promoted_closeFile() { return srecFile::closeFile(); }
+inline QList<codeFragment* >  promoted_getFragments() { return srecFile::getFragments(); }
+inline bool  promoted_isopened() { return srecFile::isopened(); }
+inline bool  promoted_openFile(const QString&  File) { return srecFile::openFile(File); }
+};
+
+class PythonQtWrapper_srecFile : public QObject
+{ Q_OBJECT
+public:
+public slots:
+srecFile* new_srecFile();
+srecFile* new_srecFile(const QString&  File);
+srecFile* new_srecFile(const QStringList&  Files);
+void delete_srecFile(srecFile* obj) { delete obj; } 
+   int  closeFile(srecFile* theWrappedObject);
+   QList<codeFragment* >  getFragments(srecFile* theWrappedObject);
+   bool  isopened(srecFile* theWrappedObject);
+   bool  openFile(srecFile* theWrappedObject, const QString&  File);
+   bool  openFiles(srecFile* theWrappedObject, const QStringList&  Files);
 };
 
 

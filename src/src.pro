@@ -22,6 +22,7 @@ INCLUDEPATH+=$${PWD} \
             $${PWD}/common/qhexedit \
             $${PWD}/common/QCustomPlot \
             $${PWD}/common/elf \
+            $${PWD}/common/srec \
             SocExplorerEngine/engine \
             SocExplorerEngine/pluginloader \
             SocExplorerEngine/pluginsInterface \
