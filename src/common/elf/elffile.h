@@ -19,7 +19,7 @@
 /*--                  Author : Alexis Jeandet
 --                     Mail : alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
-#include <abstractexecfile.h>
+#include <abstractbinfile.h>
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 #include <libelf.h>
@@ -58,7 +58,7 @@ public:
     GElf_Sym* sym;
 };
 
-class ElfFile : public abstractExecFile
+class ElfFile : public abstractBinFile
 {
        Q_OBJECT
 public:
@@ -108,6 +108,8 @@ public:
     QString getSymbolLinkType(int index);
     bool iself();
     static bool isElf(const QString& File);
+
+    bool toSrec(const QString& File);
 
 private:
     codeFragment* getFragment(const QString& name);

@@ -2,11 +2,11 @@
 #define SRECFILE_H
 
 #include <QObject>
-#include <abstractexecfile.h>
+#include <abstractbinfile.h>
 #include <QFile>
 #include <QStringList>
 
-class srecFile : public abstractExecFile
+class srecFile : public abstractBinFile
 {
     Q_OBJECT
 public:
@@ -19,15 +19,27 @@ public:
     bool isopened();
     int closeFile();
     QList<codeFragment*> getFragments();
+    static bool toSrec(QList<codeFragment*> fragments,const QString& File);
+    int lineCount();
+    int getFragmentsCount();
+    int getFragmentAddress(int index);
+    int getFragmentSize(int index);
+    QString getFragmentHeader(int index);
+    bool getFragmentData(int index, char **buffer);
 
+    bool isSREC();
+    static bool isSREC(const QString& File);
 signals:
 
 public slots:
 private:
     void parseFile(QFile* file);
+    static char lineCheckSum(const QString& line);
     QStringList p_fileNames;
     QList<QFile*>p_files;
     QList<codeFragment*> p_fragments;
+    int p_lineCount;
+    bool p_isSrec;
 
 };
 

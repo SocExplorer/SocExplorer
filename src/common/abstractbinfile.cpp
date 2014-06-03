@@ -19,7 +19,7 @@
 /*--                  Author : Alexis Jeandet
 --                     Mail : alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
-#include "abstractexecfile.h"
+#include "abstractbinfile.h"
 
 
 codeFragment::codeFragment()

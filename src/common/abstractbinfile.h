@@ -19,8 +19,8 @@
 /*--                  Author : Alexis Jeandet
 --                     Mail : alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
-#ifndef ABSTRACTEXECFILE_H
-#define ABSTRACTEXECFILE_H
+#ifndef ABSTRACTBINFILE_H
+#define ABSTRACTBINFILE_H
 
 #include <QtCore/QObject>
 
@@ -28,13 +28,14 @@ class codeFragment
 {
 public:
     codeFragment();
-    codeFragment(char* data, quint32 size, quint32 address):data(data),size(size),address(address){}
+    codeFragment(char* data, quint64 size, quint64 address):data(data),size(size),address(address){}
+    QString header;
     char* data;
-    quint32 size;
-    quint32 address;
+    quint64 size;
+    quint64 address;
 };
 
-class abstractExecFile : public QObject
+class abstractBinFile : public QObject
 {
     Q_OBJECT
 public:
@@ -48,4 +49,4 @@ protected:
      QString p_fileName;
 };
 
-#endif // ABSTRACTEXECFILE_H
+#endif // ABSTRACTBINFILE_H

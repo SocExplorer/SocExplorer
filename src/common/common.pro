@@ -42,7 +42,9 @@ header.files = \
     qipdialogbox.h \
     lppserial/src/RS232.h \
     qtablewidgetintitem.h \
-    srec/srecfile.h
+    srec/srecfile.h \
+    srec/srecfilewidget.h \
+    abstractbinfile.cpp
 
 win32{
     elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/libelf
@@ -68,7 +70,7 @@ isEmpty(header.path) {
 
 INSTALLS += target header
 
-INCLUDEPATH += QCustomPlot qhexedit
+INCLUDEPATH += QCustomPlot qhexedit srec
 
 HEADERS += \
     memsizewdgt.h \
@@ -82,14 +84,15 @@ HEADERS += \
     tcp_terminal_client.h \
     elf/elfinfowdgt.h \
     elf/elfparser.h \
-    abstractexecfile.h \
     elf/elffile.h \
     qipdialogbox.h \
     PySocExplorer.h \
     SocExplorerPlot.h \
     elf/elffilewidget.h \
     qtablewidgetintitem.h \
-    srec/srecfile.h
+    srec/srecfile.h \
+    srec/srecfilewidget.h \
+    abstractbinfile.h
 
 
 SOURCES += \
@@ -104,16 +107,18 @@ SOURCES += \
     tcp_terminal_client.cpp \
     elf/elfinfowdgt.cpp \
     elf/elfparser.cpp \
-    abstractexecfile.cpp \
     elf/elffile.cpp \
     qipdialogbox.cpp \
     SocExplorerPlot.cpp \
     elf/elffilewidget.cpp \
     qtablewidgetintitem.cpp \
-    srec/srecfile.cpp
+    srec/srecfile.cpp \
+    srec/srecfilewidget.cpp \
+    abstractbinfile.cpp
 
 FORMS += \
-    elf/elffilewidget.ui
+    elf/elffilewidget.ui \
+    srec/srecfilewidget.ui
 
 OTHER_FILES += \
     ./pythongenerator.sh \

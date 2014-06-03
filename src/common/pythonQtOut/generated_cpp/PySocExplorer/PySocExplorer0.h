@@ -5,7 +5,7 @@
 #include <QVariant>
 #include <QWidget>
 #include <SocExplorerPlot.h>
-#include <abstractexecfile.h>
+#include <abstractbinfile.h>
 #include <elffile.h>
 #include <elffilewidget.h>
 #include <elfinfowdgt.h>
@@ -50,6 +50,7 @@
 #include <qstyleoption.h>
 #include <qwidget.h>
 #include <srecfile.h>
+#include <srecfilewidget.h>
 #include <tcp_terminal_client.h>
 #include <xbytearray.h>
 
@@ -124,6 +125,7 @@ void delete_ElfFile(ElfFile* obj) { delete obj; }
    bool  iself(ElfFile* theWrappedObject);
    bool  isopened(ElfFile* theWrappedObject);
    bool  openFile(ElfFile* theWrappedObject, const QString&  File);
+   bool  toSrec(ElfFile* theWrappedObject, const QString&  File);
 };
 
 
@@ -549,12 +551,12 @@ void delete_XByteArray(XByteArray* obj) { delete obj; }
 
 
 
-class PythonQtShell_abstractExecFile : public abstractExecFile
+class PythonQtShell_abstractBinFile : public abstractBinFile
 {
 public:
-    PythonQtShell_abstractExecFile():abstractExecFile(),_wrapper(NULL) {};
+    PythonQtShell_abstractBinFile():abstractBinFile(),_wrapper(NULL) {};
 
-   ~PythonQtShell_abstractExecFile();
+   ~PythonQtShell_abstractBinFile();
 
 virtual void childEvent(QChildEvent*  arg__1);
 virtual int  closeFile();
@@ -569,12 +571,12 @@ virtual void timerEvent(QTimerEvent*  arg__1);
   PythonQtInstanceWrapper* _wrapper; 
 };
 
-class PythonQtWrapper_abstractExecFile : public QObject
+class PythonQtWrapper_abstractBinFile : public QObject
 { Q_OBJECT
 public:
 public slots:
-abstractExecFile* new_abstractExecFile();
-void delete_abstractExecFile(abstractExecFile* obj) { delete obj; } 
+abstractBinFile* new_abstractBinFile();
+void delete_abstractBinFile(abstractBinFile* obj) { delete obj; } 
 };
 
 
@@ -585,7 +587,7 @@ class PythonQtShell_codeFragment : public codeFragment
 {
 public:
     PythonQtShell_codeFragment():codeFragment(),_wrapper(NULL) {};
-    PythonQtShell_codeFragment(char*  data, unsigned int  size, unsigned int  address):codeFragment(data, size, address),_wrapper(NULL) {};
+    PythonQtShell_codeFragment(char*  data, quint64  size, quint64  address):codeFragment(data, size, address),_wrapper(NULL) {};
 
    ~PythonQtShell_codeFragment();
 
@@ -598,14 +600,16 @@ class PythonQtWrapper_codeFragment : public QObject
 public:
 public slots:
 codeFragment* new_codeFragment();
-codeFragment* new_codeFragment(char*  data, unsigned int  size, unsigned int  address);
+codeFragment* new_codeFragment(char*  data, quint64  size, quint64  address);
 void delete_codeFragment(codeFragment* obj) { delete obj; } 
-void py_set_address(codeFragment* theWrappedObject, unsigned int  address){ theWrappedObject->address = address; }
-unsigned int  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
+void py_set_size(codeFragment* theWrappedObject, quint64  size){ theWrappedObject->size = size; }
+quint64  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
+void py_set_header(codeFragment* theWrappedObject, QString  header){ theWrappedObject->header = header; }
+QString  py_get_header(codeFragment* theWrappedObject){ return theWrappedObject->header; }
+void py_set_address(codeFragment* theWrappedObject, quint64  address){ theWrappedObject->address = address; }
+quint64  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
 void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
 char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
-void py_set_size(codeFragment* theWrappedObject, unsigned int  size){ theWrappedObject->size = size; }
-unsigned int  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
 };
 
 
@@ -819,10 +823,86 @@ srecFile* new_srecFile(const QString&  File);
 srecFile* new_srecFile(const QStringList&  Files);
 void delete_srecFile(srecFile* obj) { delete obj; } 
    int  closeFile(srecFile* theWrappedObject);
+   int  getFragmentAddress(srecFile* theWrappedObject, int  index);
+   bool  getFragmentData(srecFile* theWrappedObject, int  index, char**  buffer);
+   QString  getFragmentHeader(srecFile* theWrappedObject, int  index);
+   int  getFragmentSize(srecFile* theWrappedObject, int  index);
    QList<codeFragment* >  getFragments(srecFile* theWrappedObject);
+   int  getFragmentsCount(srecFile* theWrappedObject);
+   bool  isSREC(srecFile* theWrappedObject);
+   bool  static_srecFile_isSREC(const QString&  File);
    bool  isopened(srecFile* theWrappedObject);
+   int  lineCount(srecFile* theWrappedObject);
    bool  openFile(srecFile* theWrappedObject, const QString&  File);
    bool  openFiles(srecFile* theWrappedObject, const QStringList&  Files);
+   bool  static_srecFile_toSrec(QList<codeFragment* >  fragments, const QString&  File);
+};
+
+
+
+
+
+class PythonQtShell_srecFileWidget : public srecFileWidget
+{
+public:
+    PythonQtShell_srecFileWidget(QWidget*  parent = 0):srecFileWidget(parent),_wrapper(NULL) {};
+
+   ~PythonQtShell_srecFileWidget();
+
+virtual void actionEvent(QActionEvent*  arg__1);
+virtual void changeEvent(QEvent*  arg__1);
+virtual void childEvent(QChildEvent*  arg__1);
+virtual void closeEvent(QCloseEvent*  arg__1);
+virtual void contextMenuEvent(QContextMenuEvent*  arg__1);
+virtual void customEvent(QEvent*  arg__1);
+virtual int  devType() const;
+virtual void dragEnterEvent(QDragEnterEvent*  arg__1);
+virtual void dragLeaveEvent(QDragLeaveEvent*  arg__1);
+virtual void dragMoveEvent(QDragMoveEvent*  arg__1);
+virtual void dropEvent(QDropEvent*  arg__1);
+virtual void enterEvent(QEvent*  arg__1);
+virtual bool  event(QEvent*  arg__1);
+virtual bool  eventFilter(QObject*  arg__1, QEvent*  arg__2);
+virtual void focusInEvent(QFocusEvent*  arg__1);
+virtual bool  focusNextPrevChild(bool  next);
+virtual void focusOutEvent(QFocusEvent*  arg__1);
+virtual bool  hasHeightForWidth() const;
+virtual int  heightForWidth(int  arg__1) const;
+virtual void hideEvent(QHideEvent*  arg__1);
+virtual void initPainter(QPainter*  painter) const;
+virtual void inputMethodEvent(QInputMethodEvent*  arg__1);
+virtual QVariant  inputMethodQuery(Qt::InputMethodQuery  arg__1) const;
+virtual void keyPressEvent(QKeyEvent*  arg__1);
+virtual void keyReleaseEvent(QKeyEvent*  arg__1);
+virtual void leaveEvent(QEvent*  arg__1);
+virtual int  metric(QPaintDevice::PaintDeviceMetric  arg__1) const;
+virtual QSize  minimumSizeHint() const;
+virtual void mouseDoubleClickEvent(QMouseEvent*  arg__1);
+virtual void mouseMoveEvent(QMouseEvent*  arg__1);
+virtual void mousePressEvent(QMouseEvent*  arg__1);
+virtual void mouseReleaseEvent(QMouseEvent*  arg__1);
+virtual void moveEvent(QMoveEvent*  arg__1);
+virtual bool  nativeEvent(const QByteArray&  eventType, void*  message, long*  result);
+virtual QPaintEngine*  paintEngine() const;
+virtual void paintEvent(QPaintEvent*  arg__1);
+virtual QPaintDevice*  redirected(QPoint*  offset) const;
+virtual void resizeEvent(QResizeEvent*  arg__1);
+virtual QPainter*  sharedPainter() const;
+virtual void showEvent(QShowEvent*  arg__1);
+virtual QSize  sizeHint() const;
+virtual void tabletEvent(QTabletEvent*  arg__1);
+virtual void timerEvent(QTimerEvent*  arg__1);
+virtual void wheelEvent(QWheelEvent*  arg__1);
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtWrapper_srecFileWidget : public QObject
+{ Q_OBJECT
+public:
+public slots:
+srecFileWidget* new_srecFileWidget(QWidget*  parent = 0);
+void delete_srecFileWidget(srecFileWidget* obj) { delete obj; } 
 };
 
 

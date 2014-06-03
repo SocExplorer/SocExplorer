@@ -22,9 +22,10 @@
         alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
 #include "elffile.h"
+#include "srec/srecfile.h"
 
 ElfFile::ElfFile()
-    :abstractExecFile()
+    :abstractBinFile()
 {
     this->opened = false;
     this->type_elf = false;
@@ -33,7 +34,7 @@ ElfFile::ElfFile()
 }
 
 ElfFile::ElfFile(const QString &File)
-    :abstractExecFile()
+    :abstractBinFile()
 {
     this->opened = false;
     this->type_elf = false;
@@ -141,7 +142,7 @@ codeFragment *ElfFile::getFragment(const QString &name)
             getSectionData(i,&fragment->data);
         }
     }
-
+    return fragment;
 }
 
 
@@ -1038,4 +1039,9 @@ bool ElfFile::isElf(const QString &File)
         }
     }
     return false;
+}
+
+bool ElfFile::toSrec(const QString &File)
+{
+    return srecFile::toSrec(this->getFragments(),File);
 }

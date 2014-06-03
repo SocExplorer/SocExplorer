@@ -20,7 +20,7 @@
     <object-type name="srecFile" />
     <rejection class="Elf_Section"/>
     <object-type name="elfparser" />
-    <interface-type name="abstractExecFile">
+    <interface-type name="abstractBinFile">
         <extra-includes>
           <include file-name="QWidget" location="global"/>
           <include file-name="QObject" location="global"/>
@@ -37,6 +37,12 @@
           <include file-name="QWidget" location="global"/>
           <include file-name="QObject" location="global"/>
         </extra-includes>
+    </object-type>
+    <object-type name="srecFileWidget">
+      <extra-includes>
+        <include file-name="QWidget" location="global"/>
+        <include file-name="QObject" location="global"/>
+      </extra-includes>
     </object-type>
     <object-type name="elfInfoWdgt">
         <extra-includes>
