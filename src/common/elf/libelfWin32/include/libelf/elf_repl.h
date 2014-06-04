@@ -168,6 +168,7 @@ typedef struct {
 #define ELFOSABI_NSK		14	/* Hewlett-Packard Non-Stop Kernel */
 #define ELFOSABI_AROS	 	15 	/* Amiga Research OS */
 /* these are probably obsolete: */
+#define ELFOSABI_ARM_AEABI	64	/* ARM EABI */
 #define ELFOSABI_ARM		97	/* ARM */
 #define ELFOSABI_STANDALONE	255	/* standalone (embedded) application */
 
@@ -213,7 +214,7 @@ typedef struct {
 #define EM_RH32		38	/* TRW RH-32 */
 #define EM_RCE		39	/* Motorola RCE */
 #define EM_ARM		40	/* Advanced RISC Machines ARM */
-#define EM_ALPHA	41	/* Digital Alpha */
+#define EM_FAKE_ALPHA	41	/* Digital Alpha */
 #define EM_SH		42	/* Hitachi SH */
 #define EM_SPARCV9	43	/* SPARC Version 9 */
 #define EM_TRICORE	44	/* Siemens TriCore embedded processor */
@@ -282,7 +283,12 @@ typedef struct {
 #define EM_SEP 		108 	/* Sharp embedded microprocessor */
 #define EM_ARCA 	109 	/* Arca RISC Microprocessor */
 #define EM_UNICORE 	110 	/* Microprocessor series from PKU-Unity Ltd. and MPRC of Peking University */
-#define EM_NUM		111
+#define EM_AARCH64	183		/* ARM AARCH64 */
+#define EM_TILEPRO	188		/* Tilera TILEPro */
+#define EM_MICROBLAZE	189		/* Xilinx MicroBlaze */
+#define EM_TILEGX	191		/* Tilera TILE-Gx */
+#define EM_NUM		192
+
 
 /*
  * e_ident[EI_VERSION], e_version
