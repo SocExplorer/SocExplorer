@@ -1,0 +1,442 @@
+<?xml version='1.0' encoding='utf-8'?>
+<soc name="Leon">
+ <peripheral vid="1" name="AHBUART" pid="7">
+  <register name="STATUS" addOffset="4">
+   <bitField size="1" name="DR" mode="1" desc="Data ready (DR) - indicates that new data has been received by the AMBA AHB master interface. Read only. Reset&#xa;value: ‘0’.&#xa;"/>
+   <bitField size="1" name="TS" mode="3" desc="Transmitter shift register empty (TS) - indicates that the transmitter shift register is empty. Read only. Reset value:&#xa;‘1’"/>
+   <bitField name="TH" size="1" mode="1" desc="Transmitter hold register empty (TH) - indicates that the transmitter hold register is empty. Read only. Reset value:&#xa;‘1’"/>
+   <bitField name="BR" size="1" mode="1" desc="Break (BR) - indicates that a BREAKE has been received. Reset value: ‘0’"/>
+   <bitField name="OV" size="1" mode="1" desc="Overflow (OV) - indicates that one or more character have been lost due to receiver overflow. Reset value: ‘0’"/>
+   <bitField name="FE" size="1" mode="1" desc="Frame error (FE) - indicates that a framing error was detected. Reset value: ‘0’"/>
+  </register>
+  <register name="CONTROL" addOffset="8">
+   <bitField name="EN" size="1" mode="3" desc="Receiver enable (EN) - if set, enables both the transmitter and receiver. Reset value: ‘0’."/>
+   <bitField name="BL" size="1" mode="3" desc="Baud rate locked (BL) - is automatically set when the baud rate is locked. Reset value: ‘0’."/>
+  </register>
+  <register name="SCALE" addOffset="12">
+   <bitField name="SCALER RELOAD VALUE" size="18" mode="3" desc="Baudrate scaler reload value = (((system_clk*10)/(baudrate*8))-5)/10. Reset value: “3FFFF“."/>
+  </register>
+ </peripheral>
+ <peripheral vid="1" name="APBUART" pid="12">
+  <register name="DATA">
+   <bitField name="DATA" size="8" mode="3" desc="Receiver holding register or FIFO (read access)&#xa;Transmitter holding register or FIFO (write access)&#xa;"/>
+  </register>
+  <register name="STATUS" addOffset="4">
+   <bitField name="DR" size="1" mode="1" desc="Data ready (DR) - indicates that new data is available in the receiver holding register. Reset: 0&#xa;"/>
+   <bitField name="TS" size="1" mode="1" desc="Transmitter shift register empty (TS) - indicates that the transmitter shift register is empty. Reset: 1"/>
+   <bitField name="TE" size="1" mode="1" desc="Transmitter FIFO empty (TE) - indicates that the transmitter FIFO is empty. Reset: 1&#xa;"/>
+   <bitField name="BR" size="1" mode="1" desc="Break received (BR) - indicates that a BREAK has been received. Reset: 0&#xa;"/>
+   <bitField name="OV" size="1" mode="1" desc="Overrun (OV) - indicates that one or more character have been lost due to overrun. Reset: 0&#xa;"/>
+   <bitField name="PE" size="1" mode="1" desc="Parity error (PE) - indicates that a parity error was detected. Reset: 0&#xa;"/>
+   <bitField name="FE" size="1" mode="1" desc="Framing error (FE) - indicates that a framing error was detected. Reset: 0&#xa;"/>
+   <bitField name="TH" size="1" mode="1" desc="Transmitter FIFO half-full (TH) - indicates that the FIFO is less than half-full. Reset: 0&#xa;"/>
+   <bitField name="RH" size="1" mode="1" desc="Receiver FIFO half-full (RH) -indicates that at least half of the FIFO is holding data. Reset: 0&#xa;"/>
+   <bitField name="TF" size="1" mode="1" desc="Transmitter FIFO full (TF) - indicates that the Transmitter FIFO is full. Reset: 0&#xa;"/>
+   <bitField name="RF" size="1" mode="1" desc="Receiver FIFO full (RF) - indicates that the Receiver FIFO is full. Reset: 0&#xa;"/>
+   <bitField name="TCNT" size="6" mode="1" desc="Transmitter FIFO count (TCNT) - shows the number of data frames in the transmitter FIFO. Reset: 0&#xa;"/>
+   <bitField name="RCNT" size="6" mode="1" desc="Receiver FIFO count (RCNT) - shows the number of data frames in the receiver FIFO. Reset: 0"/>
+  </register>
+  <register name="CONTROL" addOffset="8">
+   <bitField name="RE" size="1" mode="3" desc="Receiver enable (RE) - if set, enables the receiver. Reset: 0&#xa;"/>
+   <bitField name="TE" size="1" mode="3" desc="Transmitter enable (TE) - if set, enables the transmitter. Reset: 0&#xa;"/>
+   <bitField name="RI" size="1" mode="3" desc="Receiver interrupt enable (RI) - if set, interrupts are generated when characters are received (see sec-&#xa;tion 15.6 for details). Not Reset.&#xa;"/>
+   <bitField name="TI" size="1" mode="3" desc="Transmitter interrupt enable (TI) - if set, interrupts are generated when characters are transmitted&#xa;(see section 15.6 for details). Not Reset.&#xa;"/>
+   <bitField name="PS" size="1" mode="3" desc="Parity select (PS) - selects parity polarity (0 = even parity, 1 = odd parity) (when implemented). Not&#xa;Reset.&#xa;"/>
+   <bitField name="PE" size="1" mode="3" desc="Parity enable (PE) - if set, enables parity generation and checking (when implemented). Not Reset.&#xa;"/>
+   <bitField name="FL" size="1" mode="3" desc="Flow control (FL) - if set, enables flow control using CTS/RTS (when implemented). Reset: 0&#xa;"/>
+   <bitField name="LB" size="1" mode="3" desc="Loop back (LB) - if set, loop back mode will be enabled. Not Reset.&#xa;"/>
+   <bitField name="EC" size="1" mode="3" desc="External Clock (EC) - if set, the UART scaler will be clocked by UARTI.EXTCLK. Reset: 0&#xa;"/>
+   <bitField name="TF" size="1" mode="3" desc="Transmitter FIFO interrupt enable (TF) - when set, Transmitter FIFO level interrupts are enabled.&#xa;Not Reset.&#xa;"/>
+   <bitField name="RF" size="1" mode="3" desc="Receiver FIFO interrupt enable (RF) - when set, Receiver FIFO level interrupts are enabled. Not&#xa;Reset.&#xa;"/>
+   <bitField name="DB" size="1" mode="3" desc="FIFO debug mode enable (DB) - when set, it is possible to read and write the FIFO debug register.&#xa;Not Reset.&#xa;"/>
+   <bitField name="BI" size="1" mode="3" desc="Break interrupt enable (BI) - When set, an interrupt will be generated each time a break character is&#xa;received. See section 16.6 for more details. Not Reset.&#xa;"/>
+   <bitField name="DI" size="1" mode="3" desc="Delayed interrupt enable (DI) - When set, delayed receiver interrupts will be enabled and an inter-&#xa;rupt will only be generated for received characters after a delay of 4 character times + 4 bits if no&#xa;new character has been received during that interval. This is only applicable if receiver interrupt&#xa;enable is set.&#xa;"/>
+   <bitField name="SI" size="1" mode="3" desc="Transmitter shift register empty interrupt enable (SI) - When set, an interrupt will be generated when&#xa;the transmitter shift register becomes empty.&#xa;"/>
+   <bitField name="FA" size="1" mode="3" desc="FIFOs available (FA) - Set to 1 when receiver and transmitter FIFOs are available. When 0, only&#xa;holding register are available. Read only.&#xa;"/>
+  </register>
+  <register name="SCALE" addOffset="12">
+   <bitField name="SCALER RELOAD VALUE" size="31" mode="3" desc="sbits-1:0  Scaler reload value"/>
+  </register>
+  <register name="FIFO Debug" addOffset="16">
+   <bitField name="DATA" size="8" mode="3" desc="Transmitter holding register or FIFO (read access)&#xa;Receiver holding register or FIFO (write access)&#xa;"/>
+  </register>
+ </peripheral>
+ <peripheral vid="1" name="LEON3" pid="3"/>
+ <peripheral vid="1" name="DSU3" pid="4">
+  <register name="Control">
+   <bitField name="UNUSED" size="20" mode="1" desc="UNUSED" offset="12"/>
+   <bitField name="PW" size="1" mode="1" offset="11" desc="Power down (PW). Returns ‘1’ when processor in in power-down mode."/>
+   <bitField name="HL" size="1" mode="1" offset="10" desc="Processor halt (HL). Returns ‘1’ on read when processor is halted. If the processor is in debug mode, setting this bit will put the processor in halt mode."/>
+   <bitField name="PE" size="1" mode="3" offset="9" desc="Processor error mode (PE) - returns ‘1’ on read when processor is in error mode, else ‘0’. If written with ‘1’, it will clear the error and halt mode."/>
+   <bitField name="EB" size="1" mode="1" offset="8" desc="EB - value of the external DSUBRE signal (read-only)"/>
+   <bitField name="EE" size="1" mode="1" offset="7" desc="EE - value of the external DSUEN signal (read-only)"/>
+   <bitField name="DM" size="1" mode="1" offset="6" desc="Debug mode (DM). Indicates when the processor has entered debug mode (read-only)."/>
+   <bitField name="BZ" size="1" mode="3" offset="5" desc="Break on error traps (BZ) - if set, will force the processor into debug mode on all except the following traps: priviledged_instruction, fpu_disabled, window_overflow, window_underflow, asynchronous_interrupt, ticc_trap."/>
+   <bitField name="BX" size="1" mode="3" offset="4" desc="Break on trap (BX) - if set, will force the processor into debug mode when any trap occurs."/>
+   <bitField name="BS" size="1" mode="3" offset="3" desc="Break on S/W breakpoint (BS) - if set, debug mode will be forced when an breakpoint instruction (ta 1) is executed."/>
+   <bitField name="BW" size="1" mode="3" offset="2" desc="Break on IU watchpoint (BW)- if set, debug mode will be forced on a IU watchpoint (trap 0xb)."/>
+   <bitField name="BE" size="1" mode="3" offset="1" desc="Break on error (BE) - if set, will force the processor to debug mode when the processor would have entered error condition (trap in trap)."/>
+   <bitField name="TE" size="1" mode="3" offset="0" desc="Trace enable (TE). Enables instruction tracing. If set the instructions will be stored in the trace buffer. Remains set&#xa;when then processor enters debug or error mode."/>
+  </register>
+  <register name="Time tag counter" addOffset="8">
+   <bitField name="UNUSED" size="2" mode="1" offset="30" desc=""/>
+   <bitField name="DSU TIME TAG VALUE" size="30" mode="1" offset="0" desc="The value is used as time tag in the instruction and AHB trace buffer. The width of the timer (up to 30 bits) is configurable through the DSU generic port."/>
+  </register>
+  <register name="Break and Single Step" addOffset="32">
+   <bitField name="SSx" size="16" mode="3" offset="16" desc="[31:16] : Single step (SSx) - if set, the processor x will execute one instruction and return to debug mode. The bit remains set after the processor goes into the debug mode."/>
+   <bitField name="BNx" size="16" mode="3" offset="0" desc="[15:0] : Break now (BNx) -Force processor x into debug mode if the Break on watchpoint (BW) bit in the processors DSU control register is set. If cleared, the processor x will resume execution."/>
+  </register>
+  <register name="Debug Mode Mask" addOffset="36">
+   <bitField name="DMx" size="16" mode="3" offset="16" desc="[31:16]: Debug mode mask. If set, the corresponding processor will not be able to force running processors into debug mode even if it enters debug mode."/>
+   <bitField name="EDx" size="16" mode="3" offset="0" desc="[15:0] : Enter debug mode (EDx) - Force processor x into debug mode if any of processors in a multiprocessor system enters the debug mode. If 0, the processor x will not enter the debug mode."/>
+  </register>
+  <register name="AHB Trace buffer control" addOffset="64">
+   <bitField name="DCNT" size="16" mode="1" offset="16" desc="Trace buffer delay counter (DCNT). Note that the number of bits actually implemented depends on the size of the trace buffer."/>
+   <bitField name="RESERVED" size="13" mode="1" offset="3" desc=""/>
+   <bitField name="BR" size="1" mode="3" offset="2" desc="Break (BR). If set, the processor will be put in debug mode when AHB trace buffer stops due to AHB breakpoint hit."/>
+   <bitField name="DM" size="1" mode="1" offset="1" desc="Delay counter mode (DM). Indicates that the trace buffer is in delay counter mode."/>
+   <bitField name="EN" size="1" mode="3" offset="0" desc="Trace enable (EN). Enables the trace buffer."/>
+  </register>
+  <register name="AHB trace buffer index" addOffset="68">
+   <bitField name="INDEX" size="28" mode="3" offset="4" desc="Trace buffer index counter (INDEX). Note that the number of bits actually implemented depends on the size of the trace buffer."/>
+   <bitField name="UNUSED" size="4" mode="1" offset="0" desc=""/>
+  </register>
+  <register name="AHB breakpoint address 1" addOffset="80">
+   <bitField name="BADDR[31:2]" size="30" mode="3" offset="2" desc="Breakpoint address (bits 31:2)"/>
+   <bitField name="UNUSED" size="2" mode="1" offset="0" desc=""/>
+  </register>
+  <register name="AHB mask register 1" addOffset="84">
+   <bitField name="BMASK[31:2]" size="30" mode="3" offset="2" desc="Breakpoint mask"/>
+   <bitField name="LD" size="1" mode="3" offset="1" desc="LD - break on data load address"/>
+   <bitField name="ST" size="1" mode="3" offset="0" desc="ST - break on data store address"/>
+  </register>
+  <register name="AHB breakpoint address 2" addOffset="88">
+   <bitField name="BADDR[31:2]" size="30" mode="3" offset="2" desc="Breakpoint address (bits 31:2)"/>
+   <bitField name="UNUSED" size="2" mode="1" offset="0" desc=""/>
+  </register>
+  <register name="AHB mask register 2" addOffset="92">
+   <bitField name="BMASK[31:2]" size="30" mode="3" offset="2" desc="Breakpoint mask "/>
+   <bitField name="LD" size="1" mode="3" offset="1" desc="LD - break on data load address"/>
+   <bitField name="ST" size="1" mode="3" offset="0" desc="ST - beak on data store address"/>
+  </register>
+  <register name="Instruction Trace buffer control" addOffset="1114112">
+   <bitField name="RESERVED" size="16" mode="1" offset="16" desc=""/>
+   <bitField name="IT POINTER" size="16" mode="3" offset="0" desc="Instruction trace pointer. Note that the number of bits actually implemented depends on the size of the trace buffer."/>
+  </register>
+  <register name="SP" addOffset="3145784">
+   <bitField name="SP" size="32" mode="3" offset="0" desc="IU Window 0 Stack Pointer"/>
+  </register>
+  <register name="Y" addOffset="4194304"/>
+  <register name="PSR" addOffset="4194308">
+   <bitField name="IMPL" size="4" mode="3" offset="28" desc="Bits 31 through 28 are hardwired to identify an implementation or class of implementations of the architecture. The hardware should not change this field in response to a WRPSR instruction. Together, the PSR.impl and PSR.ver fields define a unique implementation or class of implementations of the architecture. See Appendix L, “Implementation Characteristics.”"/>
+   <bitField name="VER" size="4" mode="3" offset="24" desc="Bits 27 through 24 are implementation-dependent. The ver field is either hardwired to identify one or more particular implementations or is a readable and writable state field whose properties are implementation-dependent. See Appendix L, “Implementation Characteristics.”"/>
+   <bitField name="NEGATIVE" size="1" mode="3" offset="23" desc="Bit 23 indicates whether the 32-bit 2’s complement ALU result was negative for the last instruction that modified the icc field. 1 = negative, 0 = not negative."/>
+   <bitField name="ZERO" size="1" mode="3" offset="22" desc="Bit 22 indicates whether the 32-bit ALU result was zero for the last instruction that modified the icc field. 1 = zero, 0 = nonzero."/>
+   <bitField name="OVERFLOW" size="1" mode="3" offset="21" desc="Bit 21 indicates whether the ALU result was within the range of (was representable in) 32-bit 2’s complement notation for the last instruction that modified the icc field. 1 = overflow, 0 = no overflow."/>
+   <bitField name="CARRY" size="1" mode="3" offset="20" desc="Bit 21 indicates whether the ALU result was within the range of (was representable in) 32-bit 2’s complement notation for the last instruction that modified the icc field. 1 = overflow, 0 = no overflow."/>
+   <bitField name="RESERVED" size="6" mode="1" offset="14" desc="Bits 19 through 14 are reserved. When read by a RDPSR instruction, these bits deliver zeros. For future compatibility, supervisor software should only issue WRPSR instructions with zero values in this field."/>
+   <bitField name="EC" size="1" mode="3" offset="13" desc="Bit 13 determines whether the implementation-dependent coprocessor is enabled. If disabled, a coprocessor instruction will trap. 1 = enabled, 0 = disabled. If an implementation does not support a coprocessor in hardware, PSR.EC should always read as 0 and writes to it should be ignored."/>
+   <bitField name="EF" size="1" mode="3" offset="12" desc="Bit 12 determines whether the FPU is enabled. If disabled, a floating-point instruction will trap. 1 = enabled, 0 = disabled. If an implementation does not support a hardware FPU, PSR.EF should always read as 0 and writes to it should be ignored. &#xa; Programming Note Software can use the EF and EC bits to determine whether a particular process uses the FPU or CP. If a process does not use the FPU/CP, its registers do not need to be saved across a context switch."/>
+   <bitField name="PIL" size="1" mode="3" offset="11" desc="Bits 11 (the most significant bit) through 8 (the least significant bit) identify the interrupt level above which the processor will accept an interrupt. See Chapter 7, “Traps.”"/>
+   <bitField name="S" size="1" mode="3" offset="7" desc="Bit 7 determines whether the processor is in supervisor or user mode. 1 = supervisor mode, 0 = user mode."/>
+   <bitField name="PS" size="1" mode="3" offset="6" desc="Bit 6 contains the value of the S bit at the time of the most recent trap."/>
+   <bitField name="ET" size="1" mode="3" offset="5" desc="Bit 5 determines whether traps are enabled. A trap automatically resets ET to 0. When ET=0, an interrupt request is ignored and an exception trap causes the IU to halt execution, which typically results in a reset trap that resumes execution at address 0. 1 = traps enabled, 0 = traps disabled. See Chapter 7, “Traps.”"/>
+   <bitField name="CWP" size="5" mode="3" offset="0" desc="Bits 4 (the MSB) through 0 (the LSB) comprise the current window pointer, a counter that identifies the current window into the r registers. The hardware decrements the CWP on traps and SAVE instructions, and increments it on RESTORE and RETT instructions (modulo NWINDOWS )."/>
+  </register>
+  <register name="WIM" addOffset="4194312"/>
+  <register name="TBR" addOffset="4194316"/>
+  <register name="PC" addOffset="4194320"/>
+  <register name="NPC" addOffset="4194324"/>
+  <register name="FSR" addOffset="4194328"/>
+  <register name="CPSR" addOffset="4194332"/>
+  <register name="DSU trap" addOffset="4194336">
+   <bitField name="RESERVED" size="19" mode="1" offset="13" desc=""/>
+   <bitField name="EM" size="1" mode="1" offset="12" desc="Error mode (EM). Set if the trap would have cause the processor to enter error mode."/>
+   <bitField name="TRAP TYPE" size="8" mode="1" offset="4" desc="8-bit SPARC trap type"/>
+   <bitField name="UNUSED" size="4" mode="1" offset="0" desc=""/>
+  </register>
+  <register name="DSU ASI" addOffset="4194340">
+   <bitField name="UNUSED" size="24" mode="1" offset="8" desc=""/>
+   <bitField name="ASI" size="8" mode="1" offset="0" desc="ASI to be used on diagnostic ASI access"/>
+  </register>
+  <register name="ASR16" addOffset="4194368"/>
+  <register name="ASR17" addOffset="4194372"/>
+  <register name="ASR18" addOffset="4194376"/>
+  <register name="ASR19" addOffset="4194380"/>
+  <register name="ASR20" addOffset="4194384"/>
+  <register name="ASR21" addOffset="4194388"/>
+  <register name="ASR22" addOffset="4194392"/>
+  <register name="ASR23" addOffset="4194396"/>
+  <register name="ASR24" addOffset="4194400"/>
+  <register name="ASR25" addOffset="4194404"/>
+  <register name="ASR26" addOffset="4194408"/>
+  <register name="ASR27" addOffset="4194412"/>
+  <register name="ASR28" addOffset="4194416"/>
+  <register name="ASR29" addOffset="4194420"/>
+  <register name="ASR30" addOffset="4194424"/>
+  <register name="ASR31" addOffset="4194428"/>
+ </peripheral>
+ <peripheral vid="1" name="GPTIMER" pid="17">
+  <register name="Scaler value">
+   <bitField name="SCALER VALUE" size="16" mode="3" desc="Scaler value&#xa;Any unused most significant bits are reserved. Always reads as ‘000...0’."/>
+  </register>
+  <register name="Scaler reload value" addOffset="4">
+   <bitField name="SCALER RELOAD VALUE" size="16" mode="3" desc="Scaler reload value&#xa;Any unused most significant bits are reserved. Always read as ‘000...0’."/>
+  </register>
+  <register name="Configuration" addOffset="8">
+   <bitField name="TIMERS" size="3" mode="1" desc="Number of implemented timers. Read-only.&#xa;"/>
+   <bitField name="IRQ" size="5" mode="1" desc="APB Interrupt: If configured to use common interrupt all timers will drive APB interrupt nr. IRQ,&#xa;otherwise timer nwill drive APB Interrupt IRQ+n (has to be less the MAXIRQ). Read-only.&#xa;"/>
+   <bitField name="SI" size="1" mode="1" desc="Separate interrupts (SI). Reads ‘1’ if the timer unit generates separate interrupts for each timer, oth-erwise ‘0’. Read-only.&#xa;"/>
+   <bitField name="DF" size="1" mode="3" desc="Disable timer freeze (DF). If set the timer unit can not be freezed, otherwise signal GPTI.DHALT&#xa;freezes the timer unit.&#xa;"/>
+  </register>
+  <register name="Unused" addOffset="12"/>
+  <register name="Timer 1 counter value" addOffset="16">
+   <bitField name="TIMER COUNTER VALUE" size="32" mode="3" desc="Timer Counter value. Decremented by 1 for each prescaler tick.&#xa;Any unused most significant bits are reserved. Always reads as ‘000...0’."/>
+  </register>
+  <register name="Timer 1 reload value" addOffset="20">
+   <bitField name="TIMER RELOAD VALUE" size="32" mode="3" desc="Timer Reload value. This value is loaded into the timer counter value register when ‘1’ is written to&#xa;load bit in the timers control register or when the RS bit is set in the control register and the timer&#xa;underflows.&#xa;Any unused most significant bits are reserved. Always reads as ‘000...0’."/>
+  </register>
+  <register name="Timer 1 control" addOffset="24">
+   <bitField name="EN" size="1" mode="3" desc="Enable (EN): Enable the timer."/>
+   <bitField name="RS" size="1" mode="3" desc="Restart (RS): If set, the timer counter value register is reloaded with the value of the reload register when the timer underflows"/>
+   <bitField name="LD"/>
+   <bitField name="IE" size="1" mode="3" desc="Interrupt Enable (IE): If set the timer signals interrupt when it underflows.&#xa;"/>
+   <bitField name="IP" size="1" mode="3" desc="Interrupt Pending (IP): The core sets this bit to ‘1’ when an interrupt is signalled. This bit remains ‘1’ until cleared by writing ‘1’ to this bit, writes of ‘0’ have no effect.&#xa;"/>
+   <bitField name="CH" size="1" mode="3" desc="Chain (CH): Chain with preceding timer. If set for timer n, timer n will be decremented each time when timer (n-1) underflows.&#xa;"/>
+   <bitField name="DH" size="1" mode="1" desc="Debug Halt (DH): Value of GPTI.DHALT signal which is used to freeze counters (e.g. when a sys-tem is in debug mode). Read-only.&#xa;"/>
+  </register>
+ </peripheral>
+ <peripheral vid="1" name="GRTIMER" pid="56">
+  <register name="Scaler value">
+   <bitField name="SCALER Value" size="16" mode="3" desc="Scaler value"/>
+  </register>
+  <register name="Scaler reload value" addOffset="4">
+   <bitField name="SCALER Reload Value" size="32" mode="3" desc="SCALER Reload Value"/>
+  </register>
+  <register name="Configuration" addOffset="8">
+   <bitField name="TIMERS" size="3" mode="1" desc="Number of implemented timers. Read-only.&#xa;"/>
+   <bitField name="IRQ" size="5" mode="1" desc="APB Interrupt: If configured to use common interrupt all timers will drive APB interrupt nr. IRQ,&#xa;otherwise timer nwill drive APB Interrupt IRQ+n (has to be less the MAXIRQ). Read-only.&#xa;"/>
+   <bitField name="SI" size="1" mode="1" desc="Separate interrupts (SI). Reads ‘1’ if the timer unit generates separate interrupts for each timer, oth-erwise ‘0’. Read-only.&#xa;"/>
+   <bitField name="DF" size="1" mode="3" desc="Disable timer freeze (DF). If set the timer unit can not be freezed, otherwise signal GPTI.DHALT&#xa;freezes the timer unit.&#xa;"/>
+   <bitField name="EE" size="1" mode="3" desc="Enable external clock source (EE). If set the prescaler is clocked from the external clock source."/>
+   <bitField name="EL" size="1" mode="3" desc="Enable latching (EL). If set, on the next matching interrupt, the latches will be loaded with the corresponding timer&#xa;values. The bit is then automatically cleared, not to load a timer value until set again."/>
+   <bitField name="ES" size="1" mode="3" desc="Enable set (ES). If set, on the next matching interrupt, the timers will be loaded with the corresponding timer reload&#xa;values. The bit is then automatically cleared, not to reload the timer values until set again. (Added to revision 2)."/>
+  </register>
+  <register name="Timer latch configuration" addOffset="12">
+   <bitField name="LTCV" size="32" mode="3" desc="[nbits-1:0] Latched Timer Counter Value (LTCV). Value latch from corresponding timer."/>
+  </register>
+  <register name="Timer 1 counter value" addOffset="16">
+   <bitField name="TIMER COUNTER VALUE" size="32" mode="3" desc="[nbits-1:0] Timer Counter value. Decremented by 1 for each prescaler tick."/>
+  </register>
+  <register name="Timer 1 reload value" addOffset="20">
+   <bitField name="TIMER RELOAD VALUE" size="32" mode="3" desc="[nbits-1:0] Timer Reload value. This value is loaded into the timer counter value register when ‘1’ is written to load bit in the timers control register."/>
+  </register>
+  <register name="Timer 1 control" addOffset="24">
+   <bitField name="EN" size="1" mode="3" desc="Enable (EN): Enable the timer."/>
+   <bitField name="RS" size="1" mode="3" desc="Restart (RS): If set the value from the timer reload register is loaded to the timer counter value register and&#xa;decrementing the timer is restarted."/>
+   <bitField name="LD" size="1" mode="3" desc="Load (LD): Load value from the timer reload register to the timer counter value register."/>
+   <bitField name="IE" size="1" mode="3" desc="Interrupt Enable (IE): If set the timer signals interrupt when it underflows."/>
+   <bitField name="IP" size="1" mode="3" desc="Interrupt Pending (IP): The core sets this bit to ‘1’ when an interrupt is signalled. This bit remains ‘1’ until cleared&#xa;by writing ‘1’ to this bit, writes of ‘0’ have no effect."/>
+   <bitField name="CH" size="1" mode="3" desc="Chain (CH): Chain with preceding timer. If set for timer n, timer n will be decremented each time when timer (n-1)&#xa;underflows."/>
+   <bitField name="DH" size="1" mode="3" desc="Debug Halt (DH): Value of GPTI.DHALT signal which is used to freeze counters (e.g. when a system is in debug&#xa;mode). Read-only."/>
+  </register>
+  <register name="Timer 1 latch" addOffset="28">
+   <bitField name="LTCV" size="32" mode="3" desc="[nbits-1:0] Latched Timer Counter Value (LTCV). Value latch from corresponding timer."/>
+  </register>
+ </peripheral>
+ <peripheral vid="4" name="MCTRL" pid="15">
+  <register name="MCFG1">
+   <bitField name="PROM READ WS" size="4" mode="3" desc="PROM read waitstates (PROM READ WS) - Sets the number of wait states for PROM read cycles (“0000”=0, “0001”=1, “0010”=2,...,”1111”=15). Reset to “1111”.&#xa;"/>
+   <bitField name="PROM WRITE WS" size="4" mode="3" desc="PROM write waitstates (PROM WRITE WS) - Sets the number of wait states for PROM write cycles&#xa;(“0000”=0, “0001”=1, “0010”=2,..., “1111”=15).&#xa;"/>
+   <bitField name="PROM WIDTH" size="2" mode="3" desc="PROM width (PROM WIDTH) - Sets the data width of the PROM area (“00”=8, “01”=16,&#xa;       “10”=32).&#xa;"/>
+   <bitField name="PWEN" size="1" mode="3" desc="PROM write enable (PWEN) - Enables write cycles to the PROM area.&#xa;"/>
+   <bitField name="RESERVED"/>
+   <bitField name="IOEN" size="1" mode="3" desc="I/O enable (IOEN) - Enables accesses to the memory bus I/O area.&#xa;"/>
+   <bitField name="IO WAITSTATES" size="4" mode="3" desc="I/O waitstates (IO WAITSTATES) - Sets the number of waitstates during I/O accesses (“0000”=0,   “0001”=1, “0010”=2,..., “1111”=15).&#xa;"/>
+   <bitField name="BEXCN" size="1" mode="3" desc="Bus error enable (BEXCN) - Enables bus error signalling. Reset to ‘0’.&#xa;"/>
+   <bitField name="IBRDY" size="1" mode="3" desc="I/O bus ready enable (IBRDY) - Enables bus ready (BRDYN) signalling for the I/O area. Reset to ‘0’.&#xa;"/>
+   <bitField name="IOBUSW" size="1" mode="3" desc="I/O bus width (IOBUSW) - Sets the data width of the I/O area (“00”=8, “01”=16, “10” =32).&#xa;"/>
+  </register>
+  <register name="MCFG2" addOffset="4">
+   <bitField name="RAM READ WS" size="2" mode="3" desc="RAM read waitstates (RAM READ WS) - Sets the number of wait states for RAM read cycles (“00”=0, “01”=1, “10”=2, “11”=3).&#xa;"/>
+   <bitField name="RAM WRITE WS" size="2" mode="3" desc="RAM write waitstates (RAM WRITE WS) - Sets the number of wait states for RAM write cycles (“00”=0, “01”=1, “10”=2, “11”=3).&#xa;"/>
+   <bitField name="RAM WIDTH" size="2" mode="3" desc="RAM width (RAM WIDTH) - Sets the data width of the RAM area (“00”=8, “01”=16, “1X”=32).&#xa;"/>
+   <bitField name="RMW" size="1" mode="3" desc="Read-modify-write enable (RMW) - Enables read-modify-write cycles for sub-word writes to 16- bit 32-bit areas with common write strobe (no byte write strobe).&#xa;"/>
+   <bitField name="RBRDY" size="1" mode="3" desc="RAM bus ready enable (RBRDY) - Enables bus ready signalling for the RAM area.&#xa;"/>
+   <bitField name="RAM BANK SIZE" size="4" mode="3" desc="RAM bank size (RAM BANK SIZE) - Sets the size of each RAM bank (“0000”=8 kbyte, “0001”=16 kbyte, ..., “1111”=256 Mbyte).&#xa;"/>
+   <bitField name="SI" size="1" mode="3" desc="SRAM disable (SI) - Disables accesses RAM if bit 14 (SE) is set to ‘1’.&#xa;"/>
+   <bitField name="SE" size="1" mode="3" desc="SDRAM enable (SE) - Enables the SDRAM controller.&#xa;"/>
+   <bitField name="RESERVED" size="1" mode="1" desc=""/>
+   <bitField name="MS" size="1" mode="1" desc="Mobile SDR support enabled. ‘1’ = Enabled, ‘0’ = Disabled (read-only)"/>
+   <bitField name="RESERVED" size="1" mode="1" desc=""/>
+   <bitField name="D64" size="1" mode="1" desc="64-bit SDRAM data bus (D64) - Reads ‘1’ if the memory controller is configured for 64-bit SDRAM data bus width, ‘0’ otherwise. Read-only.&#xa;"/>
+   <bitField name="SDRAM CMD" size="2" mode="3" desc="SDRAM command (SDRAM CMD) - Writing a non-zero value will generate a SDRAM command. “01”=PRECHARGE, “10”=AUTO-REFRESH, “11”=LOAD-COMMAND-REGISTER. The field is reset after the command has been executed.&#xa;"/>
+   <bitField name="SDRAM COLSZ" size="2" mode="3" desc="SDRAM column size (SDRAM COLSZ) - “00”=256, “01”=512, “10”=1024, “11”=4096 when bit 25:23=”111” 2048 otherwise.&#xa;"/>
+   <bitField name="SDRAM BANKSZ" size="3" mode="3" desc="SDRAM bank size (SDRAM BANKSZ) - Sets the bank size for SDRAM chip selects (“000”=4 Mbyte, “001”=8 Mbyte, “010”=16 Mbyte.... “111”=512 Mbyte).&#xa;"/>
+   <bitField name="TCAS" size="1" mode="3" desc="SDRAM TCAS parameter (TCAS) - Selects 2 or 3 cycle CAS delay (0/1). When changed, a LOAD-COMMAND-REGISTER command must be issued at the same time. Also sets RAS/CAS delay (tRCD).&#xa;"/>
+   <bitField name="SDRAM TRFC" size="3" mode="3" desc="SDRAM TRFC parameter (SDRAM TRFC) - tRFC will be equal to 3+field-value system clocks.&#xa;"/>
+   <bitField name="TRP" size="1" mode="3" desc="SDRAM TRP parameter (TRP) - tRP will be equal to 2 or 3 system clocks (0/1).&#xa;"/>
+   <bitField name="SDRF" size="1" mode="3" desc="SDRAM refresh (SDRF) - Enables SDRAM refresh.&#xa;"/>
+  </register>
+  <register name="MCFG3" addOffset="8">
+   <bitField name="SDRAM REFRESH RELOAD VALUE" size="15" mode="3" desc="SDRAM refresh counter reload value (SDRAM REFRESH RELOAD VALUE)&#xa;&#xa;The period between each AUTO-REFRESH command is calculated as follows:&#xa;tREFRESH = ((reload value) + 1) / SYSCLK"/>
+  </register>
+  <register name="MCFG4(Power-Saving configuration)" addOffset="12">
+   <bitField name="PASR" size="3" mode="3" desc="Partial Array Self Refresh (Read only when Mobile SDR support is disabled).&#xa;“000”: Full array (Banks 0, 1, 2 and 3)&#xa;“001”: Half array (Banks 0 and 1)&#xa;“010”: Quarter array (Bank 0)&#xa;“101”: One-eighth array (Bank 0 with row MSB = 0)&#xa;“110”: One-sixteenth array (Bank 0 with row MSB = 00)&#xa;"/>
+   <bitField name="TCSR" size="2" mode="3" desc="Reserved for Temperature-Compensated Self Refresh (Read only when Mobile SDR support is disa-bled).&#xa;“00”: 70aC&#xa;“01”: 45aC&#xa;“10”: 15aC&#xa;“11”: 85aC&#xa;"/>
+   <bitField name="DS" size="2" mode="3" desc="Selectable output drive strength (Read only when Mobile SDR support is disabled).&#xa;“00”: Full&#xa;“01”: One-half&#xa;“10”: One-quarter&#xa;“11”: Three-quarter&#xa;"/>
+   <bitField name="PMODE" size="3" mode="3" desc="Power-Saving mode (Read only when Mobile SDR support is disabled).&#xa;“000”: none&#xa;“001”: Power-Down (PD)&#xa;“010”: Self-Refresh (SR)&#xa;“101”: Deep Power-Down (DPD)&#xa;"/>
+   <bitField name="tXSR" size="4" mode="3" desc="SDRAM tXSR timing. tXSR will be equal to field-value system clocks. (Read only when Mobile SDR support is disabled).&#xa;"/>
+   <bitField name="EM" size="1" mode="3" desc="EMR. When set, the LOAD-COMMAND-REGISTER command issued by the SDRAM command filed in MCFG2 will be interpret as a LOAD-EXTENDED-COMMAND-REGISTER command.&#xa;"/>
+   <bitField name="CE" size="1" mode="3" desc="Clock enable (CE). This value is driven on the CKE inputs of the SDRAM. Should be set to ‘1’ for correct operation. This register bit is read only when Power-Saving mode is other then none.&#xa;"/>
+   <bitField name="ME" size="1" mode="3" desc="Mobile SDRAM functionality enabled. ‘1’ = Enabled (support for Mobile SDRAM), ‘0’ = disabled (support for standard SDRAM)&#xa;"/>
+  </register>
+ </peripheral>
+ <peripheral vid="1" name="IRQMP" pid="13">
+  <register name="Interrupt level"/>
+  <register name="Interrupt pending" addOffset="4"/>
+  <register name="Interrupt force (NCPU=0)" addOffset="8"/>
+  <register name="Interrupt clear" addOffset="12"/>
+  <register name="Multiprocessor status" addOffset="16"/>
+  <register name="Broadcast" addOffset="20"/>
+  <register name="Processor interrupt mask" addOffset="64"/>
+  <register name="Processor 1 interrupt mask" addOffset="68"/>
+  <register name="Processor interrupt force" addOffset="128"/>
+  <register name="Processor 1 interrupt force" addOffset="132"/>
+  <register name="Processor extended interrupt acknowledge" addOffset="192"/>
+  <register name="Processor 1 extended interrupt acknowledge" addOffset="196"/>
+ </peripheral>
+ <peripheral vid="1" name="GRSPW2" pid="41">
+  <register name="Control"/>
+  <register name="Status/Interrupt-source" addOffset="4"/>
+  <register name="Node address" addOffset="8"/>
+  <register name="Clock divisor" addOffset="12"/>
+  <register name="Destination key" addOffset="16"/>
+  <register name="Time" addOffset="20"/>
+  <register name="DMA channel 1 control/status" addOffset="32"/>
+  <register name="DMA channel 1 rx maximum length" addOffset="36"/>
+  <register name="DMA channel 1 transmit descriptor table address" addOffset="40"/>
+  <register name="DMA channel 1 receive descriptor table address" addOffset="44"/>
+  <register name="DMA channel 1 address" addOffset="48"/>
+  <register name="DMA channel 2 control/status" addOffset="64"/>
+  <register name="DMA channel 2 rx maximum length" addOffset="68"/>
+  <register name="DMA channel 2 transmit descriptor table address" addOffset="72"/>
+  <register name="DMA channel 2 receive descriptor table address" addOffset="76"/>
+  <register name="DMA channel 2 address" addOffset="80"/>
+  <register name="DMA channel 3 control/status" addOffset="96"/>
+  <register name="DMA channel 3 rx maximum length" addOffset="100"/>
+  <register name="DMA channel 3 transmit descriptor table address" addOffset="104"/>
+  <register name="DMA channel 3 receive descriptor table address" addOffset="108"/>
+  <register name="DMA channel 3 address" addOffset="112"/>
+  <register name="DMA channel 4 control/status" addOffset="128"/>
+  <register name="DMA channel 4 rx maximum length" addOffset="132"/>
+  <register name="DMA channel 4 transmit descriptor table address" addOffset="136"/>
+  <register name="DMA channel 4 receive descriptor table address" addOffset="140"/>
+  <register name="DMA channel 4 address" addOffset="144"/>
+ </peripheral>
+ <peripheral vid="1" name="SRCTRL" pid="8"/>
+ <peripheral vid="1" name="SSRCTRL" pid="10">
+  <register name="Memory configuration"/>
+ </peripheral>
+ <peripheral vid="1" name="AHBDPRAM" pid="15"/>
+ <peripheral vid="1" name="GRGPIO" pid="26">
+  <register name="Data">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="Output" addOffset="4">
+    <bitField name="OUTPUT" size="32" mode="3" desc=""/>
+  </register>
+  <register name="Direction" addOffset="8">
+    <bitField name="DIRECTION" size="32" mode="3" desc=""/>
+  </register>
+  <register name="Interrupt mask" addOffset="12"/>
+  <register name="Interrupt polarity" addOffset="16"/>
+  <register name="Interrupt edge" addOffset="20"/>
+  <register name="Bypass" addOffset="24"/>
+  <register name="Capability" addOffset="28"/>
+  <register name="IRQ map 0" addOffset="32"/>
+  <register name="IRQ map 1" addOffset="36"/>
+  <register name="IRQ map 2" addOffset="40"/>
+  <register name="IRQ map 3" addOffset="44"/>
+  <register name="IRQ map 4" addOffset="48"/>
+  <register name="IRQ map 5" addOffset="52"/>
+  <register name="IRQ map 6" addOffset="56"/>
+  <register name="IRQ map 7" addOffset="60"/>
+ </peripheral>
+ <peripheral vid="1" name="GRSPW" pid="31">
+  <register name="Control">
+    <bitField name="RA" size="1" offset="31" mode="1" desc="RMAP available (RA) - Set to one if the RMAP command handler is available. Only readable."/>
+    <bitField name="RX" size="1" offset="30" mode="1" desc="RX unaligned access (RX) - Set to one if unaligned writes are available for the receiver. Only read-
+able."/>
+    <bitField name="RC" size="1" offset="29" mode="1" desc="RMAP CRC available (RC) - Set to one if RMAP CRC is enabled in the core. Only readable."/>
+    <bitField name="PO" size="1" offset="26" mode="1" desc="The number of available SpaceWire ports minus one. Only readable."/>
+    <bitField name="PS" size="1" offset="21" mode="3" desc="Port select (PS) - Selects the active port when the no port force bit is zero. ‘0’ selects the port connected to data and strobe on index 0 while ‘1’ selects index 1. Only available if the ports VHDL
+generic is set to 2. Reset value: ‘0’."/>
+    <bitField name="NP" size="1" offset="20" mode="3" desc="No port force (NP) - Disable port force. When disabled the port select bit cannot be used to select the active port. Instead, it is automatically selected by checking the activity on the respective receive links. Only available if the ports VHDL generic is set to 2. Reset value: ‘0’ if the RMAP command handler is not available. If available the reset value is set to the value of the rmapen input signal."/>
+    <bitField name="RD" size="1" offset="17" mode="3" desc="RMAP buffer disable (RD) - Unused. If set only one RMAP buffer is used. This ensures that all RMAP commands will be executed consecutively. Only available if the rmap VHDL generic is set to1. Reset value: ‘0’."/>
+    <bitField name="RE" size="1" offset="16" mode="3" desc="RMAP Enable (RE) - Unused. Enable RMAP command handler. Only available if rmap VHDL generic is set to 1. Reset value: ‘1’."/>
+    <bitField name="TR" size="1" offset="11" mode="3" desc="Time Rx Enable (TR) - Enable time-code receptions. Reset value: ‘0’."/>
+    <bitField name="TT" size="1" offset="10" mode="3" desc="Time Tx Enable (TT) - Enable time-code transmissions. Reset value: ‘0’."/>
+    <bitField name="LI" size="1" offset="9" mode="3" desc="Link error IRQ (LI) - Generate interrupt when a link error occurs. Not reset."/>
+    <bitField name="TQ" size="1" offset="8" mode="3" desc="Tick-out IRQ (TQ) - Generate interrupt when a valid time-code is received. Not reset."/>
+    <bitField name="RS" size="1" offset="6" mode="3" desc="Reset (RS) - Make complete reset of the SpaceWire node. Self clearing. Reset value: ‘0’."/>
+    <bitField name="PM" size="1" offset="5" mode="3" desc="Promiscuous Mode (PM) - Enable Promiscuous mode. Reset value: ‘0’."/>
+    <bitField name="TI" size="1" offset="4" mode="3" desc="Tick In (TI) - The host can generate a tick by writing a one to this field. This will increment the timer counter and the new value is transmitted after the current character is transferred. A tick can also be generated by asserting the tick_in signal. Reset value: ‘0’."/>
+    <bitField name="IE" size="1" offset="3" mode="3" desc="Interrupt Enable (IE) - If set, an interrupt is generated when one or both of bit 8 to 9 is set and its corresponding event occurs. Reset value: ‘0’."/>
+    <bitField name="AS" size="1" offset="2" mode="3" desc="Autostart (AS) - Automatically start the link when a NULL has been received. Reset value: ‘0’ if the RMAP command handler is not available. If available the reset value is set to the value of the rmapen input signal."/>
+    <bitField name="LS" size="1" offset="1" mode="3" desc="Link Start (LS) - Start the link, i.e. allow a transition from ready to started state. Reset value: ‘0’."/>
+    <bitField name="LD" size="1" offset="0" mode="3" desc="Link Disable (LD) - Disable the SpaceWire codec. Reset value: ‘0’."/>
+  </register>
+  <register name="Status/Interrupt-source">
+    <bitField name="LS" size="3" offset="21" mode="1" desc="Link State (LS) - The current state of the start-up sequence. 0 = Error-reset, 1 = Error-wait, 2 = Ready, 3 = Started, 4 = Connecting, 5 = Run. Reset value: 0."/>
+    <bitField name="AP" size="1" offset="9" mode="1" desc="Active port (AP) - Shows the currently active port. ‘0’ = Port 0 and ‘1’ = Port 1 where the port numbers refer to the index number of the data and strobe signals. Only available if the ports generic is set to 2."/>
+    <bitField name="EE" size="1" offset="8" mode="1" desc="Early EOP/EEP (EE) - Set to one when a packet is received with an EOP after the first byte for a non-rmap packet and after the second byte for a RMAP packet. Cleared when written with a one. Reset value: ‘0’."/>
+    <bitField name="IA" size="1" offset="7" mode="1" desc="Invalid Address (IA) - Set to one when a packet is received with an invalid destination address field, i.e it does not match the nodeaddr register. Cleared when written with a one. Reset value: ‘0’."/>
+    <bitField name="WE" size="1" offset="6" mode="1" desc="Write synchronization Error (WE) - A synchronization problem has occurred when receiving NChars. Cleared when written with a one. Reset value: ‘0’."/>
+    <bitField name="PE" size="1" offset="4" mode="1" desc="Parity Error (PE) - A parity error has occurred. Cleared when written with a one. Reset value: ‘0’."/>
+    <bitField name="DE" size="1" offset="3" mode="1" desc="Disconnect Error (DE) - A disconnection error has occurred. Cleared when written with a one. Reset value: ‘0’."/>
+    <bitField name="ER" size="1" offset="2" mode="1" desc="Escape Error (ER) - An escape error has occurred. Cleared when written with a one. Reset value: ‘0’."/>
+    <bitField name="CE" size="1" offset="1" mode="1" desc="Credit Error (CE) - A credit has occurred. Cleared when written with a one. Reset value: ‘0’."/>
+    <bitField name="TO" size="1" offset="0" mode="1" desc="Tick Out (TO) - A new time count value was received and is stored in the time counter field. Cleared when written with a one. Reset value: ‘0’."/>
+  </register>
+  <register name="Node address">
+    <bitField name="NODEADDR" size="8" offset="0" mode="3" desc="Node address (NODEADDR) - 8-bit node address used for node identification on the SpaceWire network. Reset value: 254 (taken from the nodeaddr VHDL generic when /= 255, else from the rmapnodeaddr input signal)"/>
+  </register>
+  <register name="Clock divisor">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="Destination key">
+    <bitField name="DESTKEY" size="8" offset="0" mode="3" desc="Destination key (DESTKEY) - RMAP destination key. Only available if the rmap VHDL generic is set to 1. Reset value: 0 (taken from the deskey VHDL generic)"/>
+  </register>
+  <register name="Time">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="Timer end Disconnect">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="DMA channel 1 control/status">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="DMA channel 1 rx maximum length">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="DMA channel 1 transmit descriptor table address">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="DMA channel 1 control/status">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+  <register name="DMA channel 1 receive descriptor table address">
+    <bitField name="DATA" size="32" mode="1" desc=""/>
+  </register>
+ </peripheral>
+</soc>
+
+
+
+
+
+
+
+
+

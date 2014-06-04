@@ -1,0 +1,69 @@
+<typesystem package="PySocExplorer" default-superclass="com.trolltech.qt.QtJambiObject">
+    <load-typesystem name=":/trolltech/generator/typesystem_core.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_gui.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_network.txt" generate="no" />
+
+
+    <object-type name="QHexSpinBox">
+        <extra-includes>
+          <include file-name="QWidget" location="global"/>
+          <include file-name="QObject" location="global"/>
+          <include file-name="QSpinBox" location="global"/>
+        </extra-includes>
+    </object-type>
+    <object-type name="MemSizeWdgt" />
+    <object-type name="QHexEdit" />
+    <object-type name="XByteArray" />
+    <object-type name="SocExplorerPlot" />
+    <object-type name="TCP_Terminal_Client" />
+    <object-type name="codeFragment" />
+    <object-type name="srecFile" />
+    <object-type name="binaryFile" />
+    <rejection class="Elf_Section"/>
+    <object-type name="elfparser" />
+    <interface-type name="abstractBinFile">
+        <extra-includes>
+          <include file-name="QWidget" location="global"/>
+          <include file-name="QObject" location="global"/>
+        </extra-includes>
+    </interface-type>
+    <object-type name="ElfFile">
+        <extra-includes>
+          <include file-name="QWidget" location="global"/>
+          <include file-name="QObject" location="global"/>
+        </extra-includes>
+    </object-type>
+    <object-type name="elfFileWidget">
+        <extra-includes>
+          <include file-name="QWidget" location="global"/>
+          <include file-name="QObject" location="global"/>
+        </extra-includes>
+    </object-type>
+    <object-type name="srecFileWidget">
+      <extra-includes>
+        <include file-name="QWidget" location="global"/>
+        <include file-name="QObject" location="global"/>
+      </extra-includes>
+    </object-type>
+    <object-type name="binaryFileWidget">
+      <extra-includes>
+        <include file-name="QWidget" location="global"/>
+        <include file-name="QObject" location="global"/>
+      </extra-includes>
+    </object-type>
+    <object-type name="elfInfoWdgt">
+        <extra-includes>
+          <include file-name="QWidget" location="global"/>
+          <include file-name="QObject" location="global"/>
+        </extra-includes>
+    </object-type>
+
+</typesystem>
+
+
+
+
+
+
+
+
