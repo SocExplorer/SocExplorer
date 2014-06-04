@@ -20,6 +20,7 @@
 --                     Mail : alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
 #include "binaryfile.h"
+#include "srecfile.h"
 
 binaryFile::binaryFile()
 {
@@ -47,13 +48,6 @@ bool binaryFile::openFile(const QString &File)
 
 bool binaryFile::openFiles(const QStringList &Files)
 {
-    this->p_fileNames.clear();
-    this->p_fileNames.append(Files);
-    for(int i=0;i<p_files.count();i++)
-    {
-        delete p_files.at(i);
-    }
-    this->p_files.clear();
     for(int i=0;i<Files.count();i++)
     {
         this->p_files.append(new QFile(Files.at(i)));
@@ -125,11 +119,43 @@ QString binaryFile::getFragmentHeader(int index)
     return "";
 }
 
+codeFragment *binaryFile::getFragment(int index)
+{
+    if((index>=0)&&(index<p_fragments.count()))
+        return p_fragments.at(index);
+    return NULL;
+}
+
 bool binaryFile::getFragmentData(int index, char **buffer)
 {
     if((index>=0)&&(index<p_fragments.count()))
     {
         *buffer = p_fragments.at(index)->data;
+        return true;
+    }
+    return false;
+}
+
+bool binaryFile::toSrec(const QString &fileName)
+{
+    srecFile::toSrec(p_fragments,fileName);
+}
+
+bool binaryFile::toBinary(const QString &fileName)
+{
+    toBinary(p_fragments,fileName);
+}
+
+bool binaryFile::toBinary(QList<codeFragment *> fragments, const QString &File)
+{
+    QFile file(File);
+    file.open(QIODevice::WriteOnly);
+    if(file.isOpen())
+    {
+        for(int i=0;i<fragments.count();i++)
+        {
+            file.write(fragments.at(i)->data,fragments.at(i)->size);
+        }
         return true;
     }
     return false;

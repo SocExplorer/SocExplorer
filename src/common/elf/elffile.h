@@ -111,6 +111,7 @@ public:
     static bool isElf(const QString& File);
 
     bool toSrec(const QString& File);
+    bool toBinary(const QString& File);
 
 private:
     codeFragment* getFragment(const QString& name);

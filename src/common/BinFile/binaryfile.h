@@ -45,7 +45,11 @@ public:
     int getFragmentAddress(int index);
     int getFragmentSize(int index);
     QString getFragmentHeader(int index);
-    bool getFragmentData(int index, char **buffer);
+    codeFragment* getFragment(int index);
+    bool getFragmentData(int index, char **buffer); 
+    bool toSrec(const QString& fileName);
+    bool toBinary(const QString& fileName);
+    static bool toBinary(QList<codeFragment*> fragments,const QString& File);
 signals:
 
 public slots:

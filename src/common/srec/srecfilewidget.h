@@ -24,12 +24,13 @@
 
 #include <QWidget>
 #include "srecfile.h"
+#include <QAction>
 
 namespace Ui {
 class srecFileWidget;
 }
 
-class srecFileWidget : public QWidget
+class srecFileWidget : public abstractBinFileWidget
 {
     Q_OBJECT
 
@@ -38,15 +39,20 @@ public:
     ~srecFileWidget();
 
 public slots:
-    void updatSrecFile(srecFile* file);
-    void updateRecords();
+    void setFile(abstractBinFile* file);
+    void reloadFile();
 
 private slots:
     void recordCellActivated(int row, int column);
+    void exportToSREC();
+    void exportToBIN();
 
 private:
+    QList<codeFragment *> getSelectedFragments();
     Ui::srecFileWidget *ui;
     srecFile* p_srec;
+    QAction* exportToSREC_action;
+    QAction* exportToBIN_action;
 };
 
 #endif // SRECFILEWIDGET_H
