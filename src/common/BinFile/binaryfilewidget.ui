@@ -28,6 +28,9 @@
       </property>
      </widget>
      <widget class="QTableWidget" name="fragmentList">
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
       <column>
        <property name="text">
         <string>File</string>

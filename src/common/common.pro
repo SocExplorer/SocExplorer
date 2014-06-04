@@ -72,7 +72,7 @@ isEmpty(header.path) {
 
 INSTALLS += target header
 
-INCLUDEPATH += QCustomPlot qhexedit srec
+INCLUDEPATH += QCustomPlot qhexedit srec BinFile
 
 HEADERS += \
     memsizewdgt.h \

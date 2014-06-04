@@ -31,7 +31,7 @@ namespace Ui {
 class elfFileWidget;
 }
 
-class elfFileWidget : public QWidget
+class elfFileWidget : public abstractBinFileWidget
 {
     Q_OBJECT
 
@@ -40,7 +40,8 @@ public:
     ~elfFileWidget();
 
 public slots:
-    void updateElfFile(ElfFile* file);
+    void setFile(ElfFile* file);
+    void reloadFile();
     void updateSymbols();
     void updateSections();
 

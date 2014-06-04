@@ -21,6 +21,7 @@
 ----------------------------------------------------------------------------*/
 #include "srecfile.h"
 #include <QTextStream>
+#include "binaryfile.h"
 
 srecFile::srecFile()
 {
@@ -48,13 +49,6 @@ bool srecFile::openFile(const QString &File)
 
 bool srecFile::openFiles(const QStringList &Files)
 {
-    this->p_fileNames.clear();
-    this->p_fileNames.append(Files);
-    for(int i=0;i<p_files.count();i++)
-    {
-        delete p_files.at(i);
-    }
-    this->p_files.clear();
     for(int i=0;i<Files.count();i++)
     {
         this->p_isSrec=true;
@@ -81,7 +75,10 @@ int srecFile::closeFile()
     for(int i=0;i<p_files.count();i++)
     {
         delete p_files.at(i);
+        free(p_fragments.at(i)->data);
+        delete p_fragments.at(i);
     }
+    p_fragments.clear();
     p_files.clear();
     p_fileName.clear();
     return 0;
@@ -156,6 +153,16 @@ bool srecFile::toSrec(QList<codeFragment *> fragments, const QString &File)
     return false;
 }
 
+bool srecFile::toSrec(const QString &File)
+{
+    return toSrec(p_fragments,File);
+}
+
+bool srecFile::toBinary(const QString &File)
+{
+    return binaryFile::toBinary(p_fragments,File);
+}
+
 int srecFile::lineCount()
 {
     return p_lineCount;
@@ -182,6 +189,15 @@ int srecFile::getFragmentSize(int index)
         return p_fragments.at(index)->size;
     }
     return 0;
+}
+
+codeFragment *srecFile::getFragment(int index)
+{
+    if((index < p_fragments.count()) && (index>=0))
+    {
+        return p_fragments.at(index);
+    }
+    return NULL;
 }
 
 QString srecFile::getFragmentHeader(int index)

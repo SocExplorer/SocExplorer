@@ -25,10 +25,11 @@
 #include <QtWidgets/QFileDialog>
 #include "qhexedit.h"
 #include "qtablewidgetintitem.h"
-#include "srec/srecfile.h"
+#include "srecfile.h"
+#include "binaryfile.h"
 
 elfFileWidget::elfFileWidget(QWidget *parent) :
-    QWidget(parent),
+    abstractBinFileWidget(parent),
     ui(new Ui::elfFileWidget)
 {
     ui->setupUi(this);
@@ -59,7 +60,7 @@ elfFileWidget::~elfFileWidget()
 
 
 
-void elfFileWidget::updateElfFile(ElfFile *file)
+void elfFileWidget::setFile(ElfFile *file)
 {
     this->p_elf = file;
     if(p_elf->isopened() && p_elf->iself())
@@ -74,6 +75,11 @@ void elfFileWidget::updateElfFile(ElfFile *file)
         this->ui->sectionCountLabel->setText(QString::number(p_elf->getSectionCount()));
         this->ui->symbolCountLabel->setText(QString::number(p_elf->getSymbolCount()));
     }
+    reloadFile();
+}
+
+void elfFileWidget::reloadFile()
+{
     updateSymbols();
     updateSections();
 }
@@ -189,6 +195,17 @@ void elfFileWidget::exportToSREC()
 
 void elfFileWidget::exportToBIN()
 {
+    QStringList sectionList=getSelectedSectionsNames();
+    if(sectionList.count()>0)
+    {
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                   NULL,
+                                   tr("Binary Files (*.bin)"));
+        if(!fileName.isEmpty())
+        {
+            binaryFile::toBinary(p_elf->getFragments(sectionList),fileName);
+        }
+    }
 
 }
 

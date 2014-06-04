@@ -22,7 +22,8 @@
         alexis.jeandet@member.fsf.org
 ----------------------------------------------------------------------------*/
 #include "elffile.h"
-#include "srec/srecfile.h"
+#include "srecfile.h"
+#include "binaryfile.h"
 #include <stdint.h>
 
 ElfFile::ElfFile()
@@ -1065,4 +1066,9 @@ bool ElfFile::isElf(const QString &File)
 bool ElfFile::toSrec(const QString &File)
 {
     return srecFile::toSrec(this->getFragments(),File);
+}
+
+bool ElfFile::toBinary(const QString &File)
+{
+    return binaryFile::toBinary(getFragments(),File);
 }

@@ -23,6 +23,7 @@
 #define ABSTRACTBINFILE_H
 
 #include <QtCore/QObject>
+#include <QtWidgets/QWidget>
 
 class codeFragment
 {
@@ -44,9 +45,23 @@ public:
     virtual bool isopened()=0;
     virtual int closeFile()=0;
     virtual QList<codeFragment*> getFragments()=0;
-
+    virtual bool toSrec(const QString& File)=0;
+    virtual bool toBinary(const QString& File)=0;
 protected:
      QString p_fileName;
+};
+
+
+class abstractBinFileWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    abstractBinFileWidget(QWidget* parent = 0):QWidget(parent){};
+
+public slots:
+    virtual void setFile(abstractBinFile* file)=0;
+    virtual void reloadFile()=0;
 };
 
 #endif // ABSTRACTBINFILE_H

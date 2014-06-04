@@ -41,10 +41,13 @@ public:
     int closeFile();
     QList<codeFragment*> getFragments();
     static bool toSrec(QList<codeFragment*> fragments,const QString& File);
+    bool toSrec(const QString &File);
+    bool toBinary(const QString& File);
     int lineCount();
     int getFragmentsCount();
     int getFragmentAddress(int index);
     int getFragmentSize(int index);
+    codeFragment *getFragment(int index);
     QString getFragmentHeader(int index);
     bool getFragmentData(int index, char **buffer);
 

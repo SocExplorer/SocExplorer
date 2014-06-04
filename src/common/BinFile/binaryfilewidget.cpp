@@ -2,14 +2,22 @@
 #include "ui_binaryfilewidget.h"
 #include "qtablewidgetintitem.h"
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QFileDialog>
+#include "srecfile.h"
 
 binaryFileWidget::binaryFileWidget(QWidget *parent) :
-    QWidget(parent),
+    abstractBinFileWidget(parent),
     ui(new Ui::binaryFileWidget)
 {
     ui->setupUi(this);
     connect(this->ui->fragmentList,SIGNAL(cellActivated(int,int)),this,SLOT(fragmentCellActivated(int,int)));
     connect(this->ui->fragmentList,SIGNAL(cellChanged(int,int)),this,SLOT(fragmentCellChanged(int,int)));
+    exportToSREC_action = new QAction(tr("Export to SREC"),this);
+    exportToBIN_action = new QAction(tr("Export to Binary"),this);
+    this->ui->fragmentList->addAction(exportToBIN_action);
+    this->ui->fragmentList->addAction(exportToSREC_action);
+    connect(this->exportToBIN_action,SIGNAL(triggered()),this,SLOT(exportToBIN()));
+    connect(this->exportToSREC_action,SIGNAL(triggered()),this,SLOT(exportToSREC()));
 }
 
 binaryFileWidget::~binaryFileWidget()
@@ -17,16 +25,16 @@ binaryFileWidget::~binaryFileWidget()
     delete ui;
 }
 
-void binaryFileWidget::updateBinaryFile(binaryFile *file)
+void binaryFileWidget::setFile(abstractBinFile *file)
 {
-    this->p_binfile = file;
+    this->p_binfile = (binaryFile*)file;
     if(p_binfile->isopened())
     {
-        updateFragments();
+        reloadFile();
     }
 }
 
-void binaryFileWidget::updateFragments()
+void binaryFileWidget::reloadFile()
 {
     this->ui->fragmentList->clear();
     this->ui->fragmentList->setRowCount(p_binfile->getFragmentsCount());
@@ -79,4 +87,64 @@ void binaryFileWidget::fragmentCellChanged(int row, int column)
         }
         this->p_binfile->getFragments().at(row)->address = newAddress;
     }
+}
+
+void binaryFileWidget::exportToSREC()
+{
+    QList<codeFragment *>  SelectedFragmentsList=getSelectedFragments();
+    if(SelectedFragmentsList.count()>0)
+    {
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                   NULL,
+                                   tr("SREC Files (*.srec)"));
+        if(!fileName.isEmpty())
+        {
+            srecFile::toSrec(SelectedFragmentsList,fileName);
+        }
+    }
+}
+
+void binaryFileWidget::exportToBIN()
+{
+    QList<codeFragment *>  SelectedFragmentsList=getSelectedFragments();
+    if(SelectedFragmentsList.count()>0)
+    {
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                   NULL,
+                                   tr("Binary Files (*.bin)"));
+        if(!fileName.isEmpty())
+        {
+            binaryFile::toBinary(SelectedFragmentsList,fileName);
+        }
+    }
+}
+
+QStringList binaryFileWidget::getSelectedFilesNames()
+{
+    QStringList SelectedFilesList;
+    QList<QTableWidgetItem*> items = this->ui->fragmentList->selectedItems();
+    for(int i=0;i<items.count();i++)
+    {
+        QString file = p_binfile->getFragmentHeader(items.at(i)->row());
+        if(!SelectedFilesList.contains(file))
+        {
+            SelectedFilesList.append(file);
+        }
+    }
+    return SelectedFilesList;
+}
+
+QList<codeFragment *> binaryFileWidget::getSelectedFragments()
+{
+    QList<codeFragment *>  SelectedFragmentsList;
+    QList<QTableWidgetItem*> items = this->ui->fragmentList->selectedItems();
+    for(int i=0;i<items.count();i++)
+    {
+        codeFragment * fragment = p_binfile->getFragment(items.at(i)->row());
+        if(!SelectedFragmentsList.contains(fragment))
+        {
+            SelectedFragmentsList.append(fragment);
+        }
+    }
+    return SelectedFragmentsList;
 }
