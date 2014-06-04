@@ -23,6 +23,7 @@
 ----------------------------------------------------------------------------*/
 #include "elffile.h"
 #include "srec/srecfile.h"
+#include <stdint.h>
 
 ElfFile::ElfFile()
     :abstractBinFile()
@@ -479,8 +480,7 @@ QString ElfFile::getABI()
         if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_SYSV)return "Alias";
         if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_HPUX)return "HP-UX";
         if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_NETBSD)return "NetBSD";
-        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_GNU)return "Object uses GNU ELF extensions";
-        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_LINUX)return "Compatibility alias";
+        if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_LINUX)return "Object uses GNU ELF extensions";
         if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_SOLARIS)return "Sun Solaris";
         if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_AIX)return "IBM AIX";
         if(this->ehdr.e_ident[EI_OSABI]==ELFOSABI_IRIX)return "SGI Irix";
