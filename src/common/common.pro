@@ -44,7 +44,7 @@ header.files = \
     qtablewidgetintitem.h \
     srec/srecfile.h \
     srec/srecfilewidget.h \
-    abstractbinfile.cpp
+    abstractbinfile.h
 
 win32{
     elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/libelf
