@@ -13,3 +13,5 @@
 #include "QCustomPlot/qcustomplot.h"
 #include "srec/srecfile.h"
 #include "srec/srecfilewidget.h"
+#include "BinFile/binaryfile.h"
+#include "BinFile/binaryfilewidget.h"

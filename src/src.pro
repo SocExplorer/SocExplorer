@@ -23,6 +23,7 @@ INCLUDEPATH+=$${PWD} \
             $${PWD}/common/QCustomPlot \
             $${PWD}/common/elf \
             $${PWD}/common/srec \
+            $${PWD}/common/BinFile \
             SocExplorerEngine/engine \
             SocExplorerEngine/pluginloader \
             SocExplorerEngine/pluginsInterface \

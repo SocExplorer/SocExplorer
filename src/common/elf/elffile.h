@@ -88,16 +88,17 @@ public:
     qint64 getSegmentVaddr(int index);
     qint64 getSegmentPaddr(int index);
     qint64 getSegmentFilesz(int index);
-    qint64 getSectionDatasz(int index);
     qint64 getSegmentMemsz(int index);
     QString getSegmentFlags(int index);
 
     bool getSectionData(int index, char **buffer);
     qint64 getSectionPaddr(int index);
     qint64 getSectionMemsz(int index);
+    qint64 getSectionDatasz(int index);
     QString getSectionName(int index);
     QString getSectionType(int index);
     int getSectionIndex(QString name);
+    bool sectionIsNobits(int index);
 
     QString getSymbolName(int index);
     QString getSymbolType(int index);

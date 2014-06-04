@@ -6,6 +6,8 @@
 #include <QWidget>
 #include <SocExplorerPlot.h>
 #include <abstractbinfile.h>
+#include <binaryfile.h>
+#include <binaryfilewidget.h>
 #include <elffile.h>
 #include <elffilewidget.h>
 #include <elfinfowdgt.h>
@@ -125,6 +127,7 @@ void delete_ElfFile(ElfFile* obj) { delete obj; }
    bool  iself(ElfFile* theWrappedObject);
    bool  isopened(ElfFile* theWrappedObject);
    bool  openFile(ElfFile* theWrappedObject, const QString&  File);
+   bool  sectionIsNobits(ElfFile* theWrappedObject, int  index);
    bool  toSrec(ElfFile* theWrappedObject, const QString&  File);
 };
 
@@ -273,6 +276,8 @@ void delete_QHexEdit(QHexEdit* obj) { delete obj; }
    int  cursorPosition(QHexEdit* theWrappedObject);
    QByteArray  data(QHexEdit* theWrappedObject);
    const QFont*  font(QHexEdit* theWrappedObject) const;
+   int  getSelectionBegin(QHexEdit* theWrappedObject);
+   int  getSelectionEnd(QHexEdit* theWrappedObject);
    QColor  highlightingColor(QHexEdit* theWrappedObject);
    int  indexOf(QHexEdit* theWrappedObject, const QByteArray&  ba, int  from = 0) const;
    void insert(QHexEdit* theWrappedObject, int  i, char  ch);
@@ -282,6 +287,8 @@ void delete_QHexEdit(QHexEdit* obj) { delete obj; }
    bool  overwriteMode(QHexEdit* theWrappedObject);
    void remove(QHexEdit* theWrappedObject, int  pos, int  len = 1);
    void replace(QHexEdit* theWrappedObject, int  pos, int  len, const QByteArray&  after);
+   void resetSelection(QHexEdit* theWrappedObject);
+   void resetSelection(QHexEdit* theWrappedObject, int  pos);
    QColor  selectionColor(QHexEdit* theWrappedObject);
    QString  selectionToReadableString(QHexEdit* theWrappedObject);
    void setAddressAreaColor(QHexEdit* theWrappedObject, const QColor&  color);
@@ -292,6 +299,7 @@ void delete_QHexEdit(QHexEdit* obj) { delete obj; }
    void setHighlightingColor(QHexEdit* theWrappedObject, const QColor&  color);
    void setOverwriteMode(QHexEdit* theWrappedObject, bool  arg__1);
    void setReadOnly(QHexEdit* theWrappedObject, bool  arg__1);
+   void setSelection(QHexEdit* theWrappedObject, int  pos);
    void setSelectionColor(QHexEdit* theWrappedObject, const QColor&  color);
    QString  toReadableString(QHexEdit* theWrappedObject);
 };
@@ -583,6 +591,122 @@ void delete_abstractBinFile(abstractBinFile* obj) { delete obj; }
 
 
 
+class PythonQtShell_binaryFile : public binaryFile
+{
+public:
+    PythonQtShell_binaryFile():binaryFile(),_wrapper(NULL) {};
+    PythonQtShell_binaryFile(const QString&  File):binaryFile(File),_wrapper(NULL) {};
+    PythonQtShell_binaryFile(const QStringList&  Files):binaryFile(Files),_wrapper(NULL) {};
+
+   ~PythonQtShell_binaryFile();
+
+virtual int  closeFile();
+virtual QList<codeFragment* >  getFragments();
+virtual bool  isopened();
+virtual bool  openFile(const QString&  File);
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtPublicPromoter_binaryFile : public binaryFile
+{ public:
+inline int  promoted_closeFile() { return binaryFile::closeFile(); }
+inline QList<codeFragment* >  promoted_getFragments() { return binaryFile::getFragments(); }
+inline bool  promoted_isopened() { return binaryFile::isopened(); }
+inline bool  promoted_openFile(const QString&  File) { return binaryFile::openFile(File); }
+};
+
+class PythonQtWrapper_binaryFile : public QObject
+{ Q_OBJECT
+public:
+public slots:
+binaryFile* new_binaryFile();
+binaryFile* new_binaryFile(const QString&  File);
+binaryFile* new_binaryFile(const QStringList&  Files);
+void delete_binaryFile(binaryFile* obj) { delete obj; } 
+   int  closeFile(binaryFile* theWrappedObject);
+   int  getFragmentAddress(binaryFile* theWrappedObject, int  index);
+   bool  getFragmentData(binaryFile* theWrappedObject, int  index, char**  buffer);
+   QString  getFragmentHeader(binaryFile* theWrappedObject, int  index);
+   int  getFragmentSize(binaryFile* theWrappedObject, int  index);
+   QList<codeFragment* >  getFragments(binaryFile* theWrappedObject);
+   int  getFragmentsCount(binaryFile* theWrappedObject);
+   bool  isopened(binaryFile* theWrappedObject);
+   bool  openFile(binaryFile* theWrappedObject, const QString&  File);
+   bool  openFiles(binaryFile* theWrappedObject, const QStringList&  Files);
+};
+
+
+
+
+
+class PythonQtShell_binaryFileWidget : public binaryFileWidget
+{
+public:
+    PythonQtShell_binaryFileWidget(QWidget*  parent = 0):binaryFileWidget(parent),_wrapper(NULL) {};
+
+   ~PythonQtShell_binaryFileWidget();
+
+virtual void actionEvent(QActionEvent*  arg__1);
+virtual void changeEvent(QEvent*  arg__1);
+virtual void childEvent(QChildEvent*  arg__1);
+virtual void closeEvent(QCloseEvent*  arg__1);
+virtual void contextMenuEvent(QContextMenuEvent*  arg__1);
+virtual void customEvent(QEvent*  arg__1);
+virtual int  devType() const;
+virtual void dragEnterEvent(QDragEnterEvent*  arg__1);
+virtual void dragLeaveEvent(QDragLeaveEvent*  arg__1);
+virtual void dragMoveEvent(QDragMoveEvent*  arg__1);
+virtual void dropEvent(QDropEvent*  arg__1);
+virtual void enterEvent(QEvent*  arg__1);
+virtual bool  event(QEvent*  arg__1);
+virtual bool  eventFilter(QObject*  arg__1, QEvent*  arg__2);
+virtual void focusInEvent(QFocusEvent*  arg__1);
+virtual bool  focusNextPrevChild(bool  next);
+virtual void focusOutEvent(QFocusEvent*  arg__1);
+virtual bool  hasHeightForWidth() const;
+virtual int  heightForWidth(int  arg__1) const;
+virtual void hideEvent(QHideEvent*  arg__1);
+virtual void initPainter(QPainter*  painter) const;
+virtual void inputMethodEvent(QInputMethodEvent*  arg__1);
+virtual QVariant  inputMethodQuery(Qt::InputMethodQuery  arg__1) const;
+virtual void keyPressEvent(QKeyEvent*  arg__1);
+virtual void keyReleaseEvent(QKeyEvent*  arg__1);
+virtual void leaveEvent(QEvent*  arg__1);
+virtual int  metric(QPaintDevice::PaintDeviceMetric  arg__1) const;
+virtual QSize  minimumSizeHint() const;
+virtual void mouseDoubleClickEvent(QMouseEvent*  arg__1);
+virtual void mouseMoveEvent(QMouseEvent*  arg__1);
+virtual void mousePressEvent(QMouseEvent*  arg__1);
+virtual void mouseReleaseEvent(QMouseEvent*  arg__1);
+virtual void moveEvent(QMoveEvent*  arg__1);
+virtual bool  nativeEvent(const QByteArray&  eventType, void*  message, long*  result);
+virtual QPaintEngine*  paintEngine() const;
+virtual void paintEvent(QPaintEvent*  arg__1);
+virtual QPaintDevice*  redirected(QPoint*  offset) const;
+virtual void resizeEvent(QResizeEvent*  arg__1);
+virtual QPainter*  sharedPainter() const;
+virtual void showEvent(QShowEvent*  arg__1);
+virtual QSize  sizeHint() const;
+virtual void tabletEvent(QTabletEvent*  arg__1);
+virtual void timerEvent(QTimerEvent*  arg__1);
+virtual void wheelEvent(QWheelEvent*  arg__1);
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtWrapper_binaryFileWidget : public QObject
+{ Q_OBJECT
+public:
+public slots:
+binaryFileWidget* new_binaryFileWidget(QWidget*  parent = 0);
+void delete_binaryFileWidget(binaryFileWidget* obj) { delete obj; } 
+};
+
+
+
+
+
 class PythonQtShell_codeFragment : public codeFragment
 {
 public:
@@ -606,10 +730,10 @@ void py_set_size(codeFragment* theWrappedObject, quint64  size){ theWrappedObjec
 quint64  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
 void py_set_header(codeFragment* theWrappedObject, QString  header){ theWrappedObject->header = header; }
 QString  py_get_header(codeFragment* theWrappedObject){ return theWrappedObject->header; }
-void py_set_address(codeFragment* theWrappedObject, quint64  address){ theWrappedObject->address = address; }
-quint64  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
 void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
 char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
+void py_set_address(codeFragment* theWrappedObject, quint64  address){ theWrappedObject->address = address; }
+quint64  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
 };
 
 

@@ -18,6 +18,7 @@
     <object-type name="TCP_Terminal_Client" />
     <object-type name="codeFragment" />
     <object-type name="srecFile" />
+    <object-type name="binaryFile" />
     <rejection class="Elf_Section"/>
     <object-type name="elfparser" />
     <interface-type name="abstractBinFile">
@@ -39,6 +40,12 @@
         </extra-includes>
     </object-type>
     <object-type name="srecFileWidget">
+      <extra-includes>
+        <include file-name="QWidget" location="global"/>
+        <include file-name="QObject" location="global"/>
+      </extra-includes>
+    </object-type>
+    <object-type name="binaryFileWidget">
       <extra-includes>
         <include file-name="QWidget" location="global"/>
         <include file-name="QObject" location="global"/>

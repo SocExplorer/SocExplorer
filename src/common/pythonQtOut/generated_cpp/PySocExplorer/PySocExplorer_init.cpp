@@ -12,6 +12,9 @@ PythonQt::priv()->registerClass(&SocExplorerPlot::staticMetaObject, "PySocExplor
 PythonQt::priv()->registerClass(&TCP_Terminal_Client::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_TCP_Terminal_Client>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_TCP_Terminal_Client>, module, 0);
 PythonQt::priv()->registerCPPClass("XByteArray", "", "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_XByteArray>, NULL, module, 0);
 PythonQt::priv()->registerClass(&abstractBinFile::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_abstractBinFile>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_abstractBinFile>, module, 0);
+PythonQt::priv()->registerClass(&binaryFile::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_binaryFile>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_binaryFile>, module, 0);
+PythonQt::self()->addParentClass("binaryFile", "abstractBinFile",PythonQtUpcastingOffset<binaryFile,abstractBinFile>());
+PythonQt::priv()->registerClass(&binaryFileWidget::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_binaryFileWidget>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_binaryFileWidget>, module, 0);
 PythonQt::priv()->registerCPPClass("codeFragment", "", "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_codeFragment>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_codeFragment>, module, 0);
 PythonQt::priv()->registerClass(&elfFileWidget::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_elfFileWidget>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_elfFileWidget>, module, 0);
 PythonQt::priv()->registerClass(&elfInfoWdgt::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_elfInfoWdgt>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_elfInfoWdgt>, module, 0);

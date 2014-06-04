@@ -122,7 +122,7 @@ public:
     virtual int baseAddress();
     //! Sets the base address of the current instance, for example if your plugin is supposed to drive
     //! an UART it will correspond to the address of it's first register. This address have at least to
-    //! be set by lppSocExplorer and it can be user accessible if you want.
+    //! be set by SocExplorer and it can be user accessible if you want.
     virtual void setBaseAddress(unsigned int baseAddress);
 
     genericPySysdriver* getPyObjectWrapper(){return this->pyObject;}

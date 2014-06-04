@@ -44,7 +44,10 @@ header.files = \
     qtablewidgetintitem.h \
     srec/srecfile.h \
     srec/srecfilewidget.h \
-    abstractbinfile.cpp
+    abstractbinfile.h \
+    BinFile/binaryfile.h \
+    BinFile/binaryfilewidget.h
+
 
 win32{
     elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/libelf
@@ -92,7 +95,9 @@ HEADERS += \
     qtablewidgetintitem.h \
     srec/srecfile.h \
     srec/srecfilewidget.h \
-    abstractbinfile.h
+    abstractbinfile.h \
+    BinFile/binaryfile.h \
+    BinFile/binaryfilewidget.h
 
 
 SOURCES += \
@@ -114,11 +119,14 @@ SOURCES += \
     qtablewidgetintitem.cpp \
     srec/srecfile.cpp \
     srec/srecfilewidget.cpp \
-    abstractbinfile.cpp
+    abstractbinfile.cpp \
+    BinFile/binaryfile.cpp \
+    BinFile/binaryfilewidget.cpp
 
 FORMS += \
     elf/elffilewidget.ui \
-    srec/srecfilewidget.ui
+    srec/srecfilewidget.ui \
+    BinFile/binaryfilewidget.ui
 
 OTHER_FILES += \
     ./pythongenerator.sh \

@@ -29,7 +29,7 @@ ElfFile::ElfFile()
 {
     this->opened = false;
     this->type_elf = false;
-    this->elfFile = NULL;
+    this->elfFile = (int)NULL;
     this->e = NULL;
 }
 
@@ -38,7 +38,7 @@ ElfFile::ElfFile(const QString &File)
 {
     this->opened = false;
     this->type_elf = false;
-    this->elfFile = NULL;
+    this->elfFile = (int)NULL;
     this->e = NULL;
     this->p_fileName = File;
     openFile(File);
@@ -76,7 +76,7 @@ bool ElfFile::openFile(const QString &File)
 #else
     this->elfFile = open(File.toStdString().c_str(),O_RDONLY ,0);
 #endif
-    if(this->elfFile==NULL)return 0;
+    if(this->elfFile==(int)NULL)return 0;
     this->e = elf_begin(this->elfFile,ELF_C_READ,NULL);
     if(this->e==NULL)return 0;
     this->ek = elf_kind(this->e);
@@ -96,7 +96,7 @@ bool ElfFile::isopened()
 
 int ElfFile::closeFile()
 {
-    if(this->elfFile!=NULL)
+    if(this->elfFile!=(int)NULL)
     {
         if(this->e!=NULL)
         {
@@ -104,7 +104,7 @@ int ElfFile::closeFile()
             this->e = NULL;
         }
         close(this->elfFile);
-        this->elfFile = NULL;
+        this->elfFile = (int)NULL;
     }
     this->opened = false;
     return 0;
@@ -502,6 +502,7 @@ qint64 ElfFile::getVersion()
     {
         return this->ehdr.e_version;
     }
+    return -1;
 }
 
 qint64 ElfFile::getEntryPointAddress()
@@ -510,6 +511,7 @@ qint64 ElfFile::getEntryPointAddress()
     {
         return this->ehdr.e_entry;
     }
+    return -1;
 }
 
 
@@ -591,12 +593,12 @@ QString ElfFile::getSegmentType(int index)
 
 qint64 ElfFile::getSegmentOffset(int index)
 {
-    int64_t Offset;
+    qint64 Offset = -1;
     if(this->e!=NULL)
     {
         if(index < this->Segments.count())
         {
-            Offset =  (int64_t)this->Segments.at(index)->p_offset;
+            Offset =  (qint64)this->Segments.at(index)->p_offset;
         }
     }
     return Offset;
@@ -664,7 +666,14 @@ qint64 ElfFile::getSectionDatasz(int index)
     {
         if(index < this->sections.count())
         {
-            DataSz = (int64_t)this->sections.at(index)->data->d_size;
+            if(this->sections.at(index)->section_header->sh_type==SHT_NOBITS)
+            {
+                DataSz=0;
+            }
+            else
+            {
+                DataSz = (int64_t)this->sections.at(index)->data->d_size;
+            }
         }
     }
     return DataSz;
@@ -769,7 +778,7 @@ void ElfFile::updateSegments()
         free(this->Segments.at(i));
     }
     this->Segments.clear();
-    for(int i=0;i<this->SegmentCount;i++)
+    for(int i=0;i<(int)this->SegmentCount;i++)
     {
         GElf_Phdr* header=(GElf_Phdr*)malloc(sizeof(GElf_Phdr));
         gelf_getphdr (this->e , i , header );
@@ -785,7 +794,7 @@ void ElfFile::updateSymbols()
     }
     this->symbols.clear();
     updateSections(); //Useless in most case but safer to do it
-    for(int i=0;i<SectionCount;i++)
+    for(int i=0;i<(int)SectionCount;i++)
     {
         //First find Symbol table
         if(this->getSectionName(i)==".symtab")
@@ -793,7 +802,7 @@ void ElfFile::updateSymbols()
             Elf_Section* sec = sections.at(i);
             this->SymbolCount =   sec->section_header->sh_size / sec->section_header->sh_entsize;
             //Then list all symbols
-            for(int j=0;j<this->SymbolCount;j++)
+            for(int j=0;j<(int)this->SymbolCount;j++)
             {
                 GElf_Sym* esym = (GElf_Sym*)malloc(sizeof(GElf_Sym));
                 gelf_getsym(sec->data, j, esym);
@@ -813,9 +822,9 @@ QString ElfFile::getSectionType(int index)
     QString type("");
     if(this->e!=NULL)
     {
-        if(index < this->Segments.count())
+        if(index < this->sections.count())
         {
-            switch(this->Segments.at(index)->p_type)
+            switch(this->sections.at(index)->section_header->sh_type)
             {
             case SHT_NULL	 :	type = "Section header table entry unused"; break;
             case SHT_PROGBITS	  :		type = "Program data"; break;
@@ -857,11 +866,23 @@ int ElfFile::getSectionIndex(QString name)
     {
         for(int i=0;i<sections.count();i++)
         {
-           if(getSectionName(i)==name)
-               return i;
+            if(getSectionName(i)==name)
+                return i;
         }
     }
     return -1;
+}
+
+bool ElfFile::sectionIsNobits(int index)
+{
+    if(this->e!=NULL)
+    {
+        if(index < this->sections.count())
+        {
+            return this->sections.at(index)->section_header->sh_type== SHT_NOBITS;
+        }
+    }
+    return false;
 }
 
 QString ElfFile::getSymbolName(int index)
@@ -948,7 +969,7 @@ QString ElfFile::getSymbolSectionName(int index)
     {
         if((index < this->symbols.count()) && (index>=0))
         {
-           return getSectionName(symbols.at(index)->sym->st_shndx-1);
+            return getSectionName(symbols.at(index)->sym->st_shndx-1);
         }
     }
     return "none";
@@ -960,7 +981,7 @@ int ElfFile::getSymbolSectionIndex(int index)
     {
         if((index < this->symbols.count()) && (index>=0))
         {
-           return symbols.at(index)->sym->st_shndx;
+            return symbols.at(index)->sym->st_shndx;
         }
     }
     return 0;
@@ -1031,9 +1052,9 @@ bool ElfFile::isElf(const QString &File)
     char Magic[4];
     if(file!=-1)
     {
-        read(file,Magic,4);
+        size_t res = read(file,Magic,4);
         close(file);
-        if(Magic[0]==0x7f && Magic[1]==0x45 && Magic[2]==0x4c && Magic[3]==0x46)
+        if((res==4) && (Magic[0]==0x7f) && (Magic[1]==0x45) && (Magic[2]==0x4c) && (Magic[3]==0x46))
         {
             return true;
         }

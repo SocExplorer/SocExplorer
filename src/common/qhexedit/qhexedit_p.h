@@ -66,6 +66,13 @@ public:
     QString toRedableString();
     QString selectionToReadableString();
 
+    void resetSelection(int pos);       // set selectionStart and selectionEnd to pos
+    void resetSelection();              // set selectionEnd to selectionStart
+    void setSelection(int pos);         // set min (if below init) or max (if greater init)
+    int getSelectionBegin();
+    int getSelectionEnd();
+
+
 signals:
     void currentAddressChanged(int address);
     void currentSizeChanged(int size);
@@ -81,11 +88,6 @@ protected:
 
     int cursorPos(QPoint pos);          // calc cursorpos from graphics position. DOES NOT STORE POSITION
 
-    void resetSelection(int pos);       // set selectionStart and selectionEnd to pos
-    void resetSelection();              // set selectionEnd to selectionStart
-    void setSelection(int pos);         // set min (if below init) or max (if greater init)
-    int getSelectionBegin();
-    int getSelectionEnd();
 
 
 private slots:

@@ -179,6 +179,12 @@ public:
     const QFont &font() const;
     void setFont(const QFont &);
     /*! \endcond docNever */
+    //Added by Alexis Jeandet to manage selection outside of qhexedit
+    void resetSelection(int pos);       // set selectionStart and selectionEnd to pos
+    void resetSelection();              // set selectionEnd to selectionStart
+    void setSelection(int pos);         // set min (if below init) or max (if greater init)
+    int getSelectionBegin();
+    int getSelectionEnd();
 
 public slots:
     /*! Redoes the last operation. If there is no operation to redo, i.e.

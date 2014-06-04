@@ -32,7 +32,7 @@ elfparser::elfparser()
 {
     this->opened = false;
     this->type_elf = false;
-    this->elfFile = NULL;
+    this->elfFile = (int)NULL;
     this->e = NULL;
 }
 
@@ -46,7 +46,7 @@ int elfparser::setFilename(const QString &name)
 #else
     this->elfFile = open(name.toStdString().c_str(),O_RDONLY ,0);
 #endif
-    if(this->elfFile==NULL)return 0;
+    if(this->elfFile==(int)NULL)return 0;
     this->e = elf_begin(this->elfFile,ELF_C_READ,NULL);
     if(this->e==NULL)return 0;
     this->ek = elf_kind(this->e);
@@ -60,7 +60,7 @@ int elfparser::setFilename(const QString &name)
 
 int elfparser::closeFile()
 {
-    if(this->elfFile!=NULL)
+    if(this->elfFile!=(int)NULL)
     {
         if(this->e!=NULL)
         {
@@ -68,7 +68,7 @@ int elfparser::closeFile()
             this->e = NULL;
         }
         close(this->elfFile);
-        this->elfFile = NULL;
+        this->elfFile = (int)NULL;
     }
     return 0;
 }
@@ -178,6 +178,7 @@ qint64 elfparser::getVersion()
     {
         return this->ehdr.e_version;
     }
+    return -1;
 }
 
 qint64 elfparser::getEntryPointAddress()
@@ -186,6 +187,7 @@ qint64 elfparser::getEntryPointAddress()
     {
         return this->ehdr.e_entry;
     }
+    return -1;
 }
 
 
@@ -262,12 +264,12 @@ QString elfparser::getSegmentType(int index)
 
 qint64 elfparser::getSegmentOffset(int index)
 {
-    int64_t Offset;
+    qint64 Offset=-1;
     if(this->e!=NULL)
     {
         if(index < this->Segments.count())
         {
-            Offset =  (int64_t)this->Segments.at(index)->p_offset;
+            Offset =  (qint64)this->Segments.at(index)->p_offset;
         }
     }
     return Offset;
@@ -436,7 +438,7 @@ void elfparser::updateSegments()
         free(this->Segments.at(i));
     }
     this->Segments.clear();
-    for(int i=0;i<this->SegmentCount;i++)
+    for(int i=0;i<(int)this->SegmentCount;i++)
     {
         GElf_Phdr* header=(GElf_Phdr*)malloc(sizeof(GElf_Phdr));
         gelf_getphdr (this->e , i , header );
@@ -502,9 +504,9 @@ bool elfparser::isElf(const QString &File)
     char Magic[4];
     if(file!=-1)
     {
-        read(file,Magic,4);
+        size_t res = read(file,Magic,4);
         close(file);
-        if(Magic[0]==0x7f && Magic[1]==0x45 && Magic[2]==0x4c && Magic[3]==0x46)
+        if((res == 4) && (Magic[0]==0x7f) && (Magic[1]==0x45) && (Magic[2]==0x4c) && (Magic[3]==0x46))
         {
             return true;
         }

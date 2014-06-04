@@ -174,6 +174,31 @@ void QHexEdit::setFont(const QFont &font)
     qHexEdit_p->setFont(font);
 }
 
+void QHexEdit::resetSelection(int pos)
+{
+    qHexEdit_p->resetSelection(pos);
+}
+
+void QHexEdit::resetSelection()
+{
+    qHexEdit_p->resetSelection();
+}
+
+void QHexEdit::setSelection(int pos)
+{
+    qHexEdit_p->setSelection(pos);
+}
+
+int QHexEdit::getSelectionBegin()
+{
+    return qHexEdit_p->getSelectionBegin();
+}
+
+int QHexEdit::getSelectionEnd()
+{
+    return qHexEdit_p->getSelectionEnd();
+}
+
 const QFont & QHexEdit::font() const
 {
     return qHexEdit_p->font();

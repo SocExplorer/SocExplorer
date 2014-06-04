@@ -26,7 +26,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalInfoTab">
       <attribute name="title">
@@ -184,8 +184,28 @@
        <string>Symbols</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="symbolsFilter"/>
+       </item>
        <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Filter:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="caseSensitive">
+         <property name="text">
+          <string>Case Sensitive</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="3">
         <widget class="QTableWidget" name="symbolsList">
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
          <property name="sortingEnabled">
           <bool>true</bool>
          </property>
@@ -240,46 +260,62 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QHexEdit" name="sectionsHexView" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>0</height>
-          </size>
+        <widget class="QSplitter" name="splitter">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QTableWidget" name="sectionsList">
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-          <bool>false</bool>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>Index</string>
+         <widget class="QHexEdit" name="sectionsHexView" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
           </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Name</string>
+         </widget>
+         <widget class="QTableWidget" name="sectionsList">
+          <property name="contextMenuPolicy">
+           <enum>Qt::ActionsContextMenu</enum>
           </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Address</string>
+          <property name="sortingEnabled">
+           <bool>true</bool>
           </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Size</string>
-          </property>
-         </column>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Index</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Name</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Address</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Size</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>File Size</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Type</string>
+           </property>
+          </column>
+         </widget>
         </widget>
        </item>
       </layout>
