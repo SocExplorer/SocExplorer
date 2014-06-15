@@ -21,9 +21,10 @@ INCLUDEPATH+=$${PWD} \
             $${PWD}/common \
             $${PWD}/common/qhexedit \
             $${PWD}/common/QCustomPlot \
-            $${PWD}/common/elf \
-            $${PWD}/common/srec \
-            $${PWD}/common/BinFile \
+            $${PWD}/common/genericBinaryFiles \
+            $${PWD}/common/genericBinaryFiles/elf \
+            $${PWD}/common/genericBinaryFiles/srec \
+            $${PWD}/common/genericBinaryFiles/BinFile \
             SocExplorerEngine/engine \
             SocExplorerEngine/pluginloader \
             SocExplorerEngine/pluginsInterface \
@@ -36,8 +37,8 @@ INCLUDEPATH+=$${PWD} \
             SocExplorerEngine/PeripheralWidget/src
 
 win32:INCLUDEPATH+= \
-            $${PWD}/common/elf/libelfWin32/include \
-            $${PWD}/common/elf/libelfWin32/include/libelf \
+            $${PWD}/common/genericBinaryFiles/elf/libelfWin32/include \
+            $${PWD}/common/genericBinaryFiles/elf/libelfWin32/include/libelf \
 
 
 RC_FILE = ../win32cfg/socexplorer.rc

@@ -8,12 +8,12 @@ TARGET = socexplorercommon$${DEBUG_EXT}
 win32:CONFIG += dll
 win32:CONFIG -= static
 
-win32:INCLUDEPATH += $${PWD}/elf/libelfWin32/include
-win32:INCLUDEPATH += $${PWD}/elf/libelfWin32/include/libelf
+win32:INCLUDEPATH += $${PWD}/genericBinaryFiles/elf/libelfWin32/include
+win32:INCLUDEPATH += $${PWD}/genericBinaryFiles/elf/libelfWin32/include/libelf
 win32:DEFINES+=_ELF_WINDOWS_
 DEFINES+=RS232_debug
 
-win32:LIBS += $${PWD}/elf/libelfWin32/bin/libelf.a
+win32:LIBS += $${PWD}/genericBinaryFiles/elf/libelfWin32/bin/libelf.a
 unix:LIBS += -lelf
 
 QMAKE_LFLAGS_RELEASE += --enable-auto-import
@@ -35,33 +35,33 @@ header.files = \
     QCustomPlot/qcustomplot.h \
     SocExplorerPlot.h \
     tcp_terminal_client.h \
-    elf/elfinfowdgt.h \
-    elf/elfparser.h \
-    elf/elffile.h \
-    elf/elffilewidget.h \
+    genericBinaryFiles/elf/elfinfowdgt.h \
+    genericBinaryFiles/elf/elfparser.h \
+    genericBinaryFiles/elf/elffile.h \
+    genericBinaryFiles/elf/elffilewidget.h \
     qipdialogbox.h \
     lppserial/src/RS232.h \
     qtablewidgetintitem.h \
-    srec/srecfile.h \
-    srec/srecfilewidget.h \
-    BinFile/binaryfile.h \
-    BinFile/binaryfilewidget.h \
-    abstractbinfile.h
+    genericBinaryFiles/srec/srecfile.h \
+    genericBinaryFiles/srec/srecfilewidget.h \
+    genericBinaryFiles/BinFile/binaryfile.h \
+    genericBinaryFiles/BinFile/binaryfilewidget.h \
+    genericBinaryFiles/abstractbinfile.h
 
 win32{
-    elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/libelf
+    elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/genericBinaryFiles/libelf
     elfheader.files += \
-        elf/libelfWin32/include/libelf/byteswap.h  \
-        elf/libelfWin32/include/libelf/errors.h     \
-        elf/libelfWin32/include/libelf/gelf.h    \
-        elf/libelfWin32/include/libelf/nlist.h    \
-        elf/libelfWin32/include/libelf/sys_elf.h  \
-        elf/libelfWin32/include/libelf/verneed.h \
-        elf/libelfWin32/include/libelf/elf_repl.h \
-        elf/libelfWin32/include/libelf/ext_types.h \
-        elf/libelfWin32/include/libelf/libelf.h  \
-        elf/libelfWin32/include/libelf/private.h  \
-        elf/libelfWin32/include/libelf/verdef.h
+        genericBinaryFiles/elf/libelfWin32/include/libelf/byteswap.h  \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/errors.h     \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/gelf.h    \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/nlist.h    \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/sys_elf.h  \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/verneed.h \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/elf_repl.h \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/ext_types.h \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/libelf.h  \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/private.h  \
+        genericBinaryFiles/elf/libelfWin32/include/libelf/verdef.h
     INSTALLS += elfheader
 }
 
@@ -72,7 +72,7 @@ isEmpty(header.path) {
 
 INSTALLS += target header
 
-INCLUDEPATH += QCustomPlot qhexedit srec BinFile
+INCLUDEPATH += QCustomPlot qhexedit   genericBinaryFiles genericBinaryFiles/srec  genericBinaryFiles/BinFile
 
 HEADERS += \
     memsizewdgt.h \
@@ -84,19 +84,19 @@ HEADERS += \
     qhexedit/commands.h \
     QCustomPlot/qcustomplot.h \
     tcp_terminal_client.h \
-    elf/elfinfowdgt.h \
-    elf/elfparser.h \
-    elf/elffile.h \
+    genericBinaryFiles/elf/elfinfowdgt.h \
+    genericBinaryFiles/elf/elfparser.h \
+    genericBinaryFiles/elf/elffile.h \
     qipdialogbox.h \
     PySocExplorer.h \
     SocExplorerPlot.h \
-    elf/elffilewidget.h \
+    genericBinaryFiles/elf/elffilewidget.h \
     qtablewidgetintitem.h \
-    srec/srecfile.h \
-    srec/srecfilewidget.h \
-    abstractbinfile.h \
-    BinFile/binaryfile.h \
-    BinFile/binaryfilewidget.h
+    genericBinaryFiles/srec/srecfile.h \
+    genericBinaryFiles/srec/srecfilewidget.h \
+    genericBinaryFiles/abstractbinfile.h \
+    genericBinaryFiles/BinFile/binaryfile.h \
+    genericBinaryFiles/BinFile/binaryfilewidget.h
 
 
 SOURCES += \
@@ -109,23 +109,23 @@ SOURCES += \
     qhexedit/commands.cpp \
     QCustomPlot/qcustomplot.cpp \
     tcp_terminal_client.cpp \
-    elf/elfinfowdgt.cpp \
-    elf/elfparser.cpp \
-    elf/elffile.cpp \
+    genericBinaryFiles/elf/elfinfowdgt.cpp \
+    genericBinaryFiles/elf/elfparser.cpp \
+    genericBinaryFiles/elf/elffile.cpp \
     qipdialogbox.cpp \
     SocExplorerPlot.cpp \
-    elf/elffilewidget.cpp \
+    genericBinaryFiles/elf/elffilewidget.cpp \
     qtablewidgetintitem.cpp \
-    srec/srecfile.cpp \
-    srec/srecfilewidget.cpp \
-    abstractbinfile.cpp \
-    BinFile/binaryfile.cpp \
-    BinFile/binaryfilewidget.cpp
+    genericBinaryFiles/srec/srecfile.cpp \
+    genericBinaryFiles/srec/srecfilewidget.cpp \
+    genericBinaryFiles/abstractbinfile.cpp \
+    genericBinaryFiles/BinFile/binaryfile.cpp \
+    genericBinaryFiles/BinFile/binaryfilewidget.cpp
 
 FORMS += \
-    elf/elffilewidget.ui \
-    srec/srecfilewidget.ui \
-    BinFile/binaryfilewidget.ui
+    genericBinaryFiles/elf/elffilewidget.ui \
+    genericBinaryFiles/srec/srecfilewidget.ui \
+    genericBinaryFiles/BinFile/binaryfilewidget.ui
 
 OTHER_FILES += \
     ./pythongenerator.sh \
