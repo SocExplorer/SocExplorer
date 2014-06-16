@@ -1,0 +1,17 @@
+#include <QtCore/QObject>
+#include <QtWidgets/QtWidgets>
+#include "qhexspinbox.h"
+#include "memsizewdgt.h"
+#include "qhexedit/qhexedit.h"
+#include "SocExplorerPlot.h"
+#include "tcp_terminal_client.h"
+#include "elf/elfparser.h"
+#include "abstractbinfile.h"
+#include "elf/elffile.h"
+#include "elf/elffilewidget.h"
+#include "elf/elfinfowdgt.h"
+#include "QCustomPlot/qcustomplot.h"
+#include "srec/srecfile.h"
+#include "srec/srecfilewidget.h"
+#include "BinFile/binaryfile.h"
+#include "BinFile/binaryfilewidget.h"
