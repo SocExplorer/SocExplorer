@@ -29,9 +29,9 @@ qrc_*
 *.pro.user
 src/PythonQt/tests/PythonQtTest
 src/PythonQt/generator/pythonqt_generator
-src/plugins/common/.preprocessed.tmp
+.preprocessed.tmp
 *.exe
-src/common/.preprocessed.tmp
 */.cccc/*
+ui_*.h
 syntax: regexp
 bin/*
