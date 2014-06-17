@@ -25,15 +25,18 @@
 
 srecFile::srecFile()
 {
+    p_mergingRecords = true;
 }
 
 srecFile::srecFile(const QString &File)
 {
+    p_mergingRecords = true;
     openFile(File);
 }
 
 srecFile::srecFile(const QStringList &Files)
 {
+    p_mergingRecords = true;
     openFiles(Files);
 }
 
@@ -101,9 +104,9 @@ bool srecFile::toSrec(QList<codeFragment *> fragments, const QString &File)
         for(int i=0;i<fragments.count();i++)
         {
             codeFragment *fragment = fragments.at(i);
-            for(int j=0;j<((int)(fragment->size));j+=16)
+            for(int j=0;j<((int)(fragment->size)/16);j++)
             {
-                stream << buildRecord(3,fragment->address+j,fragment->data+j,16);
+                stream << buildRecord(3,fragment->address+(j*16),fragment->data+(j*16),16);
             }
             int rem = fragment->size % 16;
             if(rem)
@@ -186,6 +189,16 @@ bool srecFile::getFragmentData(int index, char **buffer)
     return false;
 }
 
+bool srecFile::mergingRecords()
+{
+    return p_mergingRecords;
+}
+
+void srecFile::setMergingRecords(bool enabled)
+{
+    p_mergingRecords = enabled;
+}
+
 bool srecFile::isSREC()
 {
     return p_isSrec & isopened();
@@ -205,6 +218,7 @@ bool srecFile::isSREC(const QString &File)
     return false;
 }
 
+
 void srecFile::parseFile(QFile *file)
 {
     if(file->isOpen())
@@ -212,6 +226,7 @@ void srecFile::parseFile(QFile *file)
         this->p_lineCount = 0;
         file->seek(0);
         codeFragment* fragment=NULL;
+        bool newFragment=true;
         char* data;
         quint64 size=0;
         quint64 address=-1;
@@ -233,39 +248,54 @@ void srecFile::parseFile(QFile *file)
             {
                 if((rectype>=1) && (rectype<=3))
                 {
-                    bool merged = false;
-                    //Could I merge it with an other fragment?
-                    // TODO should make merging optionnal
-                    for(int i=0;i<p_fragments.count();i++)
+                    if(p_mergingRecords)
                     {
-                        codeFragment* frag = p_fragments.at(i);
-                        if(((frag->address+frag->size)==address) && (merged==false) && (size!=0))
+                        //Could I merge it with an other fragment?
+                        bool merged = false;
+                        for(int i=0;i<p_fragments.count();i++)
                         {
-                            char* mergedData=(char*)malloc(size+frag->size);
-                            memcpy(mergedData,frag->data,frag->size);
-                            memcpy(mergedData+frag->size,data,size);
-                            free(frag->data);
-                            free(data);
-                            frag->data = mergedData;
-                            frag->size = frag->size+size;
-                            merged = true;
+                            codeFragment* frag = p_fragments.at(i);
+                            if(((frag->address+frag->size)==address) && (merged==false) && (size!=0))
+                            {
+                                merged = mergeFragment(frag,data,size);
+                            }
+                        }
+                        if(!merged)
+                        {
+                            fragment = new codeFragment(data,size,address);
+                            fragment->header = header;
+                            p_fragments.append(fragment);
                         }
                     }
-                    if(!merged)
+                    else
                     {
-                        fragment = new codeFragment(data,size,address);
-                        fragment->header = header;
-                        p_fragments.append(fragment);
+                        if(newFragment)
+                        {
+                            fragment = new codeFragment(data,size,address);
+                            fragment->header = header;
+                            p_fragments.append(fragment);
+                            newFragment = false;
+                        }
+                        else
+                        {
+                            codeFragment* frag = p_fragments.last();
+                            mergeFragment(frag,data,size);
+                        }
                     }
+
                 }
                 else
                 {
-
+                    if((rectype>=7) && (rectype<=9))
+                    {
+                        newFragment  = true;
+                    }
                 }
             }
         }
     }
 }
+
 
 int srecFile::parseLine(const QString &record, quint64 *address, char **data, quint64 *size)
 {
@@ -340,6 +370,7 @@ int srecFile::parseLine(const QString &record, quint64 *address, char **data, qu
     return recType;
 }
 
+
 char srecFile::lineCheckSum(const QString &line)
 {
     char sum=0;
@@ -363,8 +394,14 @@ bool srecFile::checkSum(const QString &line)
     scp.remove('\r');
     char ck2 = (char)scp.mid(scp.count()-2,2).toInt(0,16);
     char ck=lineCheckSum(scp.remove(scp.count()-2,2));
-    return (ck2==ck);
+    if(ck==ck2)
+    {
+        return true;
+    }
+    return  false;
+//    return (ck2==ck);
 }
+
 
 QString srecFile::buildRecord(int recType, int address,const char *data, int size)
 {
@@ -399,5 +436,21 @@ QString srecFile::buildRecord(int recType, int address,const char *data, int siz
         record.append('\n');
     }
     return record.toUpper();
+}
+
+bool srecFile::mergeFragment(codeFragment *fragment, char *data, int size)
+{
+    char* mergedData=(char*)malloc(size+fragment->size);
+    if(mergedData!=NULL)
+    {
+        memcpy(mergedData,fragment->data,fragment->size);
+        memcpy(mergedData+fragment->size,data,size);
+        free(fragment->data);
+        free(data);
+        fragment->data = mergedData;
+        fragment->size = fragment->size+size;
+        return true;
+    }
+    return false;
 }
 

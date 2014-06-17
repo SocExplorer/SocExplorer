@@ -51,8 +51,11 @@ public:
     QString getFragmentHeader(int index);
     bool getFragmentData(int index, char **buffer);
 
+    bool mergingRecords();
+    void setMergingRecords(bool enabled);
     bool isSREC();
     static bool isSREC(const QString& File);
+    static bool checkSum(const QString& line);
 signals:
 
 public slots:
@@ -60,13 +63,14 @@ private:
     void parseFile(QFile* file);
     static int parseLine(const QString& record, quint64 *address, char** data, quint64 *size);
     static char lineCheckSum(const QString& line);
-    static bool checkSum(const QString& line);
     static QString buildRecord(int recType,int address,const char* data,int size);
+    static bool mergeFragment(codeFragment* fragment, char* data, int size);
     QStringList p_fileNames;
     QList<QFile*>p_files;
     QList<codeFragment*> p_fragments;
     int p_lineCount;
     bool p_isSrec;
+    bool p_mergingRecords;
 
 };
 

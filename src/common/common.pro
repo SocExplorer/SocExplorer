@@ -96,7 +96,8 @@ HEADERS += \
     genericBinaryFiles/srec/srecfilewidget.h \
     genericBinaryFiles/abstractbinfile.h \
     genericBinaryFiles/BinFile/binaryfile.h \
-    genericBinaryFiles/BinFile/binaryfilewidget.h
+    genericBinaryFiles/BinFile/binaryfilewidget.h \
+    genericBinaryFiles/genericbinaryfilewidget.h
 
 
 SOURCES += \
@@ -120,16 +121,20 @@ SOURCES += \
     genericBinaryFiles/srec/srecfilewidget.cpp \
     genericBinaryFiles/abstractbinfile.cpp \
     genericBinaryFiles/BinFile/binaryfile.cpp \
-    genericBinaryFiles/BinFile/binaryfilewidget.cpp
+    genericBinaryFiles/BinFile/binaryfilewidget.cpp \
+    genericBinaryFiles/genericbinaryfilewidget.cpp
 
 FORMS += \
     genericBinaryFiles/elf/elffilewidget.ui \
     genericBinaryFiles/srec/srecfilewidget.ui \
-    genericBinaryFiles/BinFile/binaryfilewidget.ui
+    genericBinaryFiles/BinFile/binaryfilewidget.ui \
+    genericBinaryFiles/genericbinaryfilewidget.ui
 
 OTHER_FILES += \
     ./pythongenerator.sh \
     ./pythonQtgeneratorCfg.txt
+
+
 
 
 

@@ -7701,6 +7701,11 @@ int  PythonQtWrapper_srecFile::lineCount(srecFile* theWrappedObject)
   return ( theWrappedObject->lineCount());
 }
 
+bool  PythonQtWrapper_srecFile::mergingRecords(srecFile* theWrappedObject)
+{
+  return ( theWrappedObject->mergingRecords());
+}
+
 bool  PythonQtWrapper_srecFile::openFile(srecFile* theWrappedObject, const QString&  File)
 {
   return ( ((PythonQtPublicPromoter_srecFile*)theWrappedObject)->promoted_openFile(File));
@@ -7709,6 +7714,11 @@ bool  PythonQtWrapper_srecFile::openFile(srecFile* theWrappedObject, const QStri
 bool  PythonQtWrapper_srecFile::openFiles(srecFile* theWrappedObject, const QStringList&  Files)
 {
   return ( theWrappedObject->openFiles(Files));
+}
+
+void PythonQtWrapper_srecFile::setMergingRecords(srecFile* theWrappedObject, bool  enabled)
+{
+  ( theWrappedObject->setMergingRecords(enabled));
 }
 
 bool  PythonQtWrapper_srecFile::toBinary(srecFile* theWrappedObject, const QString&  File)
