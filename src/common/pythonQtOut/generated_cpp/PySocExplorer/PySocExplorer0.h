@@ -778,12 +778,12 @@ codeFragment* new_codeFragment(char*  data, quint64  size, quint64  address);
 void delete_codeFragment(codeFragment* obj) { delete obj; } 
 void py_set_size(codeFragment* theWrappedObject, quint64  size){ theWrappedObject->size = size; }
 quint64  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
-void py_set_header(codeFragment* theWrappedObject, QString  header){ theWrappedObject->header = header; }
-QString  py_get_header(codeFragment* theWrappedObject){ return theWrappedObject->header; }
-void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
-char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
 void py_set_address(codeFragment* theWrappedObject, quint64  address){ theWrappedObject->address = address; }
 quint64  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
+void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
+char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
+void py_set_header(codeFragment* theWrappedObject, QString  header){ theWrappedObject->header = header; }
+QString  py_get_header(codeFragment* theWrappedObject){ return theWrappedObject->header; }
 };
 
 
@@ -976,8 +976,10 @@ void delete_srecFile(srecFile* obj) { delete obj; }
    bool  static_srecFile_isSREC(const QString&  File);
    bool  isopened(srecFile* theWrappedObject);
    int  lineCount(srecFile* theWrappedObject);
+   bool  mergingRecords(srecFile* theWrappedObject);
    bool  openFile(srecFile* theWrappedObject, const QString&  File);
    bool  openFiles(srecFile* theWrappedObject, const QStringList&  Files);
+   void setMergingRecords(srecFile* theWrappedObject, bool  enabled);
    bool  toBinary(srecFile* theWrappedObject, const QString&  File);
    bool  static_srecFile_toSrec(QList<codeFragment* >  fragments, const QString&  File);
    bool  toSrec(srecFile* theWrappedObject, const QString&  File);
