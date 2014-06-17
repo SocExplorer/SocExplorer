@@ -91,7 +91,6 @@ HEADERS += \
     PySocExplorer.h \
     SocExplorerPlot.h \
     genericBinaryFiles/elf/elffilewidget.h \
-    qtablewidgetintitem.h \
     genericBinaryFiles/srec/srecfile.h \
     genericBinaryFiles/srec/srecfilewidget.h \
     genericBinaryFiles/abstractbinfile.h \
@@ -116,7 +115,6 @@ SOURCES += \
     qipdialogbox.cpp \
     SocExplorerPlot.cpp \
     genericBinaryFiles/elf/elffilewidget.cpp \
-    qtablewidgetintitem.cpp \
     genericBinaryFiles/srec/srecfile.cpp \
     genericBinaryFiles/srec/srecfilewidget.cpp \
     genericBinaryFiles/abstractbinfile.cpp \
