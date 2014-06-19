@@ -46,7 +46,10 @@ header.files = \
     genericBinaryFiles/srec/srecfilewidget.h \
     genericBinaryFiles/BinFile/binaryfile.h \
     genericBinaryFiles/BinFile/binaryfilewidget.h \
-    genericBinaryFiles/abstractbinfile.h
+    genericBinaryFiles/abstractbinfile.h \
+    genericBinaryFiles/qvpushbutton.h \
+    genericBinaryFiles/qtablewidgetintitem.h \
+    genericBinaryFiles/filelist.h
 
 win32{
     elfheader.path = $$[QT_INSTALL_HEADERS]/SocExplorer/common/genericBinaryFiles/libelf
@@ -96,7 +99,10 @@ HEADERS += \
     genericBinaryFiles/abstractbinfile.h \
     genericBinaryFiles/BinFile/binaryfile.h \
     genericBinaryFiles/BinFile/binaryfilewidget.h \
-    genericBinaryFiles/genericbinaryfilewidget.h
+    genericBinaryFiles/genericbinaryfilewidget.h \
+    genericBinaryFiles/qvpushbutton.h \
+    genericBinaryFiles/qtablewidgetintitem.h \
+    genericBinaryFiles/filelist.h
 
 
 SOURCES += \
@@ -120,7 +126,10 @@ SOURCES += \
     genericBinaryFiles/abstractbinfile.cpp \
     genericBinaryFiles/BinFile/binaryfile.cpp \
     genericBinaryFiles/BinFile/binaryfilewidget.cpp \
-    genericBinaryFiles/genericbinaryfilewidget.cpp
+    genericBinaryFiles/genericbinaryfilewidget.cpp \
+    genericBinaryFiles/qvpushbutton.cpp \
+    genericBinaryFiles/qtablewidgetintitem.cpp \
+    genericBinaryFiles/filelist.cpp
 
 FORMS += \
     genericBinaryFiles/elf/elffilewidget.ui \
