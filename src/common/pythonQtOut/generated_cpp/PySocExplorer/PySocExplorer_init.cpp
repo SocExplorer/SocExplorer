@@ -22,6 +22,7 @@ PythonQt::priv()->registerClass(&elfFileWidget::staticMetaObject, "PySocExplorer
 PythonQt::self()->addParentClass("elfFileWidget", "abstractBinFileWidget",PythonQtUpcastingOffset<elfFileWidget,abstractBinFileWidget>());
 PythonQt::priv()->registerClass(&elfInfoWdgt::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_elfInfoWdgt>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_elfInfoWdgt>, module, 0);
 PythonQt::priv()->registerCPPClass("elfparser", "", "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_elfparser>, NULL, module, 0);
+PythonQt::priv()->registerClass(&genericBinaryFileWidget::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_genericBinaryFileWidget>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_genericBinaryFileWidget>, module, 0);
 PythonQt::priv()->registerClass(&srecFile::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_srecFile>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_srecFile>, module, 0);
 PythonQt::self()->addParentClass("srecFile", "abstractBinFile",PythonQtUpcastingOffset<srecFile,abstractBinFile>());
 PythonQt::priv()->registerClass(&srecFileWidget::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_srecFileWidget>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_srecFileWidget>, module, 0);

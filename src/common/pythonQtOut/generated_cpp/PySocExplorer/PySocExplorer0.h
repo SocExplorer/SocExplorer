@@ -1,9 +1,7 @@
 #include <PythonQt.h>
 #include <QIconEngine>
 #include <QObject>
-#include <QSpinBox>
 #include <QVariant>
-#include <QWidget>
 #include <SocExplorerPlot.h>
 #include <abstractbinfile.h>
 #include <binaryfile.h>
@@ -12,6 +10,7 @@
 #include <elffilewidget.h>
 #include <elfinfowdgt.h>
 #include <elfparser.h>
+#include <genericbinaryfilewidget.h>
 #include <memsizewdgt.h>
 #include <qaction.h>
 #include <qbitmap.h>
@@ -778,10 +777,10 @@ codeFragment* new_codeFragment(char*  data, quint64  size, quint64  address);
 void delete_codeFragment(codeFragment* obj) { delete obj; } 
 void py_set_size(codeFragment* theWrappedObject, quint64  size){ theWrappedObject->size = size; }
 quint64  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
-void py_set_address(codeFragment* theWrappedObject, quint64  address){ theWrappedObject->address = address; }
-quint64  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
 void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
 char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
+void py_set_address(codeFragment* theWrappedObject, quint64  address){ theWrappedObject->address = address; }
+quint64  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
 void py_set_header(codeFragment* theWrappedObject, QString  header){ theWrappedObject->header = header; }
 QString  py_get_header(codeFragment* theWrappedObject){ return theWrappedObject->header; }
 };
@@ -806,6 +805,7 @@ virtual void setFile(abstractBinFile*  file);
 class PythonQtPublicPromoter_elfFileWidget : public elfFileWidget
 { public:
 inline void promoted_reloadFile() { elfFileWidget::reloadFile(); }
+inline void promoted_setFile(abstractBinFile*  file) { elfFileWidget::setFile(file); }
 };
 
 class PythonQtWrapper_elfFileWidget : public QObject
@@ -815,6 +815,7 @@ public slots:
 elfFileWidget* new_elfFileWidget(QWidget*  parent = 0);
 void delete_elfFileWidget(elfFileWidget* obj) { delete obj; } 
    void reloadFile(elfFileWidget* theWrappedObject);
+   void setFile(elfFileWidget* theWrappedObject, abstractBinFile*  file);
 };
 
 
@@ -927,6 +928,73 @@ void delete_elfparser(elfparser* obj) { delete obj; }
 
 
 
+class PythonQtShell_genericBinaryFileWidget : public genericBinaryFileWidget
+{
+public:
+    PythonQtShell_genericBinaryFileWidget(QWidget*  parent = 0):genericBinaryFileWidget(parent),_wrapper(NULL) {};
+
+   ~PythonQtShell_genericBinaryFileWidget();
+
+virtual void actionEvent(QActionEvent*  arg__1);
+virtual void changeEvent(QEvent*  arg__1);
+virtual void childEvent(QChildEvent*  arg__1);
+virtual void closeEvent(QCloseEvent*  arg__1);
+virtual void contextMenuEvent(QContextMenuEvent*  arg__1);
+virtual void customEvent(QEvent*  arg__1);
+virtual int  devType() const;
+virtual void dragEnterEvent(QDragEnterEvent*  arg__1);
+virtual void dragLeaveEvent(QDragLeaveEvent*  arg__1);
+virtual void dragMoveEvent(QDragMoveEvent*  arg__1);
+virtual void dropEvent(QDropEvent*  arg__1);
+virtual void enterEvent(QEvent*  arg__1);
+virtual bool  event(QEvent*  arg__1);
+virtual bool  eventFilter(QObject*  arg__1, QEvent*  arg__2);
+virtual void focusInEvent(QFocusEvent*  arg__1);
+virtual bool  focusNextPrevChild(bool  next);
+virtual void focusOutEvent(QFocusEvent*  arg__1);
+virtual bool  hasHeightForWidth() const;
+virtual int  heightForWidth(int  arg__1) const;
+virtual void hideEvent(QHideEvent*  arg__1);
+virtual void initPainter(QPainter*  painter) const;
+virtual void inputMethodEvent(QInputMethodEvent*  arg__1);
+virtual QVariant  inputMethodQuery(Qt::InputMethodQuery  arg__1) const;
+virtual void keyPressEvent(QKeyEvent*  arg__1);
+virtual void keyReleaseEvent(QKeyEvent*  arg__1);
+virtual void leaveEvent(QEvent*  arg__1);
+virtual int  metric(QPaintDevice::PaintDeviceMetric  arg__1) const;
+virtual QSize  minimumSizeHint() const;
+virtual void mouseDoubleClickEvent(QMouseEvent*  arg__1);
+virtual void mouseMoveEvent(QMouseEvent*  arg__1);
+virtual void mousePressEvent(QMouseEvent*  arg__1);
+virtual void mouseReleaseEvent(QMouseEvent*  arg__1);
+virtual void moveEvent(QMoveEvent*  arg__1);
+virtual bool  nativeEvent(const QByteArray&  eventType, void*  message, long*  result);
+virtual QPaintEngine*  paintEngine() const;
+virtual void paintEvent(QPaintEvent*  arg__1);
+virtual QPaintDevice*  redirected(QPoint*  offset) const;
+virtual void resizeEvent(QResizeEvent*  arg__1);
+virtual QPainter*  sharedPainter() const;
+virtual void showEvent(QShowEvent*  arg__1);
+virtual QSize  sizeHint() const;
+virtual void tabletEvent(QTabletEvent*  arg__1);
+virtual void timerEvent(QTimerEvent*  arg__1);
+virtual void wheelEvent(QWheelEvent*  arg__1);
+
+  PythonQtInstanceWrapper* _wrapper; 
+};
+
+class PythonQtWrapper_genericBinaryFileWidget : public QObject
+{ Q_OBJECT
+public:
+public slots:
+genericBinaryFileWidget* new_genericBinaryFileWidget(QWidget*  parent = 0);
+void delete_genericBinaryFileWidget(genericBinaryFileWidget* obj) { delete obj; } 
+};
+
+
+
+
+
 class PythonQtShell_srecFile : public srecFile
 {
 public:
@@ -964,6 +1032,7 @@ srecFile* new_srecFile();
 srecFile* new_srecFile(const QString&  File);
 srecFile* new_srecFile(const QStringList&  Files);
 void delete_srecFile(srecFile* obj) { delete obj; } 
+   bool  static_srecFile_checkSum(const QString&  line);
    int  closeFile(srecFile* theWrappedObject);
    codeFragment*  getFragment(srecFile* theWrappedObject, int  index);
    int  getFragmentAddress(srecFile* theWrappedObject, int  index);

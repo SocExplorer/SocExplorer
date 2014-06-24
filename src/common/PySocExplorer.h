@@ -15,3 +15,4 @@
 #include "genericBinaryFiles/srec/srecfilewidget.h"
 #include "genericBinaryFiles/BinFile/binaryfile.h"
 #include "genericBinaryFiles/BinFile/binaryfilewidget.h"
+#include "genericBinaryFiles/genericbinaryfilewidget.h"

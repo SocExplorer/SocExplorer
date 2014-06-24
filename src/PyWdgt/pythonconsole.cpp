@@ -10,7 +10,7 @@
 #include <socexplorer.h>
 
 void PythonQt_init_PySocExplorer(PyObject* module);
-
+void PythonQt_init_PySocExplorerEngine(PyObject* module) ;
 
 PythonConsole::PythonConsole(socexplorerproxy *proxy, QWidget *parent) :
     QWidget(parent)
@@ -31,6 +31,7 @@ PythonConsole::PythonConsole(socexplorerproxy *proxy, QWidget *parent) :
     connect(this->console,SIGNAL(pyConsoleRunFiles(QStringList)),this,SLOT(pyConsoleRunFiles(QStringList)));
     this->mainContext->addObject("proxy", proxy);
     PythonQt_init_PySocExplorer(0);
+    PythonQt_init_PySocExplorerEngine(0);
     this->mainContext->evalScript(QString("from PythonQt import *"));
 }
 

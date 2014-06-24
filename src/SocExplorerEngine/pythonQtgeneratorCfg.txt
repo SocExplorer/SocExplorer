@@ -1,0 +1,16 @@
+<typesystem package="PySocExplorerEngine" default-superclass="com.trolltech.qt.QtJambiObject">
+    <load-typesystem name=":/trolltech/generator/typesystem_core.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_gui.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_network.txt" generate="no" />
+
+    <interface-type name="socexplorerplugin"/>
+
+</typesystem>
+
+
+
+
+
+
+
+

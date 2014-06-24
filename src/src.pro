@@ -15,6 +15,7 @@ QMAKE_LFLAGS_RELEASE += --enable-auto-import -mstackrealign
 QMAKE_LFLAGS_DEBUG += --enable-auto-import -mstackrealign
 
 include ( common/pythonQtOut/generated_cpp/PySocExplorer/PySocExplorer.pri )
+include ( SocExplorerEngine/pythonQtOut/generated_cpp/PySocExplorerEngine/PySocExplorerEngine.pri )
 include ( SocExplorerEngine/plugins/socexplorerplugin.prf )
 
 INCLUDEPATH+=$${PWD} \
