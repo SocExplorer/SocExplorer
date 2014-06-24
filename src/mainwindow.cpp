@@ -32,7 +32,7 @@ SocExplorerMainWindow::SocExplorerMainWindow(QString ScriptToEval, QWidget *pare
     this->makeLayout();
     this->makeMenu();
     this->makeConnections();
-    this->setWindowIcon(QIcon(tr(":/images/logolppcutted.png")));
+    this->setWindowIcon(QIcon(tr(":/images/icon.png")));
     this->setAcceptDrops(true);
     this->pluginManager->setRootLoadable(true);
     this->PythonConsoleInst->pyConsoleRunFile(ScriptToEval);

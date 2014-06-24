@@ -12,6 +12,7 @@
         <file alias="config.svg">images/Gnome-preferences-system.svg</file>
         <file alias="up.svg">images/Gnome-go-up.svg</file>
         <file alias="down.svg">images/Gnome-go-down.svg</file>
+        <file alias="icon.png">images/Indiana_Jones_cappello.png</file>
     </qresource>
     <qresource prefix="/about">
         <file alias="about.html">txt/about.html</file>

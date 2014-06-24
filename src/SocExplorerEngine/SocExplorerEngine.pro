@@ -113,7 +113,8 @@ HEADERS += \
     pluginsInterface/socexplorerplugininterface.h \
     pluginsInterface/socexplorerplugininterface_global.h \
     proxy/socexplorerproxy.h \
-    SOC/socexplorerenumdevice.h
+    SOC/socexplorerenumdevice.h \
+    PySocExplorerEngine.h
 
 
 
@@ -147,6 +148,8 @@ SOURCES += \
 OTHER_FILES += \
     plugins/socexplorerplugin.cpp \
     pluginsInterface/socexplorerplugininterface.cpp \
-    plugins/socexplorerplugin.prf
+    plugins/socexplorerplugin.prf \
+    pythongenerator.sh \
+    pythonQtgeneratorCfg.txt
 
 

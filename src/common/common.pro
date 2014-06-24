@@ -141,6 +141,9 @@ OTHER_FILES += \
     ./pythongenerator.sh \
     ./pythonQtgeneratorCfg.txt
 
+RESOURCES += \
+    genericBinaryFiles/genericBinaryFiles.qrc
+
 
 
 

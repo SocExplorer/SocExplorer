@@ -7,7 +7,7 @@ GenericName=SocExplorer
 Comment=Software to monitor and explore Soc devices.
 
 Exec=socexplorer
-Icon=/etc/SocExplorer/logo-lpp-cutted.png
+Icon=/usr/share/SocExplorer/Indiana_Jones_cappello.png
 Terminal=false
 Type=Application
 Categories=Application;Programming;

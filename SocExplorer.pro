@@ -22,8 +22,8 @@ socexplorercfg.files = \
 unix{
     SocExplorer.path = /usr/share/applications/
     SocExplorer.files = unixcfg/SocExplorer.desktop
-    icon.path = /etc/SocExplorer
-    icon.files = ressources/images/logo-lpp-cutted.png
+    icon.path = /usr/share/SocExplorer
+    icon.files = ressources/images/Indiana_Jones_cappello.png
     Wizard.path = /usr/share/qtcreator/templates/wizards/SocExplorerPlugin
     Wizard.files = Qt_Creator_Wizard/SocExplorerPlugin/logo-lpp-cutted.png \
                     Qt_Creator_Wizard/SocExplorerPlugin/plugin.cpp \
