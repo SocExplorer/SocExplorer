@@ -4,11 +4,6 @@ contains(QT_MAJOR_VERSION, 5) {
   QT += widgets
   QT += printsupport
 }
-CONFIG(debug, debug|release) {
-  DEBUG_EXT = _d
-} else {
-  DEBUG_EXT =
-}
 
 SOCEXPLORER_SDK_BUILD="SOCEXPLORER_SDK_BUILD"
 DEFINES += SOCEXPLORER_SDK_BUILD

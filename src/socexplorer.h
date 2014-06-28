@@ -50,7 +50,7 @@
 #else
     #ifdef UNIX
         #define SOCEXPLORER_PLUGINS_INSTALL_PATH QDir::homePath()+"/.SocExplorer/plugins"
-        #define SOCEXPLORER_CONFIG_PATH QDir::homePath()+"/.SocExplorer/config"
+        //#define SOCEXPLORER_CONFIG_PATH QDir::homePath()+"/.SocExplorer/config"
         #define PYMODULES "/etc/SocExplorer/python"
     #endif
 #endif

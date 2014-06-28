@@ -22,6 +22,8 @@ socexplorercfg.files = \
 unix{
     SocExplorer.path = /usr/share/applications/
     SocExplorer.files = unixcfg/SocExplorer.desktop
+    PluginConfPath.path = /etc/SocExplorer/plugin.conf.d/
+    PluginConfPath.files = unixcfg/plugins.conf
     icon.path = /usr/share/SocExplorer
     icon.files = ressources/images/Indiana_Jones_cappello.png
     Wizard.path = /usr/share/qtcreator/templates/wizards/SocExplorerPlugin
@@ -30,7 +32,7 @@ unix{
                     Qt_Creator_Wizard/SocExplorerPlugin/plugin.h \
                     Qt_Creator_Wizard/SocExplorerPlugin/project.pro \
                     Qt_Creator_Wizard/SocExplorerPlugin/wizard.xml
-    INSTALLS+=Wizard SocExplorer icon
+    INSTALLS+=Wizard SocExplorer icon PluginConfPath
 }
     INSTALLS+=socexplorercfg
 

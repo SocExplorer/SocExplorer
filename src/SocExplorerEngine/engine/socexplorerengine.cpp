@@ -57,6 +57,40 @@ QString SocExplorerEngine::configFolder()
     return QString(SOCEXPLORER_CONFIG_PATH);
 }
 
+QStringList SocExplorerEngine::pluginFolders()
+{
+    if(!_self)
+        init();
+    QStringList folders;
+    QDir pluginFolders(QString(SOCEXPLORER_CONFIG_PATH)+"/plugin.conf.d");
+    if(pluginFolders.exists())
+    {
+        pluginFolders.setFilter(QDir::Files | QDir::NoSymLinks);
+        QFileInfoList list = pluginFolders.entryInfoList();
+        for (int i = 0; i < list.size(); ++i)
+        {
+            QFileInfo fileInfo = list.at(i);
+            if(fileInfo.suffix()=="conf")
+            {
+                QFile confFile(fileInfo.absoluteFilePath());
+                if(confFile.open(QIODevice::ReadOnly))
+                {
+                    while (!confFile.atEnd())
+                    {
+                        QString line = confFile.readLine();
+                        QDir plugDir(line.remove("\n"));
+                        if(plugDir.exists() && !folders.contains(plugDir.absolutePath()))
+                        {
+                            folders.append(plugDir.absolutePath());
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return folders;
+}
+
 SOCModel *SocExplorerEngine::plugin2Soc(socexplorerplugin *plugin)
 {
     if(!_self)

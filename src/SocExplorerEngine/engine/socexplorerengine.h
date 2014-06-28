@@ -90,8 +90,9 @@ public:
     //! Return the configuration folder path, OS dependant.
     SOCEXPLORER_SDK_EXPORT static QString configFolder();
     //! Return the default plugin folder path, OS dependant.
-     static QString pluginFolder(){return QString(SOCEXPLORER_PLUGINS_INSTALL_PATH);}
-
+     //static QString pluginFolder(){return QString(SOCEXPLORER_PLUGINS_INSTALL_PATH);}
+     static QStringList pluginFolders();
+     static QString configPath(){return QString(SOCEXPLORER_CONFIG_PATH);}
      static int addEnumDevice(socexplorerplugin* rootPlugin,int VID,int PID,qint32 baseAddress,const QString& name);
      static QList<SOCModel*>* getSOCs();
      static QString getDevName(int VID, int PID);

@@ -15,8 +15,9 @@ unix {
     DEFINES += SOCEXPLORER_TRANSLATION_PATH="\"\\\"/etc/SocExplorer/translations"\\\"\"
     SOCEXPLORER_TRANSLATION_INSTALL_PATH = /etc/SocExplorer/translations
     SOCEXPLORER_INSTALL_PATH = /usr/local/SocExplorer
-    SOCEXPLORER_ROOT_PLUGINS_INSTALL_PATH = $$system(echo $HOME)
-    SOCEXPLORER_PLUGINS_INSTALL_PATH = $${SOCEXPLORER_ROOT_PLUGINS_INSTALL_PATH}"/.SocExplorer/plugins"
+    SOCEXPLORER_PLUGINS_INSTALL_PATH = $$[QT_INSTALL_LIBS]"/SocExplorer/plugins"
+    DEFINES += SOCEXPLORER_CONFIG_PATH="\"\\\"/etc/SocExplorer"\\\"\"
+    SOCEXPLORER_CONFIG_PATH=/etc/SocExplorer
 }
 
 isEmpty( SOCEXPLORER_SDK_BUILD ){
@@ -32,11 +33,11 @@ isEmpty( SOCEXPLORER_SDK_BUILD ){
     OBJECTS_DIR = obj
     MOC_DIR = moc
     DESTDIR = bin
-    CONFIG(debug, debug|release) {
-      DEBUG_EXT = _d
-    } else {
-      DEBUG_EXT =
-    }
+#    CONFIG(debug, debug|release) {
+#      DEBUG_EXT = _d
+#    } else {
+#      DEBUG_EXT =
+#    }
     unix{
         target.path    = $${SOCEXPLORER_PLUGINS_INSTALL_PATH}
         INSTALLS += target
