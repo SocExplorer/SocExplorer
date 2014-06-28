@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Alexis Jeandet <alexis.jeandet@member.fsf.org> -->
+<application>
+ <id type="desktop">SocExplorer.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-2.0</project_license>
+ <name>SocExplorer</name>
+ <summary>SocExplorer is an open source generic System On Chip testing software/framework.</summary>
+ <description>
+  <p>
+   SocExplorer is an open source generic System On Chip testing software/framework. 
+We write this software for the development and the validation of our instrument, 
+the Low Frequency Receiver(LFR) for the Solar Orbiter mission. This instrument is 
+based on an actel FPGA hosting a LEON3FT processor and some peripherals. To 
+make it more collaborative, we use a plugin based system, the main executable is 
+SocExplorer then all the functionality are provided by plugins. Like this 
+everybody can provide his set of plugins to handle a new SOC or just a new 
+peripheral. SocExplorer uses PythonQt to allow user to automate some tasks such 
+as loading some plugins, configuring them and talking with his device. 
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="800" height="600">https://hephaistos.lpp.polytechnique.fr/redmine/attachments/download/384/SocExplorer_ScreenShot1.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
+ <updatecontact>alexis.jeandet@member.fsf.org</updatecontact>
+</application>

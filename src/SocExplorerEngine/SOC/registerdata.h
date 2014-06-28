@@ -25,31 +25,6 @@
 #include <QList>
 #include <QObject>
 
-//class ucBitfield: public QObject
-//{
-//    Q_OBJECT
-//public:
-//    explicit ucBitfield(QObject* parent =0);
-//    explicit ucBitfield(const QString& name,int offset,const QString& description,QObject* parent =0);
-//    QString name();
-//    int offset();
-//    QString description();
-//public slots:
-//    void setName(const QString& name);
-//    void setOffset(int offset);
-//    void setDescription(const QString& description);
-
-//signals:
-//    void nameChanged(const QString& name);
-//    void offsetChanged(int offset);
-//    void descriptionChanged(const QString& description);
-//private:
-
-//    QString p_name;
-//    int p_offset;
-//    QString p_description;
-//};
-
 class ucRegister :public QObject
 {
     Q_OBJECT

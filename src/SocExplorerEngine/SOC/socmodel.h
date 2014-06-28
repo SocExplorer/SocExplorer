@@ -30,7 +30,6 @@
 #include "registerdata.h"
 #include <socclk.h>
 #include <socexplorerplugin.h>
-//#include <socexplorerenumdevice.h>
 class socExplorerEnumDevice;
 
 class registerBitFieldModel
@@ -82,7 +81,6 @@ class SOCEXPLORER_EXPORT SOCModel :public QObject
     Q_OBJECT
 public:
     SOCModel(socexplorerplugin* rootDev,QObject* parent=0);
-   // qint32 getRegValue(qint32 baseAddress);
     bool isRootDev(socexplorerplugin* rootDev)
     {
         return rootDev==p_rootDev;
@@ -90,7 +88,6 @@ public:
     bool enumDeviceExists(qint32 baseAddress);
     socExplorerEnumDevice *getEnumDevice(qint32 baseAddress);
 public slots:
-    //void setRegValue(qint32 baseAddress,qint32 value);
     qint32 getEnumDeviceBaseAddress(int VID,int PID,int count=0);
     qint32 getEnumDeviceCount(int VID,int PID);
     socExplorerEnumDevice* addEnumDevice(int VID, int PID, qint32 baseAddress, const QString& name);
