@@ -17,6 +17,7 @@ unix {
     SOCEXPLORER_INSTALL_PATH = /usr/local/SocExplorer
     SOCEXPLORER_PLUGINS_INSTALL_PATH = $$[QT_INSTALL_LIBS]"/SocExplorer/plugins"
     DEFINES += SOCEXPLORER_CONFIG_PATH="\"\\\"/etc/SocExplorer"\\\"\"
+    DEFINES += SOCEXPLORER_SHARE_PATH="\"\\\"/usr/share/SocExplorer"\\\"\"
     SOCEXPLORER_CONFIG_PATH=/etc/SocExplorer
 }
 

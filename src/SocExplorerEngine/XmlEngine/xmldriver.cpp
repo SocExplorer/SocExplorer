@@ -85,8 +85,8 @@ void XMLDriver::registerXmlFile(const QString &fileName)
 
 void XMLDriver::scanXmlFiles()
 {
-    QDir configDir(SocExplorerEngine::configFolder());
-    QFileInfoList list = configDir.entryInfoList();
+    QDir shareDir(SocExplorerEngine::sharePath());
+    QFileInfoList list = shareDir.entryInfoList();
     for (int i = 0; i < list.size(); ++i)
     {
         QFileInfo fileInfo = list.at(i);
