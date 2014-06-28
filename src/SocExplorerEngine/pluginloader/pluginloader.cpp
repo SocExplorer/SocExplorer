@@ -23,19 +23,7 @@ pluginloader::pluginloader()
 {
     _cache = new PluginsCache();
     _folderList = new QStringList();
-    QDir pluginPath(QString(SocExplorerEngine::pluginFolder()));
-    if(!pluginPath.exists())
-    {
-        pluginPath.mkpath(QString(SocExplorerEngine::pluginFolder()));
-    }
-    QFile pluginsFolders(QString(SocExplorerEngine::pluginFolder())+"/plugins.conf");
-    *_folderList << QString(SocExplorerEngine::pluginFolder());  //default place
-    if(!pluginsFolders.exists())
-    {
-        pluginsFolders.open(QIODevice::WriteOnly);  //if file doesn't exist create it
-        pluginsFolders.close();
-    }
-    *_folderList<< readFoldersList(QStringList()<< QString(SocExplorerEngine::pluginFolder())+"/plugins.conf");
+    _folderList->append(SocExplorerEngine::pluginFolders());
     scanFolders();
 }
 
