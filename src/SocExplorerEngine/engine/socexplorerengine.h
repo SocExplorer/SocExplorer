@@ -90,7 +90,6 @@ public:
     //! Return the configuration folder path, OS dependant.
     SOCEXPLORER_SDK_EXPORT static QString configFolder();
     //! Return the default plugin folder path, OS dependant.
-     //static QString pluginFolder(){return QString(SOCEXPLORER_PLUGINS_INSTALL_PATH);}
      static QStringList pluginFolders();
      static QString configPath(){return QString(SOCEXPLORER_CONFIG_PATH);}
      static QString sharePath(){return QString(SOCEXPLORER_SHARE_PATH);}

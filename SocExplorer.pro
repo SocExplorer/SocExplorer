@@ -20,8 +20,10 @@ socexplorercfg.files = \
 
 
 unix{
-    SocExplorer.path = /usr/share/applications/
-    SocExplorer.files = unixcfg/SocExplorer.desktop
+    SocExplorerLauncher.path = /usr/share/applications/
+    SocExplorerLauncher.files = unixcfg/SocExplorer.desktop
+    SocExplorerAppData.path = /usr/share/appdata/
+    SocExplorerAppData.files = unixcfg/SocExplorer.appdata.xml
     PluginConfPath.path = /etc/SocExplorer/plugin.conf.d/
     PluginConfPath.files = unixcfg/plugins.conf
     share.path = /usr/share/SocExplorer
@@ -33,7 +35,7 @@ unix{
                     Qt_Creator_Wizard/SocExplorerPlugin/plugin.h \
                     Qt_Creator_Wizard/SocExplorerPlugin/project.pro \
                     Qt_Creator_Wizard/SocExplorerPlugin/wizard.xml
-    INSTALLS+=Wizard SocExplorer share PluginConfPath
+    INSTALLS+=Wizard SocExplorerLauncher share PluginConfPath SocExplorerAppData
 }
     INSTALLS+=socexplorercfg
 
