@@ -21,9 +21,9 @@ socexplorercfg.files = \
 
 unix{
     SocExplorerLauncher.path = /usr/share/applications/
-    SocExplorerLauncher.files = unixcfg/SocExplorer.desktop
+    SocExplorerLauncher.files = unixcfg/socexplorer.desktop
     SocExplorerAppData.path = /usr/share/appdata/
-    SocExplorerAppData.files = unixcfg/SocExplorer.appdata.xml
+    SocExplorerAppData.files = unixcfg/socexplorer.appdata.xml
     PluginConfPath.path = /etc/SocExplorer/plugin.conf.d/
     PluginConfPath.files = unixcfg/plugins.conf
     share.path = /usr/share/SocExplorer
