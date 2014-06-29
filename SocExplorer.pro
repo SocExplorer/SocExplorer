@@ -27,7 +27,7 @@ unix{
     PluginConfPath.path = /etc/SocExplorer/plugin.conf.d/
     PluginConfPath.files = unixcfg/plugins.conf
     share.path = /usr/share/SocExplorer
-    share.files = ressources/images/Indiana_Jones_cappello.png \
+    share.files = ressources/images/icon.png \
                 ressources/Grlib.xml
     Wizard.path = /usr/share/qtcreator/templates/wizards/SocExplorerPlugin
     Wizard.files = Qt_Creator_Wizard/SocExplorerPlugin/logo-lpp-cutted.png \
