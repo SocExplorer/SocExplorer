@@ -1,5 +1,4 @@
 #include <PythonQt.h>
-#include <QIconEngine>
 #include <QObject>
 #include <QVariant>
 #include <SocExplorerPlot.h>
@@ -13,6 +12,7 @@
 #include <genericbinaryfilewidget.h>
 #include <memsizewdgt.h>
 #include <qaction.h>
+#include <qbackingstore.h>
 #include <qbitmap.h>
 #include <qbytearray.h>
 #include <qcolor.h>
@@ -25,12 +25,14 @@
 #include <qgraphicsproxywidget.h>
 #include <qhexedit.h>
 #include <qhexspinbox.h>
+#include <qicon.h>
 #include <qkeysequence.h>
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qlist.h>
 #include <qlocale.h>
 #include <qmargins.h>
+#include <qmetaobject.h>
 #include <qobject.h>
 #include <qpaintdevice.h>
 #include <qpaintengine.h>
@@ -50,6 +52,7 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qwidget.h>
+#include <qwindow.h>
 #include <srecfile.h>
 #include <srecfilewidget.h>
 #include <tcp_terminal_client.h>
@@ -60,8 +63,8 @@
 class PythonQtShell_ElfFile : public ElfFile
 {
 public:
-    PythonQtShell_ElfFile():ElfFile(),_wrapper(NULL) {};
-    PythonQtShell_ElfFile(const QString&  File):ElfFile(File),_wrapper(NULL) {};
+    PythonQtShell_ElfFile():ElfFile(),_wrapper(NULL) {  };
+    PythonQtShell_ElfFile(const QString&  File):ElfFile(File),_wrapper(NULL) {  };
 
    ~PythonQtShell_ElfFile();
 
@@ -126,7 +129,9 @@ void delete_ElfFile(ElfFile* obj) { delete obj; }
    QString  getSymbolType(ElfFile* theWrappedObject, int  index);
    QString  getType(ElfFile* theWrappedObject);
    qint64  getVersion(ElfFile* theWrappedObject);
+   bool  isBigEndian(ElfFile* theWrappedObject);
    bool  static_ElfFile_isElf(const QString&  File);
+   bool  isLitleEndian(ElfFile* theWrappedObject);
    bool  iself(ElfFile* theWrappedObject);
    bool  isopened(ElfFile* theWrappedObject);
    bool  openFile(ElfFile* theWrappedObject, const QString&  File);
@@ -142,8 +147,8 @@ void delete_ElfFile(ElfFile* obj) { delete obj; }
 class PythonQtShell_MemSizeWdgt : public MemSizeWdgt
 {
 public:
-    PythonQtShell_MemSizeWdgt(QWidget*  parent = 0):MemSizeWdgt(parent),_wrapper(NULL) {};
-    PythonQtShell_MemSizeWdgt(int  defaultSize, QWidget*  parent = 0):MemSizeWdgt(defaultSize, parent),_wrapper(NULL) {};
+    PythonQtShell_MemSizeWdgt(QWidget*  parent = 0):MemSizeWdgt(parent),_wrapper(NULL) {  };
+    PythonQtShell_MemSizeWdgt(int  defaultSize, QWidget*  parent = 0):MemSizeWdgt(defaultSize, parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_MemSizeWdgt();
 
@@ -215,7 +220,7 @@ void delete_MemSizeWdgt(MemSizeWdgt* obj) { delete obj; }
 class PythonQtShell_QHexEdit : public QHexEdit
 {
 public:
-    PythonQtShell_QHexEdit(QWidget*  parent = 0):QHexEdit(parent),_wrapper(NULL) {};
+    PythonQtShell_QHexEdit(QWidget*  parent = 0):QHexEdit(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_QHexEdit();
 
@@ -315,7 +320,7 @@ void delete_QHexEdit(QHexEdit* obj) { delete obj; }
 class PythonQtShell_QHexSpinBox : public QHexSpinBox
 {
 public:
-    PythonQtShell_QHexSpinBox(QWidget*  parent = 0):QHexSpinBox(parent),_wrapper(NULL) {};
+    PythonQtShell_QHexSpinBox(QWidget*  parent = 0):QHexSpinBox(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_QHexSpinBox();
 
@@ -398,7 +403,7 @@ void delete_QHexSpinBox(QHexSpinBox* obj) { delete obj; }
 class PythonQtShell_SocExplorerPlot : public SocExplorerPlot
 {
 public:
-    PythonQtShell_SocExplorerPlot(QWidget*  parent = 0):SocExplorerPlot(parent),_wrapper(NULL) {};
+    PythonQtShell_SocExplorerPlot(QWidget*  parent = 0):SocExplorerPlot(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_SocExplorerPlot();
 
@@ -500,7 +505,7 @@ void delete_SocExplorerPlot(SocExplorerPlot* obj) { delete obj; }
 class PythonQtShell_TCP_Terminal_Client : public TCP_Terminal_Client
 {
 public:
-    PythonQtShell_TCP_Terminal_Client(QObject*  parent = 0):TCP_Terminal_Client(parent),_wrapper(NULL) {};
+    PythonQtShell_TCP_Terminal_Client(QObject*  parent = 0):TCP_Terminal_Client(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_TCP_Terminal_Client();
 
@@ -566,7 +571,7 @@ void delete_XByteArray(XByteArray* obj) { delete obj; }
 class PythonQtShell_abstractBinFile : public abstractBinFile
 {
 public:
-    PythonQtShell_abstractBinFile():abstractBinFile(),_wrapper(NULL) {};
+    PythonQtShell_abstractBinFile():abstractBinFile(),_wrapper(NULL) {  };
 
    ~PythonQtShell_abstractBinFile();
 
@@ -585,12 +590,30 @@ virtual bool  toSrec(const QString&  File);
   PythonQtInstanceWrapper* _wrapper; 
 };
 
+class PythonQtPublicPromoter_abstractBinFile : public abstractBinFile
+{ public:
+inline int  promoted_closeFile() { return closeFile(); }
+inline QList<codeFragment* >  promoted_getFragments() { return getFragments(); }
+inline bool  promoted_isopened() { return isopened(); }
+inline bool  promoted_openFile(const QString&  File) { return openFile(File); }
+inline bool  promoted_toBinary(const QString&  File) { return toBinary(File); }
+inline bool  promoted_toSrec(const QString&  File) { return toSrec(File); }
+};
+
 class PythonQtWrapper_abstractBinFile : public QObject
 { Q_OBJECT
 public:
 public slots:
 abstractBinFile* new_abstractBinFile();
 void delete_abstractBinFile(abstractBinFile* obj) { delete obj; } 
+   int  closeFile(abstractBinFile* theWrappedObject);
+   QList<codeFragment* >  getFragments(abstractBinFile* theWrappedObject);
+   bool  isopened(abstractBinFile* theWrappedObject);
+   bool  openFile(abstractBinFile* theWrappedObject, const QString&  File);
+   bool  toBinary(abstractBinFile* theWrappedObject, const QString&  File);
+   bool  toSrec(abstractBinFile* theWrappedObject, const QString&  File);
+void py_set_litleendian(abstractBinFile* theWrappedObject, bool  litleendian){ theWrappedObject->litleendian = litleendian; }
+bool  py_get_litleendian(abstractBinFile* theWrappedObject){ return theWrappedObject->litleendian; }
 };
 
 
@@ -600,7 +623,7 @@ void delete_abstractBinFile(abstractBinFile* obj) { delete obj; }
 class PythonQtShell_abstractBinFileWidget : public abstractBinFileWidget
 {
 public:
-    PythonQtShell_abstractBinFileWidget(QWidget*  parent = 0):abstractBinFileWidget(parent),_wrapper(NULL) {};
+    PythonQtShell_abstractBinFileWidget(QWidget*  parent = 0):abstractBinFileWidget(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_abstractBinFileWidget();
 
@@ -654,12 +677,20 @@ virtual void wheelEvent(QWheelEvent*  arg__1);
   PythonQtInstanceWrapper* _wrapper; 
 };
 
+class PythonQtPublicPromoter_abstractBinFileWidget : public abstractBinFileWidget
+{ public:
+inline void promoted_reloadFile() { reloadFile(); }
+inline void promoted_setFile(abstractBinFile*  file) { setFile(file); }
+};
+
 class PythonQtWrapper_abstractBinFileWidget : public QObject
 { Q_OBJECT
 public:
 public slots:
 abstractBinFileWidget* new_abstractBinFileWidget(QWidget*  parent = 0);
 void delete_abstractBinFileWidget(abstractBinFileWidget* obj) { delete obj; } 
+   void reloadFile(abstractBinFileWidget* theWrappedObject);
+   void setFile(abstractBinFileWidget* theWrappedObject, abstractBinFile*  file);
 };
 
 
@@ -669,9 +700,9 @@ void delete_abstractBinFileWidget(abstractBinFileWidget* obj) { delete obj; }
 class PythonQtShell_binaryFile : public binaryFile
 {
 public:
-    PythonQtShell_binaryFile():binaryFile(),_wrapper(NULL) {};
-    PythonQtShell_binaryFile(const QString&  File):binaryFile(File),_wrapper(NULL) {};
-    PythonQtShell_binaryFile(const QStringList&  Files):binaryFile(Files),_wrapper(NULL) {};
+    PythonQtShell_binaryFile():binaryFile(),_wrapper(NULL) {  };
+    PythonQtShell_binaryFile(const QString&  File):binaryFile(File),_wrapper(NULL) {  };
+    PythonQtShell_binaryFile(const QStringList&  Files):binaryFile(Files),_wrapper(NULL) {  };
 
    ~PythonQtShell_binaryFile();
 
@@ -726,7 +757,7 @@ void delete_binaryFile(binaryFile* obj) { delete obj; }
 class PythonQtShell_binaryFileWidget : public binaryFileWidget
 {
 public:
-    PythonQtShell_binaryFileWidget(QWidget*  parent = 0):binaryFileWidget(parent),_wrapper(NULL) {};
+    PythonQtShell_binaryFileWidget(QWidget*  parent = 0):binaryFileWidget(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_binaryFileWidget();
 
@@ -759,8 +790,8 @@ void delete_binaryFileWidget(binaryFileWidget* obj) { delete obj; }
 class PythonQtShell_codeFragment : public codeFragment
 {
 public:
-    PythonQtShell_codeFragment():codeFragment(),_wrapper(NULL) {};
-    PythonQtShell_codeFragment(char*  data, quint64  size, quint64  address):codeFragment(data, size, address),_wrapper(NULL) {};
+    PythonQtShell_codeFragment():codeFragment(),_wrapper(NULL) {  };
+    PythonQtShell_codeFragment(char*  data, quint64  size, quint64  address):codeFragment(data, size, address),_wrapper(NULL) {  };
 
    ~PythonQtShell_codeFragment();
 
@@ -775,14 +806,14 @@ public slots:
 codeFragment* new_codeFragment();
 codeFragment* new_codeFragment(char*  data, quint64  size, quint64  address);
 void delete_codeFragment(codeFragment* obj) { delete obj; } 
-void py_set_size(codeFragment* theWrappedObject, quint64  size){ theWrappedObject->size = size; }
-quint64  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
-void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
-char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
 void py_set_address(codeFragment* theWrappedObject, quint64  address){ theWrappedObject->address = address; }
 quint64  py_get_address(codeFragment* theWrappedObject){ return theWrappedObject->address; }
+void py_set_data(codeFragment* theWrappedObject, char*  data){ theWrappedObject->data = data; }
+char*  py_get_data(codeFragment* theWrappedObject){ return theWrappedObject->data; }
 void py_set_header(codeFragment* theWrappedObject, QString  header){ theWrappedObject->header = header; }
 QString  py_get_header(codeFragment* theWrappedObject){ return theWrappedObject->header; }
+void py_set_size(codeFragment* theWrappedObject, quint64  size){ theWrappedObject->size = size; }
+quint64  py_get_size(codeFragment* theWrappedObject){ return theWrappedObject->size; }
 };
 
 
@@ -792,7 +823,7 @@ QString  py_get_header(codeFragment* theWrappedObject){ return theWrappedObject-
 class PythonQtShell_elfFileWidget : public elfFileWidget
 {
 public:
-    PythonQtShell_elfFileWidget(QWidget*  parent = 0):elfFileWidget(parent),_wrapper(NULL) {};
+    PythonQtShell_elfFileWidget(QWidget*  parent = 0):elfFileWidget(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_elfFileWidget();
 
@@ -825,7 +856,7 @@ void delete_elfFileWidget(elfFileWidget* obj) { delete obj; }
 class PythonQtShell_elfInfoWdgt : public elfInfoWdgt
 {
 public:
-    PythonQtShell_elfInfoWdgt(QWidget*  parent = 0):elfInfoWdgt(parent),_wrapper(NULL) {};
+    PythonQtShell_elfInfoWdgt(QWidget*  parent = 0):elfInfoWdgt(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_elfInfoWdgt();
 
@@ -931,7 +962,7 @@ void delete_elfparser(elfparser* obj) { delete obj; }
 class PythonQtShell_genericBinaryFileWidget : public genericBinaryFileWidget
 {
 public:
-    PythonQtShell_genericBinaryFileWidget(QWidget*  parent = 0):genericBinaryFileWidget(parent),_wrapper(NULL) {};
+    PythonQtShell_genericBinaryFileWidget(QWidget*  parent = 0):genericBinaryFileWidget(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_genericBinaryFileWidget();
 
@@ -998,9 +1029,9 @@ void delete_genericBinaryFileWidget(genericBinaryFileWidget* obj) { delete obj; 
 class PythonQtShell_srecFile : public srecFile
 {
 public:
-    PythonQtShell_srecFile():srecFile(),_wrapper(NULL) {};
-    PythonQtShell_srecFile(const QString&  File):srecFile(File),_wrapper(NULL) {};
-    PythonQtShell_srecFile(const QStringList&  Files):srecFile(Files),_wrapper(NULL) {};
+    PythonQtShell_srecFile():srecFile(),_wrapper(NULL) {  };
+    PythonQtShell_srecFile(const QString&  File):srecFile(File),_wrapper(NULL) {  };
+    PythonQtShell_srecFile(const QStringList&  Files):srecFile(Files),_wrapper(NULL) {  };
 
    ~PythonQtShell_srecFile();
 
@@ -1061,7 +1092,7 @@ void delete_srecFile(srecFile* obj) { delete obj; }
 class PythonQtShell_srecFileWidget : public srecFileWidget
 {
 public:
-    PythonQtShell_srecFileWidget(QWidget*  parent = 0):srecFileWidget(parent),_wrapper(NULL) {};
+    PythonQtShell_srecFileWidget(QWidget*  parent = 0):srecFileWidget(parent),_wrapper(NULL) {  };
 
    ~PythonQtShell_srecFileWidget();
 

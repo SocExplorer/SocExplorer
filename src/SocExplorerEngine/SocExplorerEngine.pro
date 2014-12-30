@@ -89,6 +89,7 @@ INCLUDEPATH += engine \
     plugins \
     pluginManagerWdgt \
     ../common \
+    ../common/genericBinaryFiles \
     ../ \
     RegisterMVS \
     XmlEngine \

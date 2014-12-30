@@ -107,6 +107,7 @@ public:
      static void removeSOC(socexplorerplugin* rootPlugin);
      static void message(socexplorerplugin* sender,const QString& message,int debugLevel=0);
      static void setLogLevel(int level);
+     static bool isSocLitleEndian(socexplorerplugin* plugin);
 signals:
      void enumDeviceAdded(socExplorerEnumDevice* device);
 public slots:

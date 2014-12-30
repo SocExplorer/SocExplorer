@@ -1,5 +1,7 @@
 #include <PythonQt.h>
+#include <PythonQtConversion.h>
 #include "PySocExplorer0.h"
+
 
 
 void PythonQt_init_PySocExplorer(PyObject* module) {
@@ -27,5 +29,6 @@ PythonQt::priv()->registerClass(&srecFile::staticMetaObject, "PySocExplorer", Py
 PythonQt::self()->addParentClass("srecFile", "abstractBinFile",PythonQtUpcastingOffset<srecFile,abstractBinFile>());
 PythonQt::priv()->registerClass(&srecFileWidget::staticMetaObject, "PySocExplorer", PythonQtCreateObject<PythonQtWrapper_srecFileWidget>, PythonQtSetInstanceWrapperOnShell<PythonQtShell_srecFileWidget>, module, 0);
 PythonQt::self()->addParentClass("srecFileWidget", "abstractBinFileWidget",PythonQtUpcastingOffset<srecFileWidget,abstractBinFileWidget>());
+
 
 }

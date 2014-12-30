@@ -43,6 +43,7 @@
 #include <stdint.h>
 #include <QTextStream>
 #include <genericPySysdriver.h>
+#include <abstractbinfile.h>
 #ifndef driver_Name
 #define driver_Name "Plugin"
 #endif
@@ -161,6 +162,12 @@ public slots:
     virtual void closeMe();
     virtual void activate(bool flag);
     virtual void setInstanceName(const QString& newName);
+
+    virtual bool dumpMemory(unsigned int address,unsigned int count,QString file);
+    virtual bool memSet(unsigned int address,int value, unsigned int count);
+    virtual bool loadbin(unsigned int address,QString file);
+    virtual bool loadfile(abstractBinFile* file);
+    virtual bool dumpMemory(unsigned int address,unsigned int count,QString file,const QString& format);
 protected:
     void makeGenericPyWrapper();
     int BaseAddress;
