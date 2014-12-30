@@ -142,7 +142,7 @@ OTHER_FILES += \
     ./pythonQtgeneratorCfg.txt
 
 RESOURCES += \
-    genericBinaryFiles/genericBinaryFiles.qrc
+    genericBinaryFiles/ressources/genericBinaryFiles.qrc
 
 
 
