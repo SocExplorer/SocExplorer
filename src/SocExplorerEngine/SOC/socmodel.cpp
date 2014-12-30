@@ -27,6 +27,7 @@ SOCModel::SOCModel(socexplorerplugin *rootDev, QObject *parent):
     QObject(parent)
 {
         p_rootDev = rootDev;
+        p_litleEndian = false;
 }
 
 qint32 SOCModel::getEnumDeviceBaseAddress(int VID, int PID, int count)
@@ -109,4 +110,9 @@ qint32 SOCModel::readReg(qint32 address)
     uint valueInt=0,addressInt=address;
     p_rootDev->Read(&valueInt,1,addressInt);
     return (qint32)valueInt;
+}
+
+bool SOCModel::isLitleEndian()
+{
+  return p_litleEndian;
 }

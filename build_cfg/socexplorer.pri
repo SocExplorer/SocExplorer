@@ -3,6 +3,7 @@ QT += core gui xml svg network
 contains(QT_MAJOR_VERSION, 5) {
   QT += widgets
   QT += printsupport
+  QT += multimedia multimediawidgets
 }
 
 SOCEXPLORER_SDK_BUILD="SOCEXPLORER_SDK_BUILD"

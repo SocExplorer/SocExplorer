@@ -281,5 +281,10 @@ void SocExplorerEngine::setLogLevel(int level)
     loglvl = level;
 }
 
+bool SocExplorerEngine::isSocLitleEndian(socexplorerplugin *plugin)
+{
+  return plugin2Soc(plugin)->isLitleEndian();
+}
+
 
 

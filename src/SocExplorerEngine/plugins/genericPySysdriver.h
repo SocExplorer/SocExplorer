@@ -28,6 +28,7 @@
 #include <QFile>
 #include <stdint.h>
 #include <QTextStream>
+#include <abstractbinfile.h>
 #if defined(SOCEXPLORER_SDK_BUILD)
 #  define SOCEXPLORER_SDK_EXPORT Q_DECL_EXPORT
 #else
@@ -49,6 +50,8 @@ public slots:
     bool dumpMemory(unsigned int address,unsigned int count,QString file);
     bool memSet(unsigned int address,int value, unsigned int count);
     bool loadbin(unsigned int address,QString file);
+    bool loadfile(abstractBinFile* file);
+    bool dumpMemory(unsigned int address, unsigned int count, QString file, const QString &format);
     QString instance();
 private:
     socexplorerplugin* plugin;

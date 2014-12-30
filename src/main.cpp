@@ -30,13 +30,10 @@
 #include <QStringList>
 #include <QFile>
 
+void usage();
 
 int main(int argc, char *argv[])
 {
-   // Q_INIT_RESOURCE(socexplorer);
-#ifdef Q_OS_LINUX
- //   QApplication::setGraphicsSystem("raster");
-#endif
     QApplication a(argc, argv);
     QString scriptToEval;
     QStringList args= a.arguments();
@@ -68,4 +65,11 @@ int main(int argc, char *argv[])
     SocExplorerMainWindow w(scriptToEval);
     w.show();
     return a.exec();
+}
+
+
+void usage()
+{
+    // TODO respect usual Linux Cli interface, socexplore [OPTION]...FILES...
+    // TODO write an usage helper.
 }

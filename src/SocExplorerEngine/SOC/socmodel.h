@@ -94,10 +94,12 @@ public slots:
     int addEnumDevice(socExplorerEnumDevice* device);
     void writeReg(qint32 address,qint32 value);
     qint32 readReg(qint32 address);
+    bool isLitleEndian();
 private:
     socexplorerplugin* p_rootDev;
     QList<socExplorerEnumDevice*> p_enumeratedDevices;
     QList<SOCclk*> clktree;
+    bool p_litleEndian;
 };
 
 

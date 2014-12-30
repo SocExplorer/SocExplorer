@@ -11,7 +11,7 @@
 #endif
 #endif
 
-
+#include <socexplorerengine.h>
 
 
 genericPySysdriver::genericPySysdriver(socexplorerplugin* plugin,QObject* parent):
@@ -44,56 +44,28 @@ void genericPySysdriver::Write(unsigned int address,QList<QVariant> dataList)
 
 bool genericPySysdriver::dumpMemory(unsigned int address,unsigned int count,QString file)
 {
-    unsigned int* buffer = (unsigned int*)malloc(count*sizeof(unsigned int));
-    if(buffer!=NULL)
-    {
-        this->plugin->Read(buffer,count,address);
-        QFile outfile(file);
-        if (!outfile.open(QIODevice::ReadWrite | QIODevice::Text))
-            return false;
-        QTextStream out(&outfile);
-        for(int i=0;(unsigned int)i<count;i++)
-            out << "0x"+QString::number(address+(i*4),16) + ": 0x" + QString::number(buffer[i],16) + "\n";
-        free(buffer);
-        out.flush();
-        outfile.close();
-        return true;
-    }
-    return false;
+    return this->plugin->dumpMemory(address,count,file);
 }
 
 bool genericPySysdriver::memSet(unsigned int address,int value, unsigned int count)
 {
-    unsigned int* buffer = (unsigned int*)malloc(count*sizeof(unsigned int));
-    if(buffer!=NULL)
-    {
-        memset((void*)buffer,value,count*sizeof(unsigned int));
-        this->plugin->Write(buffer,count,address);
-        free(buffer );
-        return true;
-    }
-    return false;
+    return this->plugin->memSet(address,value,count);
 }
 
 bool genericPySysdriver::loadbin(unsigned int address,QString file)
 {
-    QFile infile(file);
-    if (!infile.open(QIODevice::ReadOnly))
-        return false;
-    uint32_t* buffer = (uint32_t*)malloc(infile.size());
-    if(buffer!=NULL)
-    {
-        infile.read((char*)buffer,infile.size());
-        for(int i=0;i<(infile.size()/4);i++)
-        {
-            buffer[i] = socexplorerBswap32(buffer[i]);
-        }
-        this->plugin->Write(buffer,infile.size()/4,address);
-        free(buffer);
-        return true;
-    }
-    return false;
+    return this->plugin->loadbin(address,file);
 
+}
+
+bool genericPySysdriver::loadfile(abstractBinFile *file)
+{
+  return this->plugin->loadfile(file);
+}
+
+bool genericPySysdriver::dumpMemory(unsigned int address, unsigned int count, QString file, const QString &format)
+{
+  return this->plugin->dumpMemory(address,count,file,format);
 }
 
 QString genericPySysdriver::instance()
