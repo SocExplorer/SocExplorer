@@ -257,7 +257,7 @@ socexplorerplugin *socexplorerproxy::findPlugin(const QString &instanceName)
     if(!_self)init();
     for(int k=0;k<linearDriverList->count();k++)
     {
-        if(linearDriverList->at(k)->instanceName().compare(instanceName))
+        if(!linearDriverList->at(k)->instanceName().compare(instanceName))
             return linearDriverList->at(k);
     }
     return NULL;

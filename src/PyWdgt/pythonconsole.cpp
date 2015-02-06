@@ -37,8 +37,14 @@ PythonConsole::PythonConsole(socexplorerproxy *proxy, QWidget *parent) :
 
 void PythonConsole::addObject(const QString& name, QObject* object)
 {
-    this->mainContext->addObject(name, object);
+  this->mainContext->addObject(name, object);
 }
+
+void PythonConsole::removeVariable(const QString& name)
+{
+  this->mainContext->removeVariable(name);
+}
+
 
 void PythonConsole::setBussDriver(socexplorerplugin *driver)
 {

@@ -35,7 +35,8 @@ INCLUDEPATH+=$${PWD} \
             SocExplorerEngine/RegisterMVS \
             SocExplorerEngine/XmlEngine \
             SocExplorerEngine/SOC \
-            SocExplorerEngine/PeripheralWidget/src
+            SocExplorerEngine/PeripheralWidget/src \
+            SocExplorerEngine/memtester
 
 win32:INCLUDEPATH+= \
             $${PWD}/common/genericBinaryFiles/elf/libelfWin32/include \

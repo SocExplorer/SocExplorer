@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<soc name="Leon">
+ <peripheral vid="25" name="LPP_APB_DAC" pid="7">
+   <register name="DAC Control" addOffset="0">
+     <bitField size="2" offset="0" name="Dac config" mode="3" desc="Set the two configuration bits of the DAC ‘00’ mean normal operation, ‘01’ mean 1kOhms connected to GND, ‘10’ mean 100kOhms connected to GND, ‘11’ mean high impedance"/>
+     <bitField size="1" offset="4" name="Reload" mode="3" desc="Reload freq divider to the value N, can be used also to stop dac"/>
+     <bitField name="Interleavde" offset="5" size="1" mode="3" desc="Set interleaved mode"/>
+   </register>
+   <register name="Prescaller" addOffset="4">
+     <bitField size="32" offset="0" name="Pre" mode="3" desc="Set the prescaller division"/>
+   </register>
+   <register name="Div" addOffset="8">
+     <bitField size="32" offset="0" name="N" mode="3" desc="Set the division factor"/>
+   </register>
+   <register name="Address" addOffset="12">
+     <bitField size="32" offset="0" name="Address" mode="3" desc="Set the DAC RAM buffer address pointer"/>
+   </register>
+   <register name="DATA" addOffset="16">
+     <bitField size="32" offset="0" name="DATA" mode="3" desc="DATA to be written in the DAC RAM buffer"/>
+   </register>
+ </peripheral>
+ <peripheral vid="25" name="LPP_LFR_MANAGEMENT" pid="34">
+   <register name="CONTROL" addOffset="0">
+     <bitField size="1" offset="0" name="ctrl" mode="3" desc="NC"/>
+     <bitField size="1" offset="1" name="Soft Reset" mode="3" desc="NC  "/>
+     <bitField name="LFR Soft Reset" offset="5" size="1" mode="3" desc="NC"/>
+   </register>
+   <register name="COARSE TIME LOAD" addOffset="4">
+     <bitField size="31" offset="0" name="Coarse Time Load" mode="3" desc="NC"/>
+   </register>
+   <register name="COARSE TIME" addOffset="8">
+     <bitField size="31" offset="0" name="Coarse Time" mode="1" desc="NC"/>
+   </register>
+   <register name="TEMP0" addOffset="12">
+     <bitField size="16" offset="0" name="HK Temperature 0" mode="1" desc="NC"/>
+   </register>
+   <register name="TEMP1" addOffset="16">
+     <bitField size="16" offset="0" name="HK Temperature 1" mode="1" desc="NC"/>
+   </register>
+   <register name="TEMP2" addOffset="20">
+     <bitField size="16" offset="0" name="HK Temperature 2" mode="1" desc="NC"/>
+   </register>
+   <register name="DAC Control" addOffset="24">
+     <bitField size="2" offset="0" name="Dac config" mode="3" desc="Set the two configuration bits of the DAC ‘00’ mean normal operation, ‘01’ mean 1kOhms connected to GND, ‘10’ mean 100kOhms connected to GND, ‘11’ mean high impedance"/>
+     <bitField size="1" offset="4" name="Reload" mode="3" desc="Reload freq divider to the value N, can be used also to stop dac"/>
+     <bitField name="Interleavde" offset="5" size="1" mode="3" desc="Set interleaved mode"/>
+     <bitField name="Enable" offset="6" size="1" mode="3" desc="Scm cal enable, drives the multiplexer"/>
+   </register>
+   <register name="Prescaller" addOffset="28">
+     <bitField size="32" offset="0" name="Pre" mode="3" desc="Set the prescaller division"/>
+   </register>
+   <register name="Div" addOffset="32">
+     <bitField size="32" offset="0" name="N" mode="3" desc="Set the division factor"/>
+   </register>
+   <register name="Address" addOffset="36">
+     <bitField size="32" offset="0" name="Address" mode="3" desc="Set the DAC RAM buffer address pointer"/>
+   </register>
+   <register name="DATA" addOffset="40">
+     <bitField size="32" offset="0" name="DATA" mode="3" desc="DATA to be written in the DAC RAM buffer"/>
+   </register>
+ </peripheral>
+</soc>
+
+
+
+
+
+
+
+
+
