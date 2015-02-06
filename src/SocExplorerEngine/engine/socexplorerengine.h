@@ -41,6 +41,7 @@
 #include <peripheralwidget.h>
 #include <registerwidget.h>
 #include <socmodel.h>
+#include <memtester.h>
 
 #if defined(SOCEXPLORER_SDK_BUILD)
 #  define SOCEXPLORER_SDK_EXPORT Q_DECL_EXPORT
@@ -119,6 +120,8 @@ public slots:
      qint32 getEnumDeviceCount(socexplorerplugin* plugin,int VID,int PID);
      qint32 getEnumDeviceCount(const QString& rootPlugin,int VID,int PID);
      int addEnumDevice(const QString& rootPlugin,int VID,int PID,qint32 baseAddress,const QString& name);
+     unsigned int memMeasureSize(socexplorerplugin* plugin, unsigned int address,unsigned int maxSize=0xFFFFFFFF);
+     unsigned int memMeasureSize(const QString& plugin, unsigned int address,unsigned int maxSize=0xFFFFFFFF);
 
 private:
     static SOCModel* plugin2Soc(socexplorerplugin* plugin);

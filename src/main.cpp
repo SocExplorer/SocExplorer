@@ -37,9 +37,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QString scriptToEval;
     QStringList args= a.arguments();
-    for(int i=0;i<args.count()-1;i++)
+    bool noGUI=false;
+    for(int i=0;i<=args.count()-1;i++)
     {
-        if((args.at(i).compare("-e")==0) || (args.at(i).compare("--execute")==0))
+        if(((args.at(i).compare("-e")==0) || (args.at(i).compare("--execute")==0)) && (i<(args.count()-1)))
         {
             scriptToEval = args.at(i+1);
             if(!QFile::exists(scriptToEval))
@@ -50,7 +51,7 @@ int main(int argc, char *argv[])
                 qDebug() << "Will execute" << scriptToEval;
             break;
         }
-        if((args.at(i).compare("-d")==0) || (args.at(i).compare("--debug-level")==0))
+        if(((args.at(i).compare("-d")==0) || (args.at(i).compare("--debug-level")==0)) && (i<(args.count()-1)))
         {
             bool success;
             int lvl;
@@ -60,10 +61,23 @@ int main(int argc, char *argv[])
                 SocExplorerEngine::setLogLevel(lvl);
             }
         }
+        if((args.at(i).compare("--no-gui")==0))
+        {
+            noGUI = true;
+            qDebug() << "CLI mode";
+        }
     }
 
     SocExplorerMainWindow w(scriptToEval);
-    w.show();
+    if(!noGUI)
+      {
+
+        w.show();
+      }
+    else
+      {
+
+      }
     return a.exec();
 }
 

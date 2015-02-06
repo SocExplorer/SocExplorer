@@ -10,7 +10,7 @@ SOCEXPLORER_PLUGIN_LOADER="custom"
 
 SOCEXPLORER_CHAGESETNUM=$$system(hg id)
 isEmpty(SOCEXPLORER_CHAGESETNUM){
-    SOCEXPLORER_CHAGESETNUM=6e5eaa13fad9
+    SOCEXPLORER_CHAGESETNUM=c4b98d42ee59
 }
 SOCEXPLORER_CHAGESETNUMSTR = '\\"$${SOCEXPLORER_CHAGESETNUM}\\"'
 SOCEXPLORER_BRANCH=$$system(hg branch)
@@ -19,7 +19,7 @@ isEmpty(SOCEXPLORER_BRANCH){
 }
 SOCEXPLORER_BRANCHSTR = '\\"$${SOCEXPLORER_BRANCH}\\"'
 
-DEFINES += SOCEXPLORER_VERSION="\"\\\"0.4.4"\\\"\"
+DEFINES += SOCEXPLORER_VERSION="\"\\\"0.4.5"\\\"\"
 DEFINES += SOCEXPLORER_CHAGESET=\"$${SOCEXPLORER_CHAGESETNUMSTR}\"
 DEFINES += SOCEXPLORER_BRANCH=\"$${SOCEXPLORER_BRANCHSTR}\"
 
@@ -66,7 +66,8 @@ header.files = engine/socexplorerengine.h \
                 SOC/socclk.h \
                 PeripheralWidget/src/peripheralwidget.h \
                 PeripheralWidget/src/registerwidget.h \
-                PeripheralWidget/src/socregsviewer.h
+                PeripheralWidget/src/socregsviewer.h \
+                memtester/memtester.h
 
 
 
@@ -94,7 +95,8 @@ INCLUDEPATH += engine \
     RegisterMVS \
     XmlEngine \
     SOC \
-    PeripheralWidget/src
+    PeripheralWidget/src \
+    memtester
 
 
 HEADERS += \ 
@@ -121,7 +123,8 @@ HEADERS += \
     pluginsInterface/socexplorerplugininterface_global.h \
     proxy/socexplorerproxy.h \
     SOC/socexplorerenumdevice.h \
-    PySocExplorerEngine.h
+    PySocExplorerEngine.h \
+    memtester/memtester.h
 
 
 
@@ -149,7 +152,8 @@ SOURCES += \
     engine/socexplorerxmlfile.cpp \
     proxy/socexplorerproxy.cpp \
     SOC/socexplorerenumdevice.cpp \
-    plugins/socexplorerplugin.cpp
+    plugins/socexplorerplugin.cpp \
+    memtester/memtester.cpp
 
 
 OTHER_FILES += \

@@ -57,6 +57,7 @@ public slots:
     void registerObject(QObject* object,const QString& instanceName);
     void changeSysDriverInstName(const QString newinstanceName,const QString previnstanceName);
     void addObject(const QString& name, QObject* object);
+    void removeVariable(const QString& name);
 protected:
     QSize sizeHint();
 

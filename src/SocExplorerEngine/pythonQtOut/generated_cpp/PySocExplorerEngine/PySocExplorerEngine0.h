@@ -1,8 +1,8 @@
 #include <PythonQt.h>
-#include <QIconEngine>
 #include <QObject>
 #include <QVariant>
 #include <qaction.h>
+#include <qbackingstore.h>
 #include <qbitmap.h>
 #include <qbytearray.h>
 #include <qcoreevent.h>
@@ -12,12 +12,14 @@
 #include <qfont.h>
 #include <qgraphicseffect.h>
 #include <qgraphicsproxywidget.h>
+#include <qicon.h>
 #include <qkeysequence.h>
 #include <qlayout.h>
 #include <qlist.h>
 #include <qlocale.h>
 #include <qmargins.h>
 #include <qmenu.h>
+#include <qmetaobject.h>
 #include <qobject.h>
 #include <qpaintdevice.h>
 #include <qpaintengine.h>
@@ -32,6 +34,7 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qwidget.h>
+#include <qwindow.h>
 #include <socexplorerplugin.h>
 
 
@@ -39,7 +42,7 @@
 class PythonQtShell_socexplorerplugin : public socexplorerplugin
 {
 public:
-    PythonQtShell_socexplorerplugin(QWidget*  parent = 0, bool  createPyObject = true):socexplorerplugin(parent, createPyObject),_wrapper(NULL) {};
+    PythonQtShell_socexplorerplugin(QWidget*  parent = 0, bool  createPyObject = true):socexplorerplugin(parent, createPyObject),_wrapper(NULL) {  };
 
    ~PythonQtShell_socexplorerplugin();
 
@@ -62,6 +65,8 @@ virtual void dragEnterEvent(QDragEnterEvent*  arg__1);
 virtual void dragLeaveEvent(QDragLeaveEvent*  arg__1);
 virtual void dragMoveEvent(QDragMoveEvent*  arg__1);
 virtual void dropEvent(QDropEvent*  arg__1);
+virtual bool  dumpMemory(unsigned int  address, unsigned int  count, QString  file);
+virtual bool  dumpMemory(unsigned int  address, unsigned int  count, QString  file, const QString&  format);
 virtual void enterEvent(QEvent*  arg__1);
 virtual bool  event(QEvent*  event);
 virtual bool  eventFilter(QObject*  arg__1, QEvent*  arg__2);
@@ -78,6 +83,8 @@ virtual int  isConnected();
 virtual void keyPressEvent(QKeyEvent*  arg__1);
 virtual void keyReleaseEvent(QKeyEvent*  arg__1);
 virtual void leaveEvent(QEvent*  arg__1);
+virtual bool  loadbin(unsigned int  address, QString  file);
+virtual bool  memSet(unsigned int  address, int  value, unsigned int  count);
 virtual int  metric(QPaintDevice::PaintDeviceMetric  arg__1) const;
 virtual QSize  minimumSizeHint() const;
 virtual void mouseDoubleClickEvent(QMouseEvent*  arg__1);
@@ -114,7 +121,12 @@ inline void promoted_activate(bool  flag) { socexplorerplugin::activate(flag); }
 inline int  promoted_baseAddress() { return socexplorerplugin::baseAddress(); }
 inline QString  promoted_baseName() { return socexplorerplugin::baseName(); }
 inline void promoted_closeMe() { socexplorerplugin::closeMe(); }
+inline bool  promoted_dumpMemory(unsigned int  address, unsigned int  count, QString  file) { return socexplorerplugin::dumpMemory(address, count, file); }
+inline bool  promoted_dumpMemory(unsigned int  address, unsigned int  count, QString  file, const QString&  format) { return socexplorerplugin::dumpMemory(address, count, file, format); }
 inline int  promoted_isConnected() { return socexplorerplugin::isConnected(); }
+inline bool  promoted_loadbin(unsigned int  address, QString  file) { return socexplorerplugin::loadbin(address, file); }
+inline void promoted_makeGenericPyWrapper() { socexplorerplugin::makeGenericPyWrapper(); }
+inline bool  promoted_memSet(unsigned int  address, int  value, unsigned int  count) { return socexplorerplugin::memSet(address, value, count); }
 inline void promoted_postInstantiationTrigger() { socexplorerplugin::postInstantiationTrigger(); }
 inline int  promoted_registermenu(QMenu*  menu) { return socexplorerplugin::registermenu(menu); }
 inline void promoted_setBaseAddress(unsigned int  baseAddress) { socexplorerplugin::setBaseAddress(baseAddress); }
@@ -135,22 +147,27 @@ void delete_socexplorerplugin(socexplorerplugin* obj) { delete obj; }
    int  baseAddress(socexplorerplugin* theWrappedObject);
    QString  baseName(socexplorerplugin* theWrappedObject);
    void closeMe(socexplorerplugin* theWrappedObject);
+   bool  dumpMemory(socexplorerplugin* theWrappedObject, unsigned int  address, unsigned int  count, QString  file);
+   bool  dumpMemory(socexplorerplugin* theWrappedObject, unsigned int  address, unsigned int  count, QString  file, const QString&  format);
    QString  instanceName(socexplorerplugin* theWrappedObject);
    int  isConnected(socexplorerplugin* theWrappedObject);
+   bool  loadbin(socexplorerplugin* theWrappedObject, unsigned int  address, QString  file);
+   void makeGenericPyWrapper(socexplorerplugin* theWrappedObject);
+   bool  memSet(socexplorerplugin* theWrappedObject, unsigned int  address, int  value, unsigned int  count);
    void postInstantiationTrigger(socexplorerplugin* theWrappedObject);
    int  registermenu(socexplorerplugin* theWrappedObject, QMenu*  menu);
    void setBaseAddress(socexplorerplugin* theWrappedObject, unsigned int  baseAddress);
    void setInstanceName(socexplorerplugin* theWrappedObject, const QString&  newName);
-void py_set_parent(socexplorerplugin* theWrappedObject, socexplorerplugin*  parent){ theWrappedObject->parent = parent; }
-socexplorerplugin*  py_get_parent(socexplorerplugin* theWrappedObject){ return theWrappedObject->parent; }
-void py_set_menu(socexplorerplugin* theWrappedObject, QMenu*  menu){ theWrappedObject->menu = menu; }
-QMenu*  py_get_menu(socexplorerplugin* theWrappedObject){ return theWrappedObject->menu; }
 void py_set_ChildsMenu(socexplorerplugin* theWrappedObject, QMenu*  ChildsMenu){ theWrappedObject->ChildsMenu = ChildsMenu; }
 QMenu*  py_get_ChildsMenu(socexplorerplugin* theWrappedObject){ return theWrappedObject->ChildsMenu; }
-void py_set_closeAction(socexplorerplugin* theWrappedObject, QAction*  closeAction){ theWrappedObject->closeAction = closeAction; }
-QAction*  py_get_closeAction(socexplorerplugin* theWrappedObject){ return theWrappedObject->closeAction; }
 void py_set_childs(socexplorerplugin* theWrappedObject, QList<socexplorerplugin* >  childs){ theWrappedObject->childs = childs; }
 QList<socexplorerplugin* >  py_get_childs(socexplorerplugin* theWrappedObject){ return theWrappedObject->childs; }
+void py_set_closeAction(socexplorerplugin* theWrappedObject, QAction*  closeAction){ theWrappedObject->closeAction = closeAction; }
+QAction*  py_get_closeAction(socexplorerplugin* theWrappedObject){ return theWrappedObject->closeAction; }
+void py_set_menu(socexplorerplugin* theWrappedObject, QMenu*  menu){ theWrappedObject->menu = menu; }
+QMenu*  py_get_menu(socexplorerplugin* theWrappedObject){ return theWrappedObject->menu; }
+void py_set_parent(socexplorerplugin* theWrappedObject, socexplorerplugin*  parent){ theWrappedObject->parent = parent; }
+socexplorerplugin*  py_get_parent(socexplorerplugin* theWrappedObject){ return theWrappedObject->parent; }
 };
 
 
