@@ -39,6 +39,7 @@ unix{
                     Qt_Creator_Wizard/SocExplorerPlugin/project.pro \
                     Qt_Creator_Wizard/SocExplorerPlugin/wizard.xml
     INSTALLS+=Wizard SocExplorerLauncher share PluginConfPath SocExplorerAppData
+    OTHER_FILES += unixcfg/SocExplorer.spec
 }
     INSTALLS+=socexplorercfg
 

@@ -2,13 +2,13 @@
 
 Name:           socexplorer
 Version:        0.4
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        SocExplorer is an open source generic System On Chip testing software/framework.
 Group:          Development/Tools
 License:        GPLv2+
 URL:            https://hephaistos.lpp.polytechnique.fr/redmine/projects/socexplorer
 Source0:        https://hephaistos.lpp.polytechnique.fr/redmine/attachments/download/376/socexplorer-0.4.zip
-# 
+#
 #Patch0:         socexplorer_desktop.patch
 
 
@@ -55,7 +55,7 @@ Header files and development libraries for SocExplorer package. SocExplorer is a
 
 
 %build
-%{_qt5_qmake} 
+%{_qt5_qmake}
 
 make %{?_smp_mflags}
 
@@ -308,8 +308,15 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/socexplorer.deskto
 
 
 %changelog
+* Mon Mar  9 2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.4
+- Uses r75 as source.
+
+* Tue Feb 10 2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.4
+- Uses r74 as source.
+
 * Fri Feb 6 2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.4
 - Reseted patches uses r73 as source.
+
 * Tue Dec 30 2014 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.4
 - Reseted patches uses r72 as source.
 
