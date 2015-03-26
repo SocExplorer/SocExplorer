@@ -1,16 +1,13 @@
-%global upstream_name socexplorer-0.4
+%global upstream_name socexplorer-0.5
 
 Name:           socexplorer
-Version:        0.4
-Release:        8%{?dist}
+Version:        0.5
+Release:        0%{?dist}
 Summary:        SocExplorer is an open source generic System On Chip testing software/framework.
 Group:          Development/Tools
 License:        GPLv2+
 URL:            https://hephaistos.lpp.polytechnique.fr/redmine/projects/socexplorer
-Source0:        https://hephaistos.lpp.polytechnique.fr/redmine/attachments/download/376/socexplorer-0.4.zip
-#
-#Patch0:         socexplorer_desktop.patch
-
+Source0:        https://hephaistos.lpp.polytechnique.fr/redmine/attachments/download/376/socexplorer-0.5.zip
 
 BuildRequires:  python2-devel
 BuildRequires:  qt5-qtbase-devel
@@ -34,8 +31,8 @@ Requires(post): qt5-qtxmlpatterns
 Requires(post): elfutils-libelf
 Requires(post): qt5-pythonqt
 
-Provides:  socexplorer = 0.4-6
-Obsoletes: socexplorer < 0.4-5
+Provides:  socexplorer = 0.5-0
+Obsoletes: socexplorer < 0.4-8
 
 %description
 SocExplorer is an open source generic System On Chip testing software/framework. We write this software for the development and the validation of our instrument, the Low Frequency Receiver(LFR) for the Solar Orbiter mission. This instrument is based on an actel FPGA hosting a LEON3FT processor and some peripherals. To make it more collaborative, we use a plugin based system, the main executable is SocExplorer then all the functionality are provided by plugins. Like this everybody can provide his set of plugins to handle a new SOC or just a new peripheral. SocExplorer uses PythonQt to allow user to automate some tasks such as loading some plugins, configuring them and talking with his device.
@@ -50,7 +47,6 @@ Header files and development libraries for SocExplorer package. SocExplorer is a
 
 %prep
 %setup -q -n %{upstream_name}
-#%patch0 -p1 -b .desktop
 
 
 
@@ -308,6 +304,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/socexplorer.deskto
 
 
 %changelog
+* Thu Mar 26  2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.5
+-Uses r77 as source.
+
 * Mon Mar  9 2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.4
 - Uses r75 as source.
 

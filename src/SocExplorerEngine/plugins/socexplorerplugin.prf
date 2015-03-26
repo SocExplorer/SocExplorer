@@ -1,4 +1,5 @@
 
+DEFINES += driver_Version="\"\\\"$$VERSION"\\\"\"
 
 win32 {
     DEFINES += WIN32
@@ -34,11 +35,6 @@ isEmpty( SOCEXPLORER_SDK_BUILD ){
     OBJECTS_DIR = obj
     MOC_DIR = moc
     DESTDIR = bin
-#    CONFIG(debug, debug|release) {
-#      DEBUG_EXT = _d
-#    } else {
-#      DEBUG_EXT =
-#    }
     unix{
         target.path    = $${SOCEXPLORER_PLUGINS_INSTALL_PATH}
         INSTALLS += target
