@@ -77,20 +77,6 @@ SOURCES += main.cpp\
     regsExplorer/regsexplorercfg.cpp \
     aboutsocexplorer.cpp
 
-#    regWidget/xmltagtextedit.cpp \
-#    regWidget/xmltaglabeledit.cpp \
-#    regWidget/xmlelementslistwidget.cpp \
-#    regWidget/xmlelementslistview.cpp \
-#    regWidget/regpropeditor.cpp \
-#    regWidget/registerwdgt.cpp \
-#    regWidget/registereditor.cpp \
-#    regWidget/registercel.cpp \
-#    regWidget/periphpropeditor.cpp \
-#    regWidget/peripherialregs.cpp \
-#    regWidget/bitfieldpropeditor.cpp \
-#    regWidget/bitfield.cpp
-
-
 HEADERS  += mainwindow.h \
     PyWdgt/pythonconsole.h \
     PyWdgt/pythonqtscriptingconsoledandd.h \
@@ -103,18 +89,6 @@ HEADERS  += mainwindow.h \
     socexplorer.h \
     SocExplorerEngine/plugins/socexplorerplugin.h \
     aboutsocexplorer.h
-#    regWidget/xmltagtextedit.h \
-#    regWidget/xmltaglabeledit.h \
-#    regWidget/xmlelementslistwidget.h \
-#    regWidget/xmlelementslistview.h \
-#    regWidget/regpropeditor.h \
-#    regWidget/registerwdgt.h \
-#    regWidget/registereditor.h \
-#    regWidget/registercel.h \
-#    regWidget/periphpropeditor.h \
-#    regWidget/peripherialregs.h \
-#    regWidget/bitfieldpropeditor.h \
-#    regWidget/bitfield.h
 
 
 include ( NicePyConsole/NicePyConsole.pri)
