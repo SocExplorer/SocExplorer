@@ -31,10 +31,21 @@
 #include <socexplorerengine.h>
 #include <peripheralwidget.h>
 #include <socregsviewer.h>
+#include <socregsviewernew.h>
+
+
 
 class regsExplorer : public QDockWidget
 {
     Q_OBJECT
+    class regExplorerReadWriteDelegate: public peripheralWidget::readWriteProxy
+    {
+    public:
+        regExplorerReadWriteDelegate() {}
+        void writeReg(qint32 address,qint32 value){if(device)device->writeReg(address,value);}
+        qint32 readReg(qint32 address){if(device)return device->readReg(address);}
+        socExplorerEnumDevice* device;
+    };
 public:
     explicit regsExplorer(QWidget *parent = 0);
     
@@ -47,9 +58,9 @@ public slots:
 private:
     QTabWidget* mainWidget;
     regsExplorerCfg* cfg;
-    socRegsViewer* socViewer;
-
-    
+//    socRegsViewer* socViewer;
+    SocRegsViewerNew* socViewer;
+    regExplorerReadWriteDelegate delegate;
 };
 
 #endif // REGSEXPLORER_H

@@ -104,6 +104,7 @@ void socexplorerproxy::loadSysDriver(socexplorerplugin *driver, const QString in
     emit _self->clearMenu();
     emit _self->treeChanged(QList<socexplorerplugin*>(*drivers));
     SocExplorerEngine::addSOC(driver);
+    driver->postInstantiationTrigger();
 }
 
 void socexplorerproxy::loadChildSysDriver(socexplorerplugin *parent, const QString child)

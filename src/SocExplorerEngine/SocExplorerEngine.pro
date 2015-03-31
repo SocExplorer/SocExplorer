@@ -67,6 +67,7 @@ header.files = engine/socexplorerengine.h \
                 PeripheralWidget/src/peripheralwidget.h \
                 PeripheralWidget/src/registerwidget.h \
                 PeripheralWidget/src/socregsviewer.h \
+                PeripheralWidget/src/socregsviewernew.h \
                 memtester/memtester.h
 
 
@@ -124,7 +125,9 @@ HEADERS += \
     proxy/socexplorerproxy.h \
     SOC/socexplorerenumdevice.h \
     PySocExplorerEngine.h \
-    memtester/memtester.h
+    memtester/memtester.h\
+    PeripheralWidget/src/socregsviewernew.h \
+    PeripheralWidget/src/collapsableperipheralwidget.h
 
 
 
@@ -153,7 +156,9 @@ SOURCES += \
     proxy/socexplorerproxy.cpp \
     SOC/socexplorerenumdevice.cpp \
     plugins/socexplorerplugin.cpp \
-    memtester/memtester.cpp
+    memtester/memtester.cpp \
+    PeripheralWidget/src/socregsviewernew.cpp \
+    PeripheralWidget/src/collapsableperipheralwidget.cpp
 
 
 OTHER_FILES += \
@@ -163,4 +168,10 @@ OTHER_FILES += \
     pythongenerator.sh \
     pythonQtgeneratorCfg.txt
 
+FORMS += \
+    PeripheralWidget/src/socregsviewernew.ui \
+    PeripheralWidget/src/collapsableperipheralwidget.ui
 
+
+RESOURCES += \
+    PeripheralWidget/ressources/peripheralwidget.qrc

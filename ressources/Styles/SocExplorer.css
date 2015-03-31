@@ -10,3 +10,7 @@ QGroupBox::title {
     padding: 0 3px 0 3px;
 }
 
+QWidget#CollapsablePeripheralWidget {
+    border: 1px solid gray;
+    border-radius: 9px;
+}
