@@ -1,50 +1,58 @@
 #include "regsexplorer.h"
+#include "ui_regsexplorernew.h"
 #include "socmodel.h"
 
-regsExplorer::regsExplorer(QWidget *parent) :
-    QDockWidget(parent)
+RegsExplorer::RegsExplorer(QWidget *parent) :
+    QDockWidget(parent),
+    ui(new Ui::RegsExplorerNew)
 {
-    mainWidget = new QTabWidget;
-    cfg = new regsExplorerCfg;
-    socViewer = new SocRegsViewerNew(tr("No soc Detected"),this);
-    this->setWidget(this->mainWidget);
-    this->mainWidget->addTab(this->cfg,"Config");
-    this->mainWidget->addTab(this->socViewer,"View");
-    this->setWindowTitle(tr("Regs Explorer"));
+    ui->setupUi(this);
     connect(SocExplorerEngine::self(),SIGNAL(enumDeviceAdded(socExplorerEnumDevice*)),this,SLOT(addDev(socExplorerEnumDevice*)));
+    delegate.device=NULL;
 }
 
-
-void regsExplorer::addDev(socExplorerEnumDevice *device)
+RegsExplorer::~RegsExplorer()
 {
-    delegate.device = device;
-    peripheralWidget* peripheral=new peripheralWidget(device->name(),device->baseAddress(),&delegate,this);
-    this->socViewer->addPeripheral(peripheral);
-    peripheralModel periphM=SocExplorerEngine::xmlModel()->getPeripheral(device->name());
-    int startIndex,stopIndex;
-    QString desc;
-    QString name;
-    bool rw;
-    for(int i=0;i<periphM.registers.count();i++)
+    delete ui;
+}
+
+void RegsExplorer::addDev(socExplorerEnumDevice *device)
+{
+    if((delegate.device->sameSoc(device))||(delegate.device==NULL))
     {
-        peripheral->addRegister(periphM.registers.at(i).name,device->baseAddress() + periphM.registers.at(i).offset);
-        for(int j=0;j<periphM.registers.at(i).bitfields.count();j++)
+        delegate.device = device;
+        peripheralWidget* peripheral=new peripheralWidget(device->name(),device->baseAddress(),&delegate,this);
+        this->ui->regsViewer->addPeripheral(peripheral);
+        peripheralModel periphM=SocExplorerEngine::xmlModel()->getPeripheral(device->name());
+        int startIndex,stopIndex;
+        QString desc;
+        QString name;
+        bool rw;
+        this->ui->regsViewer->setSocName(device->socName());
+        for(int i=0;i<periphM.registers.count();i++)
         {
-            startIndex = periphM.registers.at(i).bitfields.at(j).offset;
-            stopIndex = periphM.registers.at(i).bitfields.at(j).offset+periphM.registers.at(i).bitfields.at(j).size-1;
-            desc = periphM.registers.at(i).bitfields.at(j).description;
-            rw = periphM.registers.at(i).bitfields.at(j).rw;
-            name = periphM.registers.at(i).bitfields.at(j).name;
-            peripheral->registerAt(i)->setBitFieldAttribute(startIndex,stopIndex,name,desc,rw);
+            peripheral->addRegister(periphM.registers.at(i).name,device->baseAddress() + periphM.registers.at(i).offset);
+            for(int j=0;j<periphM.registers.at(i).bitfields.count();j++)
+            {
+                startIndex = periphM.registers.at(i).bitfields.at(j).offset;
+                stopIndex = periphM.registers.at(i).bitfields.at(j).offset+periphM.registers.at(i).bitfields.at(j).size-1;
+                desc = periphM.registers.at(i).bitfields.at(j).description;
+                rw = periphM.registers.at(i).bitfields.at(j).rw;
+                name = periphM.registers.at(i).bitfields.at(j).name;
+                peripheral->registerAt(i)->setBitFieldAttribute(startIndex,stopIndex,name,desc,rw);
+            }
         }
     }
-//    connect(peripheral,SIGNAL(readRegSig(qint32)),device,SLOT(readReg(qint32)));
-//    connect(peripheral,SIGNAL(writeRegSig(qint32,qint32)),device,SLOT(writeReg(qint32,qint32)));
-//    QCheckBox* chkbx = this->cfg->addDev(device);
-//    chkbx->setChecked(true);
-//    connect(chkbx,SIGNAL(toggled(bool)),peripheral,SLOT(setVisible(bool)));
 }
 
-
-
-
+void RegsExplorer::changeEvent(QEvent *e)
+{
+    QDockWidget::changeEvent(e);
+    switch (e->type()) {
+    case QEvent::LanguageChange:
+        ui->retranslateUi(this);
+        break;
+    default:
+        break;
+    }
+}

@@ -66,7 +66,7 @@ void SocExplorerMainWindow::makeObjects(QString ScriptToEval)
     socexplorerproxy::setMainWindow(this);
     SocExplorerEngine::setMainWindow(this);
     SocExplorerEngine::xmlModel()->scanXmlFiles();
-    this->regExplorer = new regsExplorer();
+    this->regExplorer = new RegsExplorer();
     this->regExplorer->setAllowedAreas(Qt::AllDockWidgetAreas);
     this->addPluginInterface(this->regExplorer);
     this->PythonConsoleInst = new PythonConsole(socexplorerproxy::self());
@@ -74,7 +74,6 @@ void SocExplorerMainWindow::makeObjects(QString ScriptToEval)
     this->pluginManager = new dockablePluginManager();
     this->toolpane = new toolBar;
     this->p_about = new aboutsocexplorer();
-
 }
 
 void SocExplorerMainWindow::makeLayout()
@@ -132,7 +131,6 @@ void SocExplorerMainWindow::addPluginInterface(QDockWidget *plugin)
     if(p_pluginGUIlist->count()!=0)
         this->pluginsDockContainer->tabifyDockWidget(p_pluginGUIlist->last(),plugin);
     p_pluginGUIlist->append(plugin);
-
 }
 
 void SocExplorerMainWindow::removePluginInterface(QDockWidget *plugin)

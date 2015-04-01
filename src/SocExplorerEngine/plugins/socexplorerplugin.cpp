@@ -48,7 +48,7 @@ int socexplorerplugin::registermenu(QMenu *menu)
     {
       this->childs.at(i)->registermenu(this->ChildsMenu);
     }
-  if(this->pyObject!=NULL)emit this->registerObject((QObject*)this->pyObject,this->instanceName());
+  emit this->registerObject((QObject*)this,this->instanceName());
   return 0;
 }
 
@@ -74,6 +74,29 @@ unsigned int socexplorerplugin::Read(unsigned int *Value, unsigned int count, un
     }
   return 0;
 }
+
+QVariantList socexplorerplugin::Read(unsigned int address,unsigned int count)
+{
+    unsigned int data[count];
+    QVariantList result;
+    Read(data,count,address);
+    for(unsigned int i = 0;i<count;i++)
+    {
+        result.append(QVariant((int)data[i]));
+    }
+    return result;
+}
+void socexplorerplugin::Write(unsigned int address,QList<QVariant> dataList)
+{
+    unsigned int data[dataList.count()];
+    for(int i = 0;i<dataList.count();i++)
+    {
+        data[i] = (unsigned int)dataList.at(i).toUInt();
+    }
+    Write(data,dataList.count(),address);
+}
+
+
 
 void socexplorerplugin::closeMe(){emit this->closePlugin(this);}
 
@@ -238,7 +261,4 @@ bool socexplorerplugin::dumpMemory(unsigned int address, unsigned int count, QSt
   return false;
 }
 
-void socexplorerplugin::makeGenericPyWrapper()
-{
-  this->pyObject = new genericPySysdriver(this);
-}
+

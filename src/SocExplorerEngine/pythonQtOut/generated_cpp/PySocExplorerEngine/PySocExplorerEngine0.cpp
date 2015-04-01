@@ -1542,6 +1542,11 @@ bool  PythonQtWrapper_socexplorerplugin::dumpMemory(socexplorerplugin* theWrappe
   return ( ((PythonQtPublicPromoter_socexplorerplugin*)theWrappedObject)->promoted_dumpMemory(address, count, file, format));
 }
 
+QString  PythonQtWrapper_socexplorerplugin::instance(socexplorerplugin* theWrappedObject)
+{
+  return ( theWrappedObject->instance());
+}
+
 QString  PythonQtWrapper_socexplorerplugin::instanceName(socexplorerplugin* theWrappedObject)
 {
   return ( theWrappedObject->instanceName());
@@ -1555,11 +1560,6 @@ int  PythonQtWrapper_socexplorerplugin::isConnected(socexplorerplugin* theWrappe
 bool  PythonQtWrapper_socexplorerplugin::loadbin(socexplorerplugin* theWrappedObject, unsigned int  address, QString  file)
 {
   return ( ((PythonQtPublicPromoter_socexplorerplugin*)theWrappedObject)->promoted_loadbin(address, file));
-}
-
-void PythonQtWrapper_socexplorerplugin::makeGenericPyWrapper(socexplorerplugin* theWrappedObject)
-{
-  ( ((PythonQtPublicPromoter_socexplorerplugin*)theWrappedObject)->promoted_makeGenericPyWrapper());
 }
 
 bool  PythonQtWrapper_socexplorerplugin::memSet(socexplorerplugin* theWrappedObject, unsigned int  address, int  value, unsigned int  count)

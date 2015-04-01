@@ -125,7 +125,6 @@ inline bool  promoted_dumpMemory(unsigned int  address, unsigned int  count, QSt
 inline bool  promoted_dumpMemory(unsigned int  address, unsigned int  count, QString  file, const QString&  format) { return socexplorerplugin::dumpMemory(address, count, file, format); }
 inline int  promoted_isConnected() { return socexplorerplugin::isConnected(); }
 inline bool  promoted_loadbin(unsigned int  address, QString  file) { return socexplorerplugin::loadbin(address, file); }
-inline void promoted_makeGenericPyWrapper() { socexplorerplugin::makeGenericPyWrapper(); }
 inline bool  promoted_memSet(unsigned int  address, int  value, unsigned int  count) { return socexplorerplugin::memSet(address, value, count); }
 inline void promoted_postInstantiationTrigger() { socexplorerplugin::postInstantiationTrigger(); }
 inline int  promoted_registermenu(QMenu*  menu) { return socexplorerplugin::registermenu(menu); }
@@ -149,10 +148,10 @@ void delete_socexplorerplugin(socexplorerplugin* obj) { delete obj; }
    void closeMe(socexplorerplugin* theWrappedObject);
    bool  dumpMemory(socexplorerplugin* theWrappedObject, unsigned int  address, unsigned int  count, QString  file);
    bool  dumpMemory(socexplorerplugin* theWrappedObject, unsigned int  address, unsigned int  count, QString  file, const QString&  format);
+   QString  instance(socexplorerplugin* theWrappedObject);
    QString  instanceName(socexplorerplugin* theWrappedObject);
    int  isConnected(socexplorerplugin* theWrappedObject);
    bool  loadbin(socexplorerplugin* theWrappedObject, unsigned int  address, QString  file);
-   void makeGenericPyWrapper(socexplorerplugin* theWrappedObject);
    bool  memSet(socexplorerplugin* theWrappedObject, unsigned int  address, int  value, unsigned int  count);
    void postInstantiationTrigger(socexplorerplugin* theWrappedObject);
    int  registermenu(socexplorerplugin* theWrappedObject, QMenu*  menu);

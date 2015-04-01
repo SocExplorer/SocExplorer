@@ -62,7 +62,8 @@ void PythonConsole::changeSysDriverInstName(const QString newinstanceName,const 
     socexplorerplugin* obj= this->proxy->getSysDriver(previnstanceName);
     if(obj==NULL)obj= this->proxy->getSysDriver(newinstanceName);
     if(obj==NULL)return;
-    this->mainContext->addObject(newinstanceName,obj->getPyObjectWrapper());
+//    this->mainContext->addObject(newinstanceName,obj->getPyObjectWrapper());
+    this->mainContext->addObject(newinstanceName,obj);
     this->mainContext->removeVariable(previnstanceName);
 }
 

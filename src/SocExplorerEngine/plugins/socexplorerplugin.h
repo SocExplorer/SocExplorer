@@ -42,7 +42,6 @@
 #include <QFile>
 #include <stdint.h>
 #include <QTextStream>
-#include <genericPySysdriver.h>
 #include <abstractbinfile.h>
 #ifndef driver_Name
 #define driver_Name "Plugin"
@@ -102,10 +101,6 @@ public:
         _canBeRoot = driver_can_be_root;
         _VID = driver_VID;
         _PID = driver_PID;
-        if(createPyObject)
-        {
-            this->makeGenericPyWrapper();
-        }
     }
     //! Tells if the plugin is connected, it is used to enable or disable all childrens interfaces.
     virtual int isConnected();
@@ -126,11 +121,11 @@ public:
     //! be set by SocExplorer and it can be user accessible if you want.
     virtual void setBaseAddress(unsigned int baseAddress);
 
-    genericPySysdriver* getPyObjectWrapper(){return this->pyObject;}
     QList<socexplorerplugin*> childs;
     socexplorerplugin* parent;
     QAction* closeAction;
     QString  instanceName();
+    QString  instance(){return instanceName();}
     QMenu* menu;
     QMenu* ChildsMenu;
 
@@ -168,11 +163,11 @@ public slots:
     virtual bool loadbin(unsigned int address,QString file);
     virtual bool loadfile(abstractBinFile* file);
     virtual bool dumpMemory(unsigned int address,unsigned int count,QString file,const QString& format);
+    QVariantList Read(unsigned int address, unsigned int count);
+    void Write(unsigned int address, QList<QVariant> dataList);
 protected:
-    void makeGenericPyWrapper();
     int BaseAddress;
     bool Connected;
-    genericPySysdriver* pyObject;
     QString* _Name;
     QString* _Author;
     QString* _Version;
