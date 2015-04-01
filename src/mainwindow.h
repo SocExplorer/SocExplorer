@@ -78,7 +78,7 @@ private:
     QSplitter* mainWidget;
     PythonConsole* PythonConsoleInst;
     dockablePluginManager* pluginManager;
-    regsExplorer* regExplorer;
+    RegsExplorer* regExplorer;
     aboutsocexplorer* p_about;
     QList<QDockWidget*>* p_pluginGUIlist;
 };

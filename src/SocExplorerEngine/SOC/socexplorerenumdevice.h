@@ -38,6 +38,9 @@ public:
     QString name(){return *_devName;}
     bool visible(){return _visible;}
     void setVisible(bool visible){_visible=visible;}
+    const QString& socName(){return _SOC->name();}
+    bool sameSoc(socExplorerEnumDevice* dev){return sameSoc(_SOC);}
+    bool sameSoc(SOCModel* soc){return soc==_SOC;}
 signals:
 
 public slots:

@@ -103,7 +103,6 @@ INCLUDEPATH += engine \
 HEADERS += \ 
     pluginloader/pluginscache.h \
     pluginloader/pluginloader.h \
-    plugins/genericPySysdriver.h \
     pluginManagerWdgt/plugintree.h \
     pluginManagerWdgt/pluginmanagerWDGT.h \
     pluginManagerWdgt/pluginlist.h \
@@ -150,7 +149,6 @@ SOURCES += \
     PeripheralWidget/src/registerwidget.cpp \
     PeripheralWidget/src/socregsviewer.cpp \
     SOC/socclk.cpp \
-    plugins/genericPySysdriver.cpp \
     engine/socexplorerengine.cpp \
     engine/socexplorerxmlfile.cpp \
     proxy/socexplorerproxy.cpp \

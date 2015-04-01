@@ -87,6 +87,7 @@ public:
     }
     bool enumDeviceExists(qint32 baseAddress);
     socExplorerEnumDevice *getEnumDevice(qint32 baseAddress);
+    const QString& name(){return p_name;}
 public slots:
     qint32 getEnumDeviceBaseAddress(int VID,int PID,int count=0);
     qint32 getEnumDeviceCount(int VID,int PID);
@@ -96,6 +97,7 @@ public slots:
     qint32 readReg(qint32 address);
     bool isLitleEndian();
 private:
+    QString p_name;
     socexplorerplugin* p_rootDev;
     QList<socExplorerEnumDevice*> p_enumeratedDevices;
     QList<SOCclk*> clktree;

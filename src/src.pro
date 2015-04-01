@@ -72,10 +72,8 @@ SOURCES += main.cpp\
     dockablepluginmanager.cpp \
     toolbar.cpp \
     toolbarcontainer.cpp \
-    regsExplorer/regsexplorer.cpp \
-    regsExplorer/regsviewer.cpp \
-    regsExplorer/regsexplorercfg.cpp \
-    aboutsocexplorer.cpp
+    aboutsocexplorer.cpp \
+    regsExplorer/regsexplorer.cpp
 
 HEADERS  += mainwindow.h \
     PyWdgt/pythonconsole.h \
@@ -83,12 +81,10 @@ HEADERS  += mainwindow.h \
     dockablepluginmanager.h \
     toolbar.h \
     toolbarcontainer.h \
-    regsExplorer/regsexplorer.h \
-    regsExplorer/regsviewer.h \
-    regsExplorer/regsexplorercfg.h \
     socexplorer.h \
     SocExplorerEngine/plugins/socexplorerplugin.h \
-    aboutsocexplorer.h
+    aboutsocexplorer.h \
+    regsExplorer/regsexplorer.h
 
 
 include ( NicePyConsole/NicePyConsole.pri)
@@ -103,6 +99,9 @@ unix{
 
 TRANSLATIONS = ../translations/socexplorer_fr.ts \
     ../translations/socexplorer_en.ts
+
+FORMS += \
+    regsExplorer/regsexplorernew.ui
 
 
 
