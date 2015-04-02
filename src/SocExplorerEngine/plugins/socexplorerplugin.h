@@ -74,7 +74,6 @@
 #  define SOCEXPLORER_SDK_EXPORT Q_DECL_IMPORT
 #endif
 
-class  genericPySysdriver;
 
 //! socexplorerplugin is the base class for any SocExplorer plugin, it gives a standard interface to communicate
 //! between each plugins and to interact with SocExplorer software.
@@ -83,9 +82,7 @@ class SOCEXPLORER_SDK_EXPORT socexplorerplugin : public QDockWidget
 {
     Q_OBJECT
 public:
-    //! Default plugin constructor, any plugin should call this constructor. This constructor creates a
-    //! default python wrapper instance. If you want to connect your own python wrapper, you have to clear
-    //! createPyObject option and instanciate your own genericPySysdriver derivated object.
+    //! Default plugin constructor, any plugin should call this constructor.
     socexplorerplugin(QWidget *parent = 0,bool createPyObject=true):QDockWidget(parent)
     {
         closeAction=NULL;

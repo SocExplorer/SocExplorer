@@ -10,7 +10,7 @@ SOCEXPLORER_PLUGIN_LOADER="custom"
 
 SOCEXPLORER_CHAGESETNUM=$$system(hg id)
 isEmpty(SOCEXPLORER_CHAGESETNUM){
-    SOCEXPLORER_CHAGESETNUM=2c7201cecc87+
+    SOCEXPLORER_CHAGESETNUM=3440ba47d0f1+
 }
 SOCEXPLORER_CHAGESETNUMSTR = '\\"$${SOCEXPLORER_CHAGESETNUM}\\"'
 SOCEXPLORER_BRANCH=$$system(hg branch)
@@ -19,7 +19,7 @@ isEmpty(SOCEXPLORER_BRANCH){
 }
 SOCEXPLORER_BRANCHSTR = '\\"$${SOCEXPLORER_BRANCH}\\"'
 
-DEFINES += SOCEXPLORER_VERSION="\"\\\"0.5.0"\\\"\"
+DEFINES += SOCEXPLORER_VERSION="\"\\\"0.6.0"\\\"\"
 DEFINES += SOCEXPLORER_CHAGESET=\"$${SOCEXPLORER_CHAGESETNUMSTR}\"
 DEFINES += SOCEXPLORER_BRANCH=\"$${SOCEXPLORER_BRANCHSTR}\"
 
@@ -57,7 +57,6 @@ header.files = engine/socexplorerengine.h \
                 proxy/socexplorerproxy.h \
                 engine/socexplorerxmlfile.h \
                 SOC/socexplorerenumdevice.h \
-                plugins/genericPySysdriver.h \
                 XmlEngine/XMLmodel.h \
                 XmlEngine/XMLdata.h \
                 XmlEngine/xmldriver.h \
