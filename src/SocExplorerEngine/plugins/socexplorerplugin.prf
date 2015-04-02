@@ -50,7 +50,6 @@ isEmpty( SOCEXPLORER_SDK_BUILD ){
         $$[QT_INSTALL_HEADERS]/SocExplorer/pluginsInterface/socexplorerplugininterface.cpp
 
     HEADERS += \
-        $$[QT_INSTALL_HEADERS]/SocExplorer/genericPySysdriver.h \
         $$[QT_INSTALL_HEADERS]/SocExplorer/socexplorerplugin.h
 
     INCLUDEPATH += $$[QT_INSTALL_HEADERS]/SocExplorer/common \
@@ -61,7 +60,6 @@ isEmpty( SOCEXPLORER_SDK_BUILD ){
 }else{
     message( "building SocExplorer" )
     HEADERS += \
-        $$[QT_INSTALL_HEADERS]/SocExplorer/genericPySysdriver.h \
         $$[QT_INSTALL_HEADERS]/SocExplorer/socexplorerplugin.h
 }
 
