@@ -1,4 +1,4 @@
-%global upstream_name socexplorer-0.6
+%global upstream_name socexplorer-0.6-0
 
 Name:           socexplorer
 Version:        0.6
@@ -7,7 +7,7 @@ Summary:        SocExplorer is an open source generic System On Chip testing sof
 Group:          Development/Tools
 License:        GPLv2+
 URL:            https://hephaistos.lpp.polytechnique.fr/redmine/projects/socexplorer
-Source0:        https://hephaistos.lpp.polytechnique.fr/redmine/attachments/download/376/socexplorer-0.5.zip
+Source0:        https://hephaistos.lpp.polytechnique.fr/redmine/attachments/download/376/%{upstream_name}.zip
 
 BuildRequires:  python2-devel
 BuildRequires:  qt5-qtbase-devel
