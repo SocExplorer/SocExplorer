@@ -162,6 +162,8 @@ public slots:
     virtual bool dumpMemory(unsigned int address,unsigned int count,QString file,const QString& format);
     QVariantList Read(unsigned int address, unsigned int count);
     void Write(unsigned int address, QList<QVariant> dataList);
+    socexplorerplugin* parentPlugin(){return this->parent;}
+    socexplorerplugin* toPlugin(){return (socexplorerplugin*)this;}
 protected:
     int BaseAddress;
     bool Connected;

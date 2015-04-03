@@ -480,6 +480,9 @@ void delete_SocExplorerPlot(SocExplorerPlot* obj) { delete obj; }
    void mouseMoveEvent(SocExplorerPlot* theWrappedObject, QMouseEvent*  arg__1);
    void mousePressEvent(SocExplorerPlot* theWrappedObject, QMouseEvent*  arg__1);
    void mouseReleaseEvent(SocExplorerPlot* theWrappedObject, QMouseEvent*  arg__1);
+   void removeAllGraphs(SocExplorerPlot* theWrappedObject);
+   bool  removeGraph(SocExplorerPlot* theWrappedObject, int  graphIndex);
+   void replot(SocExplorerPlot* theWrappedObject);
    void rescaleAxis(SocExplorerPlot* theWrappedObject);
    void setAdaptativeSampling(SocExplorerPlot* theWrappedObject, int  graphIndex, bool  enable);
    void setGraphData(SocExplorerPlot* theWrappedObject, int  graphIndex, QList<QVariant >  x, QList<QVariant >  y);
@@ -490,6 +493,7 @@ void delete_SocExplorerPlot(SocExplorerPlot* obj) { delete obj; }
    void setLegendFont(SocExplorerPlot* theWrappedObject, QFont  font);
    void setLegendSelectedFont(SocExplorerPlot* theWrappedObject, QFont  font);
    void setTitle(SocExplorerPlot* theWrappedObject, QString  title);
+   void setXaxisDateTimeFormat(SocExplorerPlot* theWrappedObject, const QString&  format);
    void setXaxisLabel(SocExplorerPlot* theWrappedObject, QString  label);
    void setXaxisRange(SocExplorerPlot* theWrappedObject, double  lower, double  upper);
    void setYaxisLabel(SocExplorerPlot* theWrappedObject, QString  label);
