@@ -103,6 +103,16 @@ TRANSLATIONS = ../translations/socexplorer_fr.ts \
 FORMS += \
     regsExplorer/regsexplorernew.ui
 
+DISTFILES += \
+    ../doc/PythonExamples/LEON3_LOAD.py \
+    ../doc/PythonExamples/PythonPlugin.py \
+    ../doc/PythonExamples/simpledemo1.py \
+    ../doc/PythonExamples/SocExplorerPlot.py \
+    ../doc/PythonExamples/SocExplorerPlot2.py \
+    ../doc/PythonExamples/SocExplorerPlot3.py \
+    ../doc/PythonExamples/tcpterminaldemo.py \
+    ../doc/PythonExamples/tcpterminaldemo2.py
+
 
 
 

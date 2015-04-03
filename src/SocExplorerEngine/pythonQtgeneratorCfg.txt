@@ -4,7 +4,6 @@
     <load-typesystem name=":/trolltech/generator/typesystem_network.txt" generate="no" />
 
     <interface-type name="socexplorerplugin"/>
-
 </typesystem>
 
 

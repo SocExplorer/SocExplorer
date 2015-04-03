@@ -4852,6 +4852,21 @@ void PythonQtWrapper_SocExplorerPlot::mouseReleaseEvent(SocExplorerPlot* theWrap
   ( ((PythonQtPublicPromoter_SocExplorerPlot*)theWrappedObject)->promoted_mouseReleaseEvent(arg__1));
 }
 
+void PythonQtWrapper_SocExplorerPlot::removeAllGraphs(SocExplorerPlot* theWrappedObject)
+{
+  ( theWrappedObject->removeAllGraphs());
+}
+
+bool  PythonQtWrapper_SocExplorerPlot::removeGraph(SocExplorerPlot* theWrappedObject, int  graphIndex)
+{
+  return ( theWrappedObject->removeGraph(graphIndex));
+}
+
+void PythonQtWrapper_SocExplorerPlot::replot(SocExplorerPlot* theWrappedObject)
+{
+  ( theWrappedObject->replot());
+}
+
 void PythonQtWrapper_SocExplorerPlot::rescaleAxis(SocExplorerPlot* theWrappedObject)
 {
   ( theWrappedObject->rescaleAxis());
@@ -4900,6 +4915,11 @@ void PythonQtWrapper_SocExplorerPlot::setLegendSelectedFont(SocExplorerPlot* the
 void PythonQtWrapper_SocExplorerPlot::setTitle(SocExplorerPlot* theWrappedObject, QString  title)
 {
   ( theWrappedObject->setTitle(title));
+}
+
+void PythonQtWrapper_SocExplorerPlot::setXaxisDateTimeFormat(SocExplorerPlot* theWrappedObject, const QString&  format)
+{
+  ( theWrappedObject->setXaxisDateTimeFormat(format));
 }
 
 void PythonQtWrapper_SocExplorerPlot::setXaxisLabel(SocExplorerPlot* theWrappedObject, QString  label)
