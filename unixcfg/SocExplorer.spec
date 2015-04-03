@@ -1,8 +1,8 @@
-%global upstream_name socexplorer-0.6-0
+%global upstream_name socexplorer-0.6-1
 
 Name:           socexplorer
 Version:        0.6
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        SocExplorer is an open source generic System On Chip testing software/framework.
 Group:          Development/Tools
 License:        GPLv2+
@@ -31,16 +31,29 @@ Requires(post): qt5-qtxmlpatterns
 Requires(post): elfutils-libelf
 Requires(post): qt5-pythonqt
 
-Provides:  socexplorer = 0.6-0
-Obsoletes: socexplorer < 0.5-0
+Provides:  socexplorer = 0.6-1
+Obsoletes: socexplorer < 0.6-0
 
 %description
 SocExplorer is an open source generic System On Chip testing software/framework. We write this software for the development and the validation of our instrument, the Low Frequency Receiver(LFR) for the Solar Orbiter mission. This instrument is based on an actel FPGA hosting a LEON3FT processor and some peripherals. To make it more collaborative, we use a plugin based system, the main executable is SocExplorer then all the functionality are provided by plugins. Like this everybody can provide his set of plugins to handle a new SOC or just a new peripheral. SocExplorer uses PythonQt to allow user to automate some tasks such as loading some plugins, configuring them and talking with his device.
 
 %package devel
-Summary:        SocExplorer is an open source generic System On Chip testing software/framework.
-Group:          Development/Tools
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Summary:    SocExplorer is an open source generic System On Chip testing software/framework.
+Group:      Development/Tools
+Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:  python2-devel
+Requires:  qt5-qtbase-devel
+Requires:  qt5-qtwebkit-devel
+Requires:  qt5-qttools-static
+Requires:  qt5-qttools-devel
+Requires:  qt5-qtsvg-devel
+Requires:  qt5-qtxmlpatterns-devel
+Requires:  qt5-qtmultimedia-devel
+Requires:  elfutils-libelf-devel
+Requires:  qt5-pythonqt-devel
+Requires:  mercurial
+Requires:  appdata-tools
+Requires:  desktop-file-utils
 
 %description devel
 Header files and development libraries for SocExplorer package. SocExplorer is an open source generic System On Chip testing software/framework.
@@ -304,6 +317,8 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/socexplorer.deskto
 
 
 %changelog
+* Fri Apr 3  2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.6
+- Fix some remaining mistakes.
 * Thu Apr 2  2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.6
 -Uses r80 as source.
 -Removed GenericPySysdriver interface, now socexplorer plugins can be subclassed in python.
