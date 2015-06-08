@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 --  This file is a part of the SocExplorer Software
---  Copyright (C) 2011, Plasma Physics Laboratory - CNRS
+--  Copyright (C) 2011-2015, Plasma Physics Laboratory - CNRS
 --
 --  This program is free software; you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 ----------------------------------------------------------------------------*/
 #include "mainwindow.h"
 #include <QDockWidget>
+#include <socexplorersettings.h>
+#include <socexplorerconfigkeys.h>
 
 SocExplorerMainWindow::SocExplorerMainWindow(QString ScriptToEval, QWidget *parent)
     : QMainWindow(parent)
@@ -31,6 +33,8 @@ SocExplorerMainWindow::SocExplorerMainWindow(QString ScriptToEval, QWidget *pare
     this->makeObjects(ScriptToEval);
     this->makeLayout();
     this->makeMenu();
+    SocExplorerSettings::init();
+    SocExplorerSettings::loadSession("Session1");
     this->makeConnections();
     this->setWindowIcon(QIcon(":/images/icon.png"));
     this->setAcceptDrops(true);
@@ -150,6 +154,9 @@ void SocExplorerMainWindow::clearMenu()
 void SocExplorerMainWindow::makeMenu()
 {
     this->FileMenu = menuBar()->addMenu(tr("&File"));
+    this->SessionsMenu = this->FileMenu->addMenu(tr("&Sessions"));
+    this->SettingsMenu = menuBar()->addMenu(tr("&Settings"));
+    SocExplorerGUI::registerMenuBar(menuBar(),this->FileMenu,this->SettingsMenu);
     this->PluginsMenu = menuBar()->addMenu(tr("&Plugins"));
     this->ToolsMenu = menuBar()->addMenu(tr("&Tools"));
     this->ToolsMenu->addAction(this->exploreRegs);
@@ -163,9 +170,26 @@ void SocExplorerMainWindow::makeMenu()
 
 }
 
+void SocExplorerMainWindow::loadSessions()
+{
+//    QStringList sessions = SocExplorerSettings::value();
+    QList<QList<QVariant> > sessions = SocExplorerSettings::arrays(SOCEXPLORERGLOBAL_SETTINGS_SESSIONS_SCOPE,QStringList()<<SOCEXPLORERGLOBAL_SETTINGS_SESSIONS_NAME);
+    p_Sessions.clear();
+    for(int i=0;i<sessions.count();i++)
+    {
+        if(sessions.at(i).count()>=1)
+        {
+            p_Sessions.append(sessions.at(i).at(0).toString());
+        }
+    }
+
+}
+
 
 SocExplorerMainWindow::~SocExplorerMainWindow()
 {
+    SocExplorerSettings::setValue("GLOBAL","LastModified",QDate::currentDate().toString(),SocExplorerSettings::Session);
+    SocExplorerSettings::sync();
 }
 
 

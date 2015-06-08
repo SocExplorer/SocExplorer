@@ -21,12 +21,17 @@
 ----------------------------------------------------------------------------*/
 #include "socexplorerengine.h"
 #include <proxy/socexplorerproxy.h>
+#include <socexplorersettings.h>
+#include <socexplorercoresettingsgui.h>
+#include <socexplorerconfigkeys.h>
 
 SocExplorerEngine* SocExplorerEngine::_self = NULL;
 socExplorerXmlModel* SocExplorerEngine::p_xmlmodel=NULL;
 QMainWindow* SocExplorerEngine::mainWindow=NULL;
 QList<SOCModel*>* SocExplorerEngine::SOCs=NULL;
+QSettings* SocExplorerEngine::m_settings=NULL;
 int SocExplorerEngine::loglvl=1;
+
 
 SocExplorerEngine::SocExplorerEngine(QObject *parent) :
     QObject(parent)
@@ -35,7 +40,9 @@ SocExplorerEngine::SocExplorerEngine(QObject *parent) :
     {
         SOCs = new QList<SOCModel*>;
     }
-
+    m_settings = new QSettings();
+    SocExplorerCoreSettingsGUI* cfggui=new SocExplorerCoreSettingsGUI();
+    SocExplorerSettings::registerConfigEntry(cfggui,QIcon(":/images/config.svg"),"SocExplorer Core");
 }
 
 
@@ -87,6 +94,14 @@ QStringList SocExplorerEngine::pluginFolders()
                 }
             }
         }
+    }
+    QStringList localCfg = SocExplorerSettings::value(SOCEXPLORERENGINE_SETTINGS_SCOPE,SOCEXPLORERENGINE_SETTINGS_PLUGINS_LOOKUP_PATH).toString().split(";");
+    QString dir;
+    foreach (dir, localCfg)
+    {
+        QDir plugDir(dir);
+        if(plugDir.exists())
+            folders.append(dir);
     }
     return folders;
 }

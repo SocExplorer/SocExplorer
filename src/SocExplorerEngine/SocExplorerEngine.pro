@@ -67,7 +67,11 @@ header.files = engine/socexplorerengine.h \
                 PeripheralWidget/src/registerwidget.h \
                 PeripheralWidget/src/socregsviewer.h \
                 PeripheralWidget/src/socregsviewernew.h \
-                memtester/memtester.h
+                memtester/memtester.h \
+                engine/socexplorersettings.h \
+                engine/socexplorersettingsdialog.h \
+                engine/socexplorergui.h\
+                engine/socexplorerconfigkeys.h
 
 
 
@@ -125,7 +129,11 @@ HEADERS += \
     PySocExplorerEngine.h \
     memtester/memtester.h\
     PeripheralWidget/src/socregsviewernew.h \
-    PeripheralWidget/src/collapsableperipheralwidget.h
+    PeripheralWidget/src/collapsableperipheralwidget.h \
+    engine/socexplorersettings.h \
+    engine/socexplorersettingsdialog.h \
+    engine/socexplorergui.h \
+    engine/socexplorerconfigkeys.h
 
 
 
@@ -155,7 +163,10 @@ SOURCES += \
     plugins/socexplorerplugin.cpp \
     memtester/memtester.cpp \
     PeripheralWidget/src/socregsviewernew.cpp \
-    PeripheralWidget/src/collapsableperipheralwidget.cpp
+    PeripheralWidget/src/collapsableperipheralwidget.cpp \
+    engine/socexplorersettings.cpp \
+    engine/socexplorersettingsdialog.cpp \
+    engine/socexplorergui.cpp
 
 
 OTHER_FILES += \
@@ -167,7 +178,8 @@ OTHER_FILES += \
 
 FORMS += \
     PeripheralWidget/src/socregsviewernew.ui \
-    PeripheralWidget/src/collapsableperipheralwidget.ui
+    PeripheralWidget/src/collapsableperipheralwidget.ui \
+    engine/socexplorersettingsdialog.ui
 
 
 RESOURCES += \

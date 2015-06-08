@@ -42,6 +42,7 @@
 #include <registerwidget.h>
 #include <socmodel.h>
 #include <memtester.h>
+#include <QSettings>
 
 #if defined(SOCEXPLORER_SDK_BUILD)
 #  define SOCEXPLORER_SDK_EXPORT Q_DECL_EXPORT
@@ -83,6 +84,7 @@ class SOCEXPLORER_SDK_EXPORT SocExplorerEngine : public QObject
     Q_OBJECT
 private:
     static SocExplorerEngine* _self;
+    static QSettings* m_settings;
     SocExplorerEngine(QObject *parent = 0);
     static void init();
 

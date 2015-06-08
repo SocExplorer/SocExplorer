@@ -368,6 +368,11 @@ int  PythonQtWrapper_ElfFile::getSymbolCount(ElfFile* theWrappedObject)
   return ( theWrappedObject->getSymbolCount());
 }
 
+int  PythonQtWrapper_ElfFile::getSymbolIndex(ElfFile* theWrappedObject, const QString&  name)
+{
+  return ( theWrappedObject->getSymbolIndex(name));
+}
+
 QString  PythonQtWrapper_ElfFile::getSymbolLinkType(ElfFile* theWrappedObject, int  index)
 {
   return ( theWrappedObject->getSymbolLinkType(index));
