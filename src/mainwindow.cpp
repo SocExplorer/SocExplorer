@@ -67,6 +67,7 @@ void SocExplorerMainWindow::makeObjects(QString ScriptToEval)
     this->help = new QAction(tr("&Help"),this);
     this->help->setShortcut(tr("CTRL+H"));
     this->about = new QAction(tr("&About"),this);
+    this->p_SessionManagerDialog = new SessionManagerDialog();
     socexplorerproxy::setMainWindow(this);
     SocExplorerEngine::setMainWindow(this);
     SocExplorerEngine::xmlModel()->scanXmlFiles();
@@ -110,6 +111,8 @@ void SocExplorerMainWindow::makeConnections()
     connect(this->pluginManager,SIGNAL(pluginselected(QString)),this,SLOT(pluginselected(QString)));
     connect(this->about,SIGNAL(triggered()),this,SLOT(showAboutBox()));
     connect(this->exploreRegs,SIGNAL(triggered()),this->regExplorer,SLOT(show()));
+
+    connect(this->sessionManagerAction, SIGNAL(triggered(bool)),this->p_SessionManagerDialog,SLOT(show()));
 
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDrviver(QString)),socexplorerproxy::self(),SLOT(loadSysDriver(QString)));
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDriverToParent(QString,QString)),socexplorerproxy::self(),SLOT(loadSysDriverToParent(QString,QString)));
@@ -155,6 +158,7 @@ void SocExplorerMainWindow::makeMenu()
 {
     this->FileMenu = menuBar()->addMenu(tr("&File"));
     this->SessionsMenu = this->FileMenu->addMenu(tr("&Sessions"));
+    this->sessionManagerAction = this->FileMenu->addAction(tr("&Session manager..."));
     this->SettingsMenu = menuBar()->addMenu(tr("&Settings"));
     SocExplorerGUI::registerMenuBar(menuBar(),this->FileMenu,this->SettingsMenu);
     this->PluginsMenu = menuBar()->addMenu(tr("&Plugins"));
