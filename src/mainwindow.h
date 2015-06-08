@@ -39,6 +39,7 @@
 #include "toolbar.h"
 #include "regsExplorer/regsexplorer.h"
 #include "socexplorergui.h"
+#include "sessionmanagerdialog.h"
 
 class SocExplorerMainWindow : public QMainWindow
 {
@@ -47,7 +48,7 @@ class SocExplorerMainWindow : public QMainWindow
 public:
     SocExplorerMainWindow(QString ScriptToEval,QWidget *parent = 0);
     ~SocExplorerMainWindow();
-    QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction;
+    QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction,*sessionManagerAction;
     QActionGroup*langActionGrp;
     QMenu* FileMenu,*SettingsMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu,*SessionsMenu;
     QTranslator* appTranslator;
@@ -84,6 +85,7 @@ private:
     aboutsocexplorer* p_about;
     QList<QDockWidget*>* p_pluginGUIlist;
     QStringList p_Sessions;
+    SessionManagerDialog* p_SessionManagerDialog;
 };
 
 #endif // MAINWINDOW_H
