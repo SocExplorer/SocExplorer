@@ -121,6 +121,7 @@ void delete_ElfFile(ElfFile* obj) { delete obj; }
    qint64  getSegmentVaddr(ElfFile* theWrappedObject, int  index);
    quint64  getSymbolAddress(ElfFile* theWrappedObject, int  index);
    int  getSymbolCount(ElfFile* theWrappedObject);
+   int  getSymbolIndex(ElfFile* theWrappedObject, const QString&  name);
    QString  getSymbolLinkType(ElfFile* theWrappedObject, int  index);
    QString  getSymbolName(ElfFile* theWrappedObject, int  index);
    int  getSymbolSectionIndex(ElfFile* theWrappedObject, int  index);

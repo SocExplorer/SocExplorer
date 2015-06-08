@@ -38,6 +38,7 @@
 #include "aboutsocexplorer.h"
 #include "toolbar.h"
 #include "regsExplorer/regsexplorer.h"
+#include "socexplorergui.h"
 
 class SocExplorerMainWindow : public QMainWindow
 {
@@ -48,7 +49,7 @@ public:
     ~SocExplorerMainWindow();
     QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction;
     QActionGroup*langActionGrp;
-    QMenu* FileMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu;
+    QMenu* FileMenu,*SettingsMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu,*SessionsMenu;
     QTranslator* appTranslator;
     void createLangMenu();
     void closeEvent(QCloseEvent *event);
@@ -74,6 +75,7 @@ private:
     void makeLayout();
     void makeConnections();
     void makeMenu();
+    void loadSessions();
     QMainWindow* pluginsDockContainer;
     QSplitter* mainWidget;
     PythonConsole* PythonConsoleInst;
@@ -81,6 +83,7 @@ private:
     RegsExplorer* regExplorer;
     aboutsocexplorer* p_about;
     QList<QDockWidget*>* p_pluginGUIlist;
+    QStringList p_Sessions;
 };
 
 #endif // MAINWINDOW_H
