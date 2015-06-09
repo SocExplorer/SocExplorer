@@ -138,6 +138,25 @@ QList<QList<QVariant> > SocExplorerSettings::arrays(const QString &prefix, QStri
     return defaultValue;
 }
 
+void SocExplorerSettings::setArrays(const QString &prefix, QStringList keys, QList<QList<QVariant> > values, SocExplorerSettings::SettingScope Sscope)
+{
+    INIT();
+    switch (Sscope)
+    {
+    case SystemWide:
+        if(m_settings)
+            return setArrays(prefix,keys,values,m_settings);
+        break;
+    case Session:
+        if(m_sessionSettings)
+            return setArrays(prefix,keys,values,m_sessionSettings);
+        break;
+    default:
+        break;
+    }
+
+}
+
 void SocExplorerSettings::sync()
 {
     INIT();
@@ -195,11 +214,35 @@ QList<QList<QVariant> > SocExplorerSettings::arrays(const QString &prefix, QStri
             settings->setArrayIndex(i);
             for(int l=0;l<keys.count();l++)
             {
-                result[i].append(settings->value(keys.at(i)));
+                result[i].append(settings->value(keys.at(l)));
             }
         }
         settings->endArray();
     }
     return result;
+}
+
+void SocExplorerSettings::setArrays(const QString &prefix, QStringList keys, QList<QList<QVariant> > values, QSettings *settings)
+{
+    if(settings)
+    {
+        QString key;
+        foreach (key, keys)
+        {
+
+            settings->remove(prefix+"/"+key);
+        }
+        settings->beginWriteArray(prefix);
+        for (int i = 0; i < values.size(); ++i)
+        {
+            settings->setArrayIndex(i);
+            for(int l=0;l<keys.count();l++)
+            {
+                settings->setValue(keys[l], values.at(i).at(l));
+            }
+        }
+        settings->endArray();
+
+    }
 }
 

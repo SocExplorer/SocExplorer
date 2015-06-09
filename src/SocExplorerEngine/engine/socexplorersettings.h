@@ -49,6 +49,7 @@ public:
     static void	setValue(const QString scope,const QString & key, const QVariant & value,SettingScope Sscope= SystemWide);
     static QVariant	value(const QString scope, const QString & key, const QVariant & defaultValue = QVariant(),SettingScope Sscope =SystemWide);
     static QList<QList<QVariant> > arrays(const QString & prefix, QStringList keys,SettingScope Sscope =SystemWide);
+    static void setArrays(const QString & prefix, QStringList keys,QList<QList<QVariant> > values,SettingScope Sscope =SystemWide);
     static void sync();
     static bool registerConfigEntry(SocExplorerSettingsItem* configEntry,QIcon icon, QString text);
     //! Loads the given session, or sreate it if doesn't exists.
@@ -61,6 +62,7 @@ public slots:
     void popConfigDialog();
 private:
     static QList<QList<QVariant> > arrays(const QString & prefix, QStringList keys,QSettings* settings);
+    static void setArrays(const QString & prefix, QStringList keys,QList<QList<QVariant> > values,QSettings* settings);
 };
 
 #endif // SOCEXPLORERSETTINGS_H
