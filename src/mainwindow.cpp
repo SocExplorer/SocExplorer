@@ -176,17 +176,7 @@ void SocExplorerMainWindow::makeMenu()
 
 void SocExplorerMainWindow::loadSessions()
 {
-//    QStringList sessions = SocExplorerSettings::value();
-    QList<QList<QVariant> > sessions = SocExplorerSettings::arrays(SOCEXPLORERGLOBAL_SETTINGS_SESSIONS_SCOPE,QStringList()<<SOCEXPLORERGLOBAL_SETTINGS_SESSIONS_NAME);
-    p_Sessions.clear();
-    for(int i=0;i<sessions.count();i++)
-    {
-        if(sessions.at(i).count()>=1)
-        {
-            p_Sessions.append(sessions.at(i).at(0).toString());
-        }
-    }
-
+    p_Sessions=this->p_SessionManagerDialog->getSessionsList();
 }
 
 
