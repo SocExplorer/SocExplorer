@@ -39,11 +39,15 @@ public:
     QStringList getSessionsList();
 public slots:
     void show();
-    void newSession();
     void newSession(QString session);
+    int sessionExists(QString session);
+private slots:
+    void newSession();
     void renameSession();
     void deleteSession();
-    bool sessionExists(QString session);
+    void switchSession();
+signals:
+    void switchSession(QString session);
 
 private:
     void updateSessionList();

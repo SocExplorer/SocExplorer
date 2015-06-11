@@ -85,6 +85,7 @@ public:
     //! Default plugin constructor, any plugin should call this constructor.
     socexplorerplugin(QWidget *parent = 0,bool createPyObject=true):QDockWidget(parent)
     {
+        Q_UNUSED(createPyObject)
         closeAction=NULL;
         menu=NULL;
         ChildsMenu=NULL;

@@ -40,15 +40,35 @@
 #include "regsExplorer/regsexplorer.h"
 #include "socexplorergui.h"
 #include "sessionmanagerdialog.h"
+class sessionsActions_t: public QAction
+{
+    Q_OBJECT
+public:
+    sessionsActions_t(const QString &text, QObject* parent)
+        :  QAction(text,parent)
+    {
+        connect(this,SIGNAL(triggered(bool)),this,SLOT(p_triggered(bool)));
+    }
+signals:
+     void triggered(const QString & session);
+private slots:
+     void p_triggered(bool checked = false)
+     {
+         Q_UNUSED(checked)
+         emit triggered(this->text());
+     }
+};
 
 class SocExplorerMainWindow : public QMainWindow
 {
     Q_OBJECT
 
+
 public:
     SocExplorerMainWindow(QString ScriptToEval,QWidget *parent = 0);
     ~SocExplorerMainWindow();
     QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction,*sessionManagerAction;
+    QList<sessionsActions_t*> sessionsActions;
     QActionGroup*langActionGrp;
     QMenu* FileMenu,*SettingsMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu,*SessionsMenu;
     QTranslator* appTranslator;
@@ -66,7 +86,8 @@ public slots:
     void setLangage(QAction* action);
     void showAboutBox();
     void pluginselected(const QString& instanceName);
-
+    void setActiveSession(const QString & session);
+    void showSessionManager(bool);
 signals:
     void translateSig();
     void registerObject(QObject* object,const QString& instanceName);
@@ -77,6 +98,9 @@ private:
     void makeConnections();
     void makeMenu();
     void loadSessions();
+    void savePlugins();
+    void saveCurrentSession();
+    void loadCurrentSession();
     QMainWindow* pluginsDockContainer;
     QSplitter* mainWidget;
     PythonConsole* PythonConsoleInst;
@@ -85,6 +109,7 @@ private:
     aboutsocexplorer* p_about;
     QList<QDockWidget*>* p_pluginGUIlist;
     QStringList p_Sessions;
+    QString p_currentSession;
     SessionManagerDialog* p_SessionManagerDialog;
 };
 

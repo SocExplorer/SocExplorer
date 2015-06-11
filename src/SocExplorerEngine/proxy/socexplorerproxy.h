@@ -54,6 +54,8 @@ public:
     static void disconnectChildToProxy(socexplorerplugin* child);
     static bool instanceNameIsValid(const QString& instanceName);
     static socexplorerplugin* findPlugin(const QString &instanceName);
+    static QStringList getPluginsList();
+    static bool loadPluginsList( QStringList plugins);
 
     QT_ENSURE_STACK_ALIGNED_FOR_SSE static void loadChildSysDriver(socexplorerplugin* parent,const QString child);
 
@@ -72,10 +74,10 @@ signals:
 public slots:
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriver(const QString name);
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriver(const QString name,const QString instanceName);
-    QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriver(socexplorerplugin* driver,const QString instanceName);
+    QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriver(socexplorerplugin* driver,const QString instanceName,const QString path="");
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriverToParent(const QString name,const QString ParentInst);
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriverToParent(const QString name,const QString instanceName,const QString ParentInst);
-    QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriverToParent(socexplorerplugin *driver,socexplorerplugin *parent, const QString instanceName);
+    QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadSysDriverToParent(socexplorerplugin *driver,socexplorerplugin *parent, const QString instanceName,const QString path="");
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void changeSysDriverInstName(const QString instanceName);
     QT_ENSURE_STACK_ALIGNED_FOR_SSE void changeSysDriverInstName(const QString newinstanceName,const QString previnstanceName);
  //   QT_ENSURE_STACK_ALIGNED_FOR_SSE void loadChild(socexplorerplugin* parent);
@@ -95,6 +97,7 @@ private:
     static QMainWindow* mainWindow;
     static QList<socexplorerplugin*>* drivers;
     static QList<socexplorerplugin*>* linearDriverList;
+    static QStringList* linearDriverPathList;
     static socexplorerplugin* root;
     static socexplorerplugin* parent;
     static PluginsCache* cache;

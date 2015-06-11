@@ -33,6 +33,8 @@ SessionManagerDialog::SessionManagerDialog(QWidget *parent) :
     ui->setupUi(this);
     connect(this->ui->NewQPB,SIGNAL(clicked(bool)),this,SLOT(newSession()));
     connect(this->ui->DeleteQPB,SIGNAL(clicked(bool)),this,SLOT(deleteSession()));
+    connect(this->ui->RenameQPB,SIGNAL(clicked(bool)),this,SLOT(renameSession()));
+    connect(this->ui->SwitchToQPB,SIGNAL(clicked(bool)),this,SLOT(switchSession()));
 }
 
 SessionManagerDialog::~SessionManagerDialog()
@@ -63,6 +65,7 @@ QStringList SessionManagerDialog::getSessionsList()
 void SessionManagerDialog::show()
 {
     QStringList sessions = getSessionsList();
+    this->ui->listWidget->clear();
     this->ui->listWidget->addItems(sessions);
     QDialog::show();
 }
@@ -73,7 +76,7 @@ void SessionManagerDialog::newSession()
     QString text;
     do
     {
-        text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+        text = QInputDialog::getText(this, tr("SocExplorer Session Manager"),
                                      tr("Session name:"), QLineEdit::Normal,
                                      "New Session", &ok);
         exists = sessionExists(text);
@@ -83,7 +86,7 @@ void SessionManagerDialog::newSession()
                                  tr("The session ")+text+tr(" already exists."),
                                  QMessageBox::Ok);
         }
-    }while(ok && !text.isEmpty() && exists);
+    }while(ok && (text.isEmpty() || exists));
 
     if (ok && !text.isEmpty())
     {
@@ -102,7 +105,28 @@ void SessionManagerDialog::newSession(QString session)
 
 void SessionManagerDialog::renameSession()
 {
+    bool ok=true;
+    int exists=0;
+    QListWidgetItem* item = this->ui->listWidget->currentItem();
+    QString text= item->text();
+    do
+    {
+        text = QInputDialog::getText(this, tr("SocExplorer Session Manager"),
+                                     tr("New session name:"), QLineEdit::Normal,
+                                     text, &ok);
+        exists = sessionExists(text);
+        if(exists&& ok)
+        {
+            QMessageBox::warning(this, tr("SocExplorer Session Manager"),
+                                 tr("The session ")+text+tr(" already exists."),
+                                 QMessageBox::Ok);
+        }
+    }while(ok && text.isEmpty());
 
+    if (ok && !text.isEmpty())
+    {
+        item->setText(text);
+    }
 }
 
 void SessionManagerDialog::deleteSession()
@@ -113,21 +137,28 @@ void SessionManagerDialog::deleteSession()
         if(item && item->text().compare("default"))
         {
             this->ui->listWidget->removeItemWidget(item);
-            //TODO delete session FILE!
+            SocExplorerSettings::deleteSession(item->text());
             delete item;
             updateSessionList();
         }
     }
 }
 
-bool SessionManagerDialog::sessionExists(QString session)
+void SessionManagerDialog::switchSession()
 {
-    bool diff=true;
+    QListWidgetItem* item = this->ui->listWidget->currentItem();
+    if(item)
+        emit switchSession(item->text());
+}
+
+int SessionManagerDialog::sessionExists(QString session)
+{
+    int exists=0;
     for(int i=0;i< this->ui->listWidget->count();i++)
     {
-        diff &= (this->ui->listWidget->item(i)->text().compare(session)!=0);
+        exists += (this->ui->listWidget->item(i)->text().compare(session)==0);
     }
-    return !diff;
+    return exists;
 }
 
 void SessionManagerDialog::updateSessionList()

@@ -197,6 +197,59 @@ bool SocExplorerSettings::loadSession(const QString &session)
     return false;
 }
 
+bool SocExplorerSettings::deleteSession()
+{
+    INIT();
+    if(m_sessionSettings)
+    {
+        m_sessionSettings->clear();
+        QString filename= m_sessionSettings->fileName();
+        if(QFile::exists(filename))
+        {
+            delete m_sessionSettings;
+            QFile::remove(filename);
+        }
+        else
+            delete m_sessionSettings;
+        m_sessionSettings = NULL;
+        return true;
+    }
+    return false;
+}
+
+bool SocExplorerSettings::deleteSession(const QString &session)
+{
+    QFileInfo sessionInfo(m_settings->fileName());
+    QString fullpath=sessionInfo.absoluteDir().absolutePath() +"/"+session+".conf";
+    if(m_sessionSettings)
+    {
+        if(m_sessionSettings->fileName()==fullpath)
+        {
+            deleteSession();
+            return true;
+        }
+    }
+    QSettings* sessionSettings = new QSettings(fullpath,QSettings::NativeFormat,self());
+    if(sessionSettings)
+    {
+        if(sessionSettings->status()==QSettings::NoError)
+        {
+                sessionSettings->clear();
+                QString filename= m_sessionSettings->fileName();
+                if(QFile::exists(filename))
+                {
+                    delete sessionSettings;
+                    QFile::remove(filename);
+                }
+                else
+                    delete sessionSettings;
+                return true;
+        }
+        delete sessionSettings;
+    }
+    return false;
+}
+
 void SocExplorerSettings::popConfigDialog()
 {
     m_configDialog->popConfigDialog(NULL);
