@@ -34,7 +34,6 @@ SocExplorerMainWindow::SocExplorerMainWindow(QString ScriptToEval, QWidget *pare
     this->makeLayout();
     this->makeMenu();
     SocExplorerSettings::init();
-    SocExplorerSettings::loadSession("Session1");
     this->makeConnections();
     this->setWindowIcon(QIcon(":/images/icon.png"));
     this->setAcceptDrops(true);
@@ -54,6 +53,7 @@ void SocExplorerMainWindow::makeObjects(QString ScriptToEval)
     Q_UNUSED(ScriptToEval)
     this->p_pluginGUIlist = new QList<QDockWidget*>();
     pluginsDockContainer = new QMainWindow;
+    pluginsDockContainer->setObjectName("pluginsDockContainer");
     pluginsDockContainer->setWindowFlags(Qt::Widget);
     pluginsDockContainer->setDockNestingEnabled(true);
     this->mainWidget = new QSplitter(Qt::Vertical);
@@ -73,11 +73,13 @@ void SocExplorerMainWindow::makeObjects(QString ScriptToEval)
     SocExplorerEngine::xmlModel()->scanXmlFiles();
     this->regExplorer = new RegsExplorer();
     this->regExplorer->setAllowedAreas(Qt::AllDockWidgetAreas);
+    this->regExplorer->setObjectName("regExplorer");
     this->addPluginInterface(this->regExplorer);
     this->PythonConsoleInst = new PythonConsole(socexplorerproxy::self());
     this->PythonConsoleInst->addObject("SocExplorerEngine",SocExplorerEngine::self());
     this->pluginManager = new dockablePluginManager();
     this->toolpane = new toolBar;
+    this->toolpane->setObjectName("toolpane");
     this->p_about = new aboutsocexplorer();
 }
 
@@ -112,7 +114,8 @@ void SocExplorerMainWindow::makeConnections()
     connect(this->about,SIGNAL(triggered()),this,SLOT(showAboutBox()));
     connect(this->exploreRegs,SIGNAL(triggered()),this->regExplorer,SLOT(show()));
 
-    connect(this->sessionManagerAction, SIGNAL(triggered(bool)),this->p_SessionManagerDialog,SLOT(show()));
+    connect(this->sessionManagerAction, SIGNAL(triggered(bool)),this,SLOT(showSessionManager(bool)));
+    connect(this->p_SessionManagerDialog, SIGNAL(switchSession(QString)),this,SLOT(setActiveSession(QString)));
 
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDrviver(QString)),socexplorerproxy::self(),SLOT(loadSysDriver(QString)));
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDriverToParent(QString,QString)),socexplorerproxy::self(),SLOT(loadSysDriverToParent(QString,QString)));
@@ -122,12 +125,10 @@ void SocExplorerMainWindow::makeConnections()
 
 void SocExplorerMainWindow::launchPluginManager()
 {
-
     if(this->pluginManager->isHidden())
     {
         this->pluginManager->setHidden(false);
     }
-
 }
 
 
@@ -158,6 +159,7 @@ void SocExplorerMainWindow::makeMenu()
 {
     this->FileMenu = menuBar()->addMenu(tr("&File"));
     this->SessionsMenu = this->FileMenu->addMenu(tr("&Sessions"));
+    this->loadSessions();
     this->sessionManagerAction = this->FileMenu->addAction(tr("&Session manager..."));
     this->SettingsMenu = menuBar()->addMenu(tr("&Settings"));
     SocExplorerGUI::registerMenuBar(menuBar(),this->FileMenu,this->SettingsMenu);
@@ -177,13 +179,57 @@ void SocExplorerMainWindow::makeMenu()
 void SocExplorerMainWindow::loadSessions()
 {
     p_Sessions=this->p_SessionManagerDialog->getSessionsList();
+    sessionsActions_t* sact;
+    QString stext;
+    foreach (sact, sessionsActions)
+    {
+          sessionsActions.removeAll(sact);
+          SessionsMenu->removeAction(sact);
+          disconnect(sact);
+          delete sact;
+    }
+    foreach (stext, p_Sessions)
+    {
+        sact = new sessionsActions_t(stext,this);
+        sact->setCheckable(true);
+        connect(sact,SIGNAL(triggered(QString)),this,SLOT(setActiveSession(QString)));
+        sessionsActions.append(sact);
+        SessionsMenu->addAction(sact);
+    }
+}
+
+void SocExplorerMainWindow::savePlugins()
+{
+
+}
+
+void SocExplorerMainWindow::saveCurrentSession()
+{
+    if(p_currentSession.isEmpty())
+    {
+        SocExplorerSettings::loadSession("default");
+    }
+    SocExplorerSettings::setValue("GLOBAL","LastModified",QDate::currentDate().toString(),SocExplorerSettings::Session);
+    SocExplorerSettings::setValue(this,"DOCK_LOCATIONS",this->saveState(0),SocExplorerSettings::Session);
+    SocExplorerSettings::setValue(this,"MAIN_WINDOW_GEOMETRY",this->saveGeometry(),SocExplorerSettings::Session);
+    QStringList plugins = socexplorerproxy::getPluginsList();
+    SocExplorerSettings::setValue(this,"LOADED_PLUGINS",QVariant(plugins),SocExplorerSettings::Session);
+    SocExplorerSettings::sync();
+}
+
+void SocExplorerMainWindow::loadCurrentSession()
+{
+
+    QStringList plugins = SocExplorerSettings::value(this,"LOADED_PLUGINS",QVariant(),SocExplorerSettings::Session).toStringList();
+    socexplorerproxy::loadPluginsList(plugins);
+    this->restoreGeometry(SocExplorerSettings::value(this,"MAIN_WINDOW_GEOMETRY",QVariant(),SocExplorerSettings::Session).toByteArray());
+    this->restoreState(SocExplorerSettings::value(this,"DOCK_LOCATIONS",QVariant(),SocExplorerSettings::Session).toByteArray());
 }
 
 
 SocExplorerMainWindow::~SocExplorerMainWindow()
 {
-    SocExplorerSettings::setValue("GLOBAL","LastModified",QDate::currentDate().toString(),SocExplorerSettings::Session);
-    SocExplorerSettings::sync();
+
 }
 
 
@@ -242,10 +288,34 @@ void SocExplorerMainWindow::pluginselected(const QString &instanceName)
         drv->raise();
 }
 
+void SocExplorerMainWindow::setActiveSession(const QString &session)
+{
+    if(!(p_currentSession.isNull() && session=="default"))
+        saveCurrentSession();
+    socexplorerproxy::self()->close();
+    this->p_currentSession = session;
+    sessionsActions_t* sact;
+    SocExplorerSettings::loadSession(session);
+    loadCurrentSession();
+    foreach (sact, sessionsActions)
+    {
+          if(sact->text().compare(session))
+              sact->setChecked(false);
+          else
+              sact->setChecked(true);
+    }
+}
+
+void SocExplorerMainWindow::showSessionManager(bool)
+{
+    this->p_SessionManagerDialog->show();
+}
+
 
 
 void SocExplorerMainWindow::closeEvent(QCloseEvent *event)
 {
+    saveCurrentSession();
     socexplorerproxy::self()->close();
     qApp->closeAllWindows();
     event->accept();

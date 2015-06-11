@@ -32,6 +32,7 @@ QList<socexplorerplugin*>* socexplorerproxy::linearDriverList=NULL;
 socexplorerplugin* socexplorerproxy::root=NULL;
 socexplorerplugin* socexplorerproxy::parent=NULL;
 PluginsCache* socexplorerproxy::cache=NULL;
+QStringList* socexplorerproxy::linearDriverPathList=NULL;
 
 socexplorerproxy::socexplorerproxy(QObject *parent) :
     QObject(parent)
@@ -39,6 +40,7 @@ socexplorerproxy::socexplorerproxy(QObject *parent) :
     cache = new PluginsCache;
     drivers = new QList<socexplorerplugin*>;
     linearDriverList=new QList<socexplorerplugin*>;
+    linearDriverPathList=new QStringList;
     root = NULL;
 }
 
@@ -50,6 +52,7 @@ socexplorerproxy::socexplorerproxy(QMainWindow *Mainwindow, QObject *parent):
     cache = new PluginsCache;
     drivers = new QList<socexplorerplugin*>;
     linearDriverList=new QList<socexplorerplugin*>;
+    linearDriverPathList=new QStringList;
     root = NULL;
 }
 
@@ -77,7 +80,7 @@ void socexplorerproxy::loadSysDriver(const QString name)
     {
         socexplorerplugin* driver = pluginloader::newsocexplorerplugin(name);
         QString driverName = _self->getinstanceName(driver->baseName());
-        loadSysDriver(driver,driverName);
+        loadSysDriver(driver,driverName,name);
     }
 }
 
@@ -87,18 +90,22 @@ void socexplorerproxy::loadSysDriver(const QString name, const QString instanceN
     if(pluginloader::libcanberoot(name) && !_self->instanceExists(instanceName))
     {
         socexplorerplugin* driver = pluginloader::newsocexplorerplugin(name);
-        loadSysDriver(driver,instanceName);
+        loadSysDriver(driver,instanceName,name);
     }
 }
 
 
-void socexplorerproxy::loadSysDriver(socexplorerplugin *driver, const QString instanceName)
+void socexplorerproxy::loadSysDriver(socexplorerplugin *driver, const QString instanceName, const QString path)
 {
     if(!_self)init();
     driver->setInstanceName(instanceName);
     driver->parent = NULL;
     drivers->append(driver);
     linearDriverList->append(driver);
+    if(path.isEmpty())
+        linearDriverPathList->append(driver->baseName());
+    else
+        linearDriverPathList->append(path);
     connectChildToProxy(driver);
     emit _self->addPluginGUI(driver);
     emit _self->clearMenu();
@@ -117,7 +124,7 @@ void socexplorerproxy::loadChildSysDriver(socexplorerplugin *parent, const QStri
         bool ok=true;
         if(ok)
         {
-            if(parent!=NULL)_self->loadSysDriverToParent(driver,parent,driverName);
+            if(parent!=NULL)_self->loadSysDriverToParent(driver,parent,driverName,child);
         }
     }
 }
@@ -133,7 +140,7 @@ void socexplorerproxy::loadSysDriverToParent(const QString name,const QString Pa
         if(ok)
         {
             socexplorerplugin* parent=_self->getSysDriver(ParentInst);
-            if(parent!=NULL)loadSysDriverToParent(driver,parent,driverName);
+            if(parent!=NULL)loadSysDriverToParent(driver,parent,driverName,name);
         }
     }
 }
@@ -149,15 +156,19 @@ void socexplorerproxy::loadSysDriverToParent(const QString name,const QString in
         if(ok)
         {
             socexplorerplugin* parent=_self->getSysDriver(ParentInst);
-            if(parent!=NULL)loadSysDriverToParent(driver,parent,instanceName);
+            if(parent!=NULL)loadSysDriverToParent(driver,parent,instanceName,name);
         }
     }
 }
 
-void socexplorerproxy::loadSysDriverToParent(socexplorerplugin *driver,socexplorerplugin *parent, const QString instanceName)
+void socexplorerproxy::loadSysDriverToParent(socexplorerplugin *driver,socexplorerplugin *parent, const QString instanceName,const QString path)
 {
     if(!_self)init();
     linearDriverList->append(driver);
+    if(path.isEmpty())
+        linearDriverPathList->append(driver->baseName());
+    else
+        linearDriverPathList->append(path);
     driver->parent = parent;
     driver->setInstanceName(instanceName);
     parent->childs.append(driver);
@@ -264,6 +275,57 @@ socexplorerplugin *socexplorerproxy::findPlugin(const QString &instanceName)
     return NULL;
 }
 
+QStringList socexplorerproxy::getPluginsList()
+{
+    if(!_self)init();
+    QStringList result;
+    socexplorerplugin* plugin;
+    for(int i=0; i<linearDriverList->count();i++)
+    {
+        QString parent="";
+        plugin=linearDriverList->at(i);
+        if(plugin->parent)parent=plugin->parent->instanceName();
+        result.append(linearDriverList->at(i)->instanceName()+":"+parent+":"+linearDriverPathList->at(i));
+    }
+    return result;
+}
+
+bool socexplorerproxy::loadPluginsList(QStringList plugins)
+{
+    if(!_self)init();
+    QString plugin;
+    int lastLoadedPlugins=-1;
+    QStringList loadedPlugins;
+    while(plugins.count() && lastLoadedPlugins!=loadedPlugins.count())
+    {
+        lastLoadedPlugins=loadedPlugins.count();
+        for (int i = 0; i < plugins.count(); i++)
+        {
+            plugin=plugins[i];
+            QStringList args=plugin.split(':',QString::KeepEmptyParts);
+            if(args.count()==3)
+            {
+                if(args[1].isEmpty())
+                {
+                    _self->loadSysDriver(args[2],args[0]);
+                    loadedPlugins.append(args[0]);
+                    plugins.removeAt(i);
+                }
+                else if(loadedPlugins.contains(args[1]))
+                {
+                    _self->loadSysDriverToParent(args[2],args[0],args[1]);
+                    loadedPlugins.append(args[0]);
+                    plugins.removeAt(i);
+                }
+            }
+            else
+            {
+                plugins.removeAt(i);
+            }
+        }
+    }
+}
+
 bool socexplorerproxy::instanceExists(const QString &instanceName)
 {
     return !socexplorerproxy::instanceNameIsValid(instanceName);
@@ -312,6 +374,7 @@ void socexplorerproxy::closeSysDriver(socexplorerplugin *driver, bool recursive)
         emit _self->removePluginGUI(driver);
         if(driver->parent==NULL)SocExplorerEngine::removeSOC(driver);
         while(driver->childs.count()!=0)closeSysDriver(driver->childs.first());
+        linearDriverPathList->removeAt(linearDriverList->indexOf(driver));
         linearDriverList->removeOne(driver);
         if(driver->parent!= NULL)
         {

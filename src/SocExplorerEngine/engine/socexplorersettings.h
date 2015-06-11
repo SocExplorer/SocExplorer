@@ -56,6 +56,8 @@ public:
     //! \param session Session name.
     //! \return true if success or false if fails to create session config file.
     static bool loadSession(const QString& session);
+    static bool deleteSession();
+    static bool deleteSession(const QString& session);
 signals:
 
 public slots:
