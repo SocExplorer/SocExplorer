@@ -197,6 +197,26 @@ bool SocExplorerSettings::loadSession(const QString &session)
     return false;
 }
 
+bool SocExplorerSettings::renameSession(const QString &session, const QString &newName)
+{
+    INIT();
+    sync();
+    QFileInfo sessionInfo(m_settings->fileName());
+    QString fullpath=sessionInfo.absoluteDir().absolutePath() +"/"+session+".conf";
+    QString newFullpath=sessionInfo.absoluteDir().absolutePath() +"/"+newName+".conf";
+    if(m_sessionSettings && m_sessionSettings->fileName()==fullpath)
+    {
+        delete m_sessionSettings;
+        QFile::rename(fullpath,newFullpath);
+        m_sessionSettings = new QSettings(newFullpath,QSettings::NativeFormat,self());
+    }
+    else
+    {
+        QFile::rename(fullpath,newFullpath);
+    }
+    return true;
+}
+
 bool SocExplorerSettings::deleteSession()
 {
     INIT();
