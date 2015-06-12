@@ -56,6 +56,8 @@ void SocExplorerMainWindow::makeObjects(QString ScriptToEval)
     pluginsDockContainer->setObjectName("pluginsDockContainer");
     pluginsDockContainer->setWindowFlags(Qt::Widget);
     pluginsDockContainer->setDockNestingEnabled(true);
+    this->sessionsActions = new QActionGroup(this);
+    this->sessionManagerAction =new QAction(tr("&Session manager"),this);
     this->mainWidget = new QSplitter(Qt::Vertical);
     this->appTranslator = new QTranslator;
     this->Quit = new QAction(tr("&Quit"),this);
@@ -116,6 +118,7 @@ void SocExplorerMainWindow::makeConnections()
 
     connect(this->sessionManagerAction, SIGNAL(triggered(bool)),this,SLOT(showSessionManager(bool)));
     connect(this->p_SessionManagerDialog, SIGNAL(switchSession(QString)),this,SLOT(setActiveSession(QString)));
+    connect(this->sessionsActions,SIGNAL(triggered(QAction*)),this,SLOT(setActiveSession(QAction*)));
 
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDrviver(QString)),socexplorerproxy::self(),SLOT(loadSysDriver(QString)));
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDriverToParent(QString,QString)),socexplorerproxy::self(),SLOT(loadSysDriverToParent(QString,QString)));
@@ -160,7 +163,7 @@ void SocExplorerMainWindow::makeMenu()
     this->FileMenu = menuBar()->addMenu(tr("&File"));
     this->SessionsMenu = this->FileMenu->addMenu(tr("&Sessions"));
     this->loadSessions();
-    this->sessionManagerAction = this->FileMenu->addAction(tr("&Session manager..."));
+    this->FileMenu->addAction(this->sessionManagerAction);
     this->SettingsMenu = menuBar()->addMenu(tr("&Settings"));
     SocExplorerGUI::registerMenuBar(menuBar(),this->FileMenu,this->SettingsMenu);
     this->PluginsMenu = menuBar()->addMenu(tr("&Plugins"));
@@ -179,21 +182,23 @@ void SocExplorerMainWindow::makeMenu()
 void SocExplorerMainWindow::loadSessions()
 {
     p_Sessions=this->p_SessionManagerDialog->getSessionsList();
-    sessionsActions_t* sact;
+    QAction* sact;
     QString stext;
-    foreach (sact, sessionsActions)
+    QList<QAction*> sessions=sessionsActions->actions();
+    foreach (sact, sessions)
     {
-          sessionsActions.removeAll(sact);
+          sessionsActions->removeAction(sact);
           SessionsMenu->removeAction(sact);
-          disconnect(sact);
           delete sact;
     }
     foreach (stext, p_Sessions)
     {
-        sact = new sessionsActions_t(stext,this);
+        sact = new QAction(stext,this);
         sact->setCheckable(true);
-        connect(sact,SIGNAL(triggered(QString)),this,SLOT(setActiveSession(QString)));
-        sessionsActions.append(sact);
+        sact->setData(stext);
+        if(p_currentSession==stext)
+           sact->setChecked(true);
+        sessionsActions->addAction(sact);
         SessionsMenu->addAction(sact);
     }
 }
@@ -211,6 +216,7 @@ void SocExplorerMainWindow::saveCurrentSession()
     }
     SocExplorerSettings::setValue("GLOBAL","LastModified",QDate::currentDate().toString(),SocExplorerSettings::Session);
     SocExplorerSettings::setValue(this,"DOCK_LOCATIONS",this->saveState(0),SocExplorerSettings::Session);
+    SocExplorerSettings::setValue(this,"PLUGINS_DOCK_LOCATIONS",this->pluginsDockContainer->saveState(0),SocExplorerSettings::Session);
     SocExplorerSettings::setValue(this,"MAIN_WINDOW_GEOMETRY",this->saveGeometry(),SocExplorerSettings::Session);
     QStringList plugins = socexplorerproxy::getPluginsList();
     SocExplorerSettings::setValue(this,"LOADED_PLUGINS",QVariant(plugins),SocExplorerSettings::Session);
@@ -224,6 +230,7 @@ void SocExplorerMainWindow::loadCurrentSession()
     socexplorerproxy::loadPluginsList(plugins);
     this->restoreGeometry(SocExplorerSettings::value(this,"MAIN_WINDOW_GEOMETRY",QVariant(),SocExplorerSettings::Session).toByteArray());
     this->restoreState(SocExplorerSettings::value(this,"DOCK_LOCATIONS",QVariant(),SocExplorerSettings::Session).toByteArray());
+    this->pluginsDockContainer->restoreState(SocExplorerSettings::value(this,"PLUGINS_DOCK_LOCATIONS",QVariant(),SocExplorerSettings::Session).toByteArray());
 }
 
 
@@ -294,21 +301,25 @@ void SocExplorerMainWindow::setActiveSession(const QString &session)
         saveCurrentSession();
     socexplorerproxy::self()->close();
     this->p_currentSession = session;
-    sessionsActions_t* sact;
     SocExplorerSettings::loadSession(session);
     loadCurrentSession();
-    foreach (sact, sessionsActions)
-    {
-          if(sact->text().compare(session))
-              sact->setChecked(false);
-          else
-              sact->setChecked(true);
-    }
+
+}
+
+void SocExplorerMainWindow::setActiveSession(QAction *session)
+{
+    this->setActiveSession(session->text());
 }
 
 void SocExplorerMainWindow::showSessionManager(bool)
 {
     this->p_SessionManagerDialog->show();
+}
+
+//TODO handle rename
+void SocExplorerMainWindow::sessionListChanged()
+{
+
 }
 
 

@@ -40,24 +40,6 @@
 #include "regsExplorer/regsexplorer.h"
 #include "socexplorergui.h"
 #include "sessionmanagerdialog.h"
-class sessionsActions_t: public QAction
-{
-    Q_OBJECT
-public:
-    sessionsActions_t(const QString &text, QObject* parent)
-        :  QAction(text,parent)
-    {
-        connect(this,SIGNAL(triggered(bool)),this,SLOT(p_triggered(bool)));
-    }
-signals:
-     void triggered(const QString & session);
-private slots:
-     void p_triggered(bool checked = false)
-     {
-         Q_UNUSED(checked)
-         emit triggered(this->text());
-     }
-};
 
 class SocExplorerMainWindow : public QMainWindow
 {
@@ -68,7 +50,7 @@ public:
     SocExplorerMainWindow(QString ScriptToEval,QWidget *parent = 0);
     ~SocExplorerMainWindow();
     QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction,*sessionManagerAction;
-    QList<sessionsActions_t*> sessionsActions;
+    QActionGroup*sessionsActions;
     QActionGroup*langActionGrp;
     QMenu* FileMenu,*SettingsMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu,*SessionsMenu;
     QTranslator* appTranslator;
@@ -87,7 +69,9 @@ public slots:
     void showAboutBox();
     void pluginselected(const QString& instanceName);
     void setActiveSession(const QString & session);
+    void setActiveSession(QAction* session);
     void showSessionManager(bool);
+    void sessionListChanged();
 signals:
     void translateSig();
     void registerObject(QObject* object,const QString& instanceName);

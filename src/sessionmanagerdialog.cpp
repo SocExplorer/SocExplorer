@@ -109,6 +109,7 @@ void SessionManagerDialog::renameSession()
     int exists=0;
     QListWidgetItem* item = this->ui->listWidget->currentItem();
     QString text= item->text();
+    QString OldText= item->text();
     do
     {
         text = QInputDialog::getText(this, tr("SocExplorer Session Manager"),
@@ -126,6 +127,9 @@ void SessionManagerDialog::renameSession()
     if (ok && !text.isEmpty())
     {
         item->setText(text);
+        SocExplorerSettings::renameSession(text,OldText);
+        updateSessionList();
+        emit sessionListChanged();
     }
 }
 

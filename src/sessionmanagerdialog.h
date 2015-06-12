@@ -48,6 +48,7 @@ private slots:
     void switchSession();
 signals:
     void switchSession(QString session);
+    void sessionListChanged();
 
 private:
     void updateSessionList();
