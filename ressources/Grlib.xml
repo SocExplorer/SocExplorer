@@ -430,6 +430,23 @@ generic is set to 2. Reset value: ‘0’."/>
     <bitField name="DATA" size="32" mode="1" desc=""/>
   </register>
  </peripheral>
+ <peripheral vid="1" name="SDCTRL" pid="9">
+  <register name="configuration" addOffset="0">
+   <bitField size="1" name="Refresh" offset="31" mode="3" desc="SDRAM refresh. If set, the SDRAM refresh will be enabled."/>
+   <bitField size="1" name="tRP" offset="30" mode="3" desc="SDRAM tRP timing. tRP will be equal to 2 or 3 system clocks (0/1). When mobile SDRAM support is enabled, this bit also represent the MSB in the tRFC timing."/>
+   <bitField name="tRFC" size="3" offset="27" mode="3" desc="SDRAM tRFC timing. tRFC will be equal to 3 + field-value system clocks. When mobile SDRAM support is enabled, this field is extended with the bit 30."/>
+   <bitField name="tCD" size="1" offset="26" mode="3" desc="SDRAM CAS delay. Selects 2 or 3 cycle CAS delay (0/1). When changed, a LOAD-COMMAND-REGISTER command must be issued at the same time. Also sets RAS/CAS delay (tRCD)."/>
+   <bitField name="SDRAM bank size" offset="23" size="3" mode="3" desc="SDRAM banks size. Defines the decoded memory size for each SDRAM chip select: “000”= 4 Mbyte, “001”= 8 Mbyte, “010”= 16 Mbyte .... “111”= 512 Mbyte."/>
+   <bitField name="SDRAM col. size" offset="21" size="2" mode="3" desc="SDRAM column size. “00”=256, “01”=512, “10”=1024, “11”=2048 except when bit[25:23]= ̆111 ̆then  ̆11 ̆=4096"/>
+   <bitField name="SDRAM command" offset="18" size="3" mode="3" desc="SDRAM command. Writing a non-zero value will generate an SDRAM command: “010”=PRE-CHARGE, “100”=AUTO-REFRESH, “110”=LOAD-COMMAND-REGISTER, “111”=LOAD-EXTENDED-COMMAND-REGISTER. The field is reset after command has been executed."/>
+   <bitField name="Page-Burst" offset="17" size="1" mode="3" desc="1 = pageburst is used for read operations, 0 = line burst of length 8 is used for read operations. (Only available when VHDL generic pageburst i set to 2)"/>
+   <bitField name="MS" offset="16" size="1" mode="3" desc="Mobile SDR support enabled. ‘1’ = Enabled, ‘0’ = Disabled (read-only)"/>
+   <bitField name="D64" offset="15" size="1" mode="3" desc="64-bit data bus (D64) - Reads ‘1’ if memory controller is configured for 64-bit data bus, otherwise‘0’. Read-only."/>
+   <bitField name="SDRAM refresh load value" offset="0" size="15" mode="3" desc="The period between each AUTO-REFRESH command - Calculated as follows: tREFRESH = ((reload value) + 1) / SYSCLK"/>
+  </register>
+  <register name="Power-Saving configuration" addOffset="4">
+  </register>
+ </peripheral>
 </soc>
 
 
