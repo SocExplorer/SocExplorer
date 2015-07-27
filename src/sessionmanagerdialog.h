@@ -49,7 +49,9 @@ private slots:
 signals:
     void switchSession(QString session);
     void sessionListChanged();
-
+    void sessionRenamed(const QString& oldName,const QString& newName);
+    void sessionRemoved(const QString& session);
+    void sessionAdded(const QString& newSession);
 private:
     void updateSessionList();
     Ui::SessionManagerDialog *ui;

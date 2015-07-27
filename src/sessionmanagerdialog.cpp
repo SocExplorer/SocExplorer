@@ -100,6 +100,7 @@ void SessionManagerDialog::newSession(QString session)
     {
         this->ui->listWidget->addItem(session);
         updateSessionList();
+        emit sessionAdded(session);
     }
 }
 
@@ -127,7 +128,8 @@ void SessionManagerDialog::renameSession()
     if (ok && !text.isEmpty())
     {
         item->setText(text);
-        SocExplorerSettings::renameSession(text,OldText);
+        SocExplorerSettings::renameSession(OldText,text);
+        emit sessionRenamed(OldText,text);
         updateSessionList();
         emit sessionListChanged();
     }
@@ -142,6 +144,7 @@ void SessionManagerDialog::deleteSession()
         {
             this->ui->listWidget->removeItemWidget(item);
             SocExplorerSettings::deleteSession(item->text());
+            emit sessionRemoved(item->text());
             delete item;
             updateSessionList();
         }
