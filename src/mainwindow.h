@@ -71,7 +71,9 @@ public slots:
     void setActiveSession(const QString & session);
     void setActiveSession(QAction* session);
     void showSessionManager(bool);
-    void sessionListChanged();
+    void renameSession(const QString& oldName,const QString& newName);
+    void addSession(const QString& newSession);
+    void removeSession(const QString& session);
 signals:
     void translateSig();
     void registerObject(QObject* object,const QString& instanceName);

@@ -118,6 +118,9 @@ void SocExplorerMainWindow::makeConnections()
 
     connect(this->sessionManagerAction, SIGNAL(triggered(bool)),this,SLOT(showSessionManager(bool)));
     connect(this->p_SessionManagerDialog, SIGNAL(switchSession(QString)),this,SLOT(setActiveSession(QString)));
+    connect(this->p_SessionManagerDialog, SIGNAL(sessionRenamed(QString,QString)),this,SLOT(renameSession(QString,QString)));
+    connect(this->p_SessionManagerDialog, SIGNAL(sessionAdded(QString)),this,SLOT(addSession(QString)));
+    connect(this->p_SessionManagerDialog, SIGNAL(sessionRemoved(QString)),this,SLOT(removeSession(QString)));
     connect(this->sessionsActions,SIGNAL(triggered(QAction*)),this,SLOT(setActiveSession(QAction*)));
 
     this->pluginManager->connect(this->pluginManager,SIGNAL(loadSysDrviver(QString)),socexplorerproxy::self(),SLOT(loadSysDriver(QString)));
@@ -193,13 +196,7 @@ void SocExplorerMainWindow::loadSessions()
     }
     foreach (stext, p_Sessions)
     {
-        sact = new QAction(stext,this);
-        sact->setCheckable(true);
-        sact->setData(stext);
-        if(p_currentSession==stext)
-           sact->setChecked(true);
-        sessionsActions->addAction(sact);
-        SessionsMenu->addAction(sact);
+        addSession(stext);
     }
 }
 
@@ -316,11 +313,42 @@ void SocExplorerMainWindow::showSessionManager(bool)
     this->p_SessionManagerDialog->show();
 }
 
-//TODO handle rename
-void SocExplorerMainWindow::sessionListChanged()
+void SocExplorerMainWindow::renameSession(const QString &oldName, const QString &newName)
 {
-
+    for(int i=0;i<sessionsActions->actions().count();i++)
+    {
+        if(Q_UNLIKELY(sessionsActions->actions().at(i)->text()==oldName))
+        {
+            sessionsActions->actions().at(i)->setText(newName);
+        }
+    }
 }
+
+void SocExplorerMainWindow::addSession(const QString &newSession)
+{
+    QAction* sact = new QAction(newSession,this);
+    sact->setCheckable(true);
+    sact->setData(newSession);
+    if(Q_UNLIKELY(p_currentSession==newSession))
+       sact->setChecked(true);
+    sessionsActions->addAction(sact);
+    SessionsMenu->addAction(sact);
+}
+
+void SocExplorerMainWindow::removeSession(const QString &session)
+{
+    QAction* sact;
+    foreach (sact, sessionsActions->actions())
+    {
+        if(Q_UNLIKELY(sact->text()==session))
+        {
+            sessionsActions->removeAction(sact);
+            SessionsMenu->removeAction(sact);
+            delete sact;
+        }
+    }
+}
+
 
 
 
