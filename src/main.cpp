@@ -88,10 +88,14 @@ int main(int argc, char *argv[])
     }
     else
     {
-        scriptToEval = parser.positionalArguments().first();
-        if(!QFile::exists(scriptToEval))
+        QStringList posArgs = parser.positionalArguments();
+        if(posArgs.count())
         {
-            scriptToEval.clear();
+            scriptToEval = posArgs.first();
+            if(!QFile::exists(scriptToEval))
+            {
+                scriptToEval.clear();
+            }
         }
     }
     if(parser.isSet(debugLevelOption))
