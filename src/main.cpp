@@ -40,13 +40,13 @@ QCommandLineOption executeOption = QCommandLineOption (
 
 QCommandLineOption debugLevelOption = QCommandLineOption (
             QStringList() << "d" << "debug-level",
-            QCoreApplication::translate("main", "Execute given script <script>."),
-            QCoreApplication::translate("main", "script"),
+            QCoreApplication::translate("main", "Sets debug level to <level>, higher the level is more verbose the application will be."),
+            QCoreApplication::translate("main", "level"),
             "1");
 
 QCommandLineOption noGUIOption = QCommandLineOption (
             QStringList() << "n" << "no-gui",
-            QCoreApplication::translate("main", "Starts SocExplorer in batch mode."));
+            QCoreApplication::translate("main", "Starts SocExplorer in batch mode[not fully implemented yet!]."));
 
 const char* socexplorerDesc="\
 SocExplorer is an open source generic System On Chip testing software/framework.\
@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
     parser.addHelpOption();
     parser.addVersionOption();
     bool noGUI=false;
+    parser.addPositionalArgument("file", QCoreApplication::translate("main", "The Python file to execute."));
     parser.addOption(executeOption);
     parser.addOption(debugLevelOption);
     parser.addOption(noGUIOption);
@@ -80,6 +81,14 @@ int main(int argc, char *argv[])
     if(parser.isSet(executeOption))
     {
         scriptToEval = parser.value(executeOption);
+        if(!QFile::exists(scriptToEval))
+        {
+            scriptToEval.clear();
+        }
+    }
+    else
+    {
+        scriptToEval = parser.positionalArguments().first();
         if(!QFile::exists(scriptToEval))
         {
             scriptToEval.clear();
