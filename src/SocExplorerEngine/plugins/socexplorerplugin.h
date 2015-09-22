@@ -157,10 +157,10 @@ public slots:
     virtual void setInstanceName(const QString& newName);
 
     virtual bool dumpMemory(unsigned int address,unsigned int count,QString file);
+    virtual bool dumpMemory(unsigned int address,unsigned int count,QString file,const QString& format);
     virtual bool memSet(unsigned int address,int value, unsigned int count);
     virtual bool loadbin(unsigned int address,QString file);
     virtual bool loadfile(abstractBinFile* file);
-    virtual bool dumpMemory(unsigned int address,unsigned int count,QString file,const QString& format);
     QVariantList Read(unsigned int address, unsigned int count);
     void Write(unsigned int address, QList<QVariant> dataList);
     socexplorerplugin* parentPlugin(){return this->parent;}

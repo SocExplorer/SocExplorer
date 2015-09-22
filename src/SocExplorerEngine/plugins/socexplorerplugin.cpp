@@ -262,4 +262,3 @@ bool socexplorerplugin::dumpMemory(unsigned int address, unsigned int count, QSt
   return false;
 }
 
-

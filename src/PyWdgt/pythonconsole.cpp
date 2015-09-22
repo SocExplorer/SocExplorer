@@ -15,7 +15,6 @@ void PythonQt_init_PySocExplorerEngine(PyObject* module) ;
 PythonConsole::PythonConsole(socexplorerproxy *proxy, QWidget *parent) :
     QWidget(parent)
 {
-    //PythonQt::init();
     PythonQt::init(PythonQt::RedirectStdOut);
     PythonQt_QtAll::init();
     this->proxy = proxy;
@@ -25,7 +24,6 @@ PythonConsole::PythonConsole(socexplorerproxy *proxy, QWidget *parent) :
     this->console = new PythonQtScriptingConsoleDandD(NULL, PythonQt::self()->getMainModule());
     this->mainlayout->addWidget(this->console);
     this->setWindowTitle(tr("Python Scripting Console"));
-    this->bussdriver = 0;
     this->setAcceptDrops(true);
     this->setLayout(this->mainlayout);
     connect(this->console,SIGNAL(pyConsoleRunFiles(QStringList)),this,SLOT(pyConsoleRunFiles(QStringList)));
@@ -43,13 +41,6 @@ void PythonConsole::addObject(const QString& name, QObject* object)
 void PythonConsole::removeVariable(const QString& name)
 {
   this->mainContext->removeVariable(name);
-}
-
-
-void PythonConsole::setBussDriver(socexplorerplugin *driver)
-{
-    this->bussdriver = driver;
-    this->mainContext->addObject("buss", this->bussdriver);
 }
 
 void PythonConsole::registerObject(QObject* object,const QString& instanceName)
@@ -70,13 +61,6 @@ void PythonConsole::changeSysDriverInstName(const QString newinstanceName,const 
 void PythonConsole::removeDriver(const QString& instanceName)
 {
     this->mainContext->removeVariable(instanceName);
-}
-
-void PythonConsole::removeBussDriver()
-{
-    this->bussdriver = 0;
-    this->mainContext->removeVariable("buss");
-    emit this->rootDriverDelete();
 }
 
 
