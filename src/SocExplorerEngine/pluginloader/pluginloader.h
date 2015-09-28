@@ -81,7 +81,6 @@ private:
     int p_checklibraryCustom(const QString fileName);
     socexplorerplugin* p_newsocexplorerpluginQlib(const QString Name);
     socexplorerplugin* p_newsocexplorerpluginCustom(const QString Name);
-    static QStringList readFoldersList(const QStringList confFiles);
     static QString* _cacheLookup(const QString Name);
     static QString _getlibName(const QString fileName);
     static int _getlibPID(const QString fileName);
