@@ -13,6 +13,8 @@
 #ifdef SOCEXPLORER_CUSTOM_PLUGIN_LOADER
 #include "unix/unixpluginloader.h"
 #endif
+#include <socexplorerengine.h>
+#include <socexplorersettings.h>
 
 pluginloader* pluginloader::_self = NULL;
 PluginsCache* pluginloader::_cache = NULL;
@@ -26,38 +28,6 @@ pluginloader::pluginloader()
     _folderList->append(SocExplorerEngine::pluginFolders());
     scanFolders();
 }
-
-
-QStringList pluginloader::readFoldersList(const QStringList confFiles)
-{
-    QDir testDir;
-    QStringList folders;
-    QFile confFile;
-    for(int i=0;i<confFiles.count();i++)
-    {
-        confFile.setFileName(confFiles.at(i));
-        if(confFile.exists())
-        {
-            if (confFile.open(QIODevice::ReadOnly | QIODevice::Text))
-            {
-                QTextStream in(&confFile);
-                QString line = in.readLine();
-                while (!line.isNull())
-                {
-                    testDir.setPath(line);
-                    if(testDir.exists())
-                    {
-                        if(!folders.contains(line))
-                            folders << line;
-                    }
-                    line = in.readLine();
-                }
-            }
-        }
-    }
-    return folders;
-}
-
 
 void pluginloader::scanFolders()
 {
@@ -74,6 +44,7 @@ void pluginloader::scanFolders()
         for (int i = 0; i < list.size(); ++i)
         {
             QFileInfo fileInfo = list.at(i);
+            SocExplorerEngine::message("pluginloader::scanFolders","Checking "+ fileInfo.filePath(),3);
             if(checklibrary(fileInfo.filePath())!=0)
             {
                 _cache->append(fileInfo.fileName(),fileInfo.path(),_getlibName(fileInfo.filePath()),_getlibPID(fileInfo.filePath()),_getlibPID(fileInfo.filePath()));
@@ -90,7 +61,7 @@ int pluginloader::p_checklibraryQlib(const QString fileName)
     lib->load();
     if(!lib->isLoaded())
     {
-        qDebug()<<lib->errorString();
+        SocExplorerEngine::message("pluginloader::p_checklibraryQlib",lib->errorString(),3);
         lib->~QLibrary();
         lib = new QLibrary(fileName);
         lib->load();
