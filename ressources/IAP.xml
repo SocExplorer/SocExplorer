@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<soc name="Leon">
+ <peripheral vid="32" name="SRCTRLS-0WS" pid="1">
+   <register name="EDAC Control" addOffset="0">
+     <bitField size="4" offset="0" name="BTOS" mode="3" desc="write or read busy to scrub delay configuration"/>
+     <bitField size="4" offset="4" name="SCRUBRATE" mode="3" desc="write or read scrub rate period configuration"/>
+     <bitField name="RUN" offset="8" size="1" mode="3" desc="when set run the memory configuration"/>
+     <bitField name="BPBUSYN" offset="9" size="1" mode="3" desc="make controller to ignore busy signal"/>
+     <bitField name="WENSRAM" offset="12" size="8" mode="3" desc="when set write configuration to chip 8 to 1, else read configuration"/>
+     <bitField name="BYPASSEDAC" offset="20" size="8" mode="3" desc="bypass edac (for chips 8 to 1)"/>
+     <bitField name="WASHMEM" offset="31" size="1" mode="3" desc="Frame error (FE) - indicates that a framing error was detected. Reset value: ‘0’"/>
+   </register>
+ </peripheral>
+</soc>
+
+
+
+
+
+
+
+
+

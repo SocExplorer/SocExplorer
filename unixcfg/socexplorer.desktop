@@ -1,0 +1,17 @@
+[Desktop Entry]
+Version=1.0
+Name=SocExplorer
+Name[en_US]=SocExplorer
+
+Type=Application
+GenericName=Soc Explorer
+
+Comment=Software to monitor and explore Soc devices.
+
+Exec=socexplorer -e %U
+Icon=/usr/share/SocExplorer/icon.png
+Terminal=false
+
+Categories=Electronics;Engineering;
+
+MimeType=text/x-python;

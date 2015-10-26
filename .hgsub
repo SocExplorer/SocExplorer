@@ -1,0 +1,4 @@
+src/SocExplorerEngine/PeripheralWidget = https://hephaistos.lpp.polytechnique.fr/rhodecode/HG_REPOSITORIES/LPP/INSTRUMENTATION/USERS/JEANDET/PeripheralWidget
+src/common/lppserial = https://hephaistos.lpp.polytechnique.fr/rhodecode/HG_REPOSITORIES/LPP/INSTRUMENTATION/lppserial
+src/common/qhexedit = https://hephaistos.lpp.polytechnique.fr/rhodecode/HG_REPOSITORIES/LPP/INSTRUMENTATION/QHexEdit
+src/common/genericBinaryFiles =  https://hephaistos.lpp.polytechnique.fr/rhodecode/HG_REPOSITORIES/LPP/INSTRUMENTATION/genericBinaryFiles

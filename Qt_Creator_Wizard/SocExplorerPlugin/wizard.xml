@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**************************************************************************
+**
+** This file is part of Qt Creator
+**
+** Copyright (c) 2011 Nokia Corporation and/or its subsidiary(-ies).
+**
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+**
+** GNU Lesser General Public License Usage
+**
+** This file may be used under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation and
+** appearing in the file LICENSE.LGPL included in the packaging of this file.
+** Please review the following information to ensure the GNU Lesser General
+** Public License version 2.1 requirements will be met:
+** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+**
+** In addition, as a special exception, Nokia gives you certain additional
+** rights. These rights are described in the Nokia Qt LGPL Exception
+** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+**
+** Other Usage
+**
+** Alternatively, this file may be used in accordance with the terms and
+** conditions contained in a signed written agreement between you and Nokia.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at qt-info@nokia.com.
+**
+**************************************************************************/
+
+Custom project wizard configuration example file. Note that by convention,
+the project file goes last.
+The "class" and "firstpage" attributes specify that it is a Qt 4 wizard and
+leave room for the Qt 4 target page.
+-->
+<wizard version="1" kind="project"
+        class="qt4project" firstpage="1"
+        id="A.SocExplorer" category="B.SocExplorerPlugin">
+    <icon>logo-lpp-cutted.png</icon>
+    <description>Creates a new empty SocExplorer Plugin.</description>
+    <displayname>SocExplorerPlugin</displayname>;
+    <displaycategory>SocExplorer</displaycategory>
+    <files>
+        <file source="plugin.cpp" target="%ProjectName%.cpp" openeditor="true"/>
+	<file source="plugin.h" target="%ProjectName%.h" openeditor="true"/>
+        <file source="project.pro" target="%ProjectName%.pro" openproject="true"/>
+    </files>
+    <!-- Create a 2nd wizard page with parameters -->
+    <fieldpagetitle>Plugin Parameters</fieldpagetitle>
+    <fields>
+        <field mandatory="true" name="driver_Name">
+            <fieldcontrol class="QLineEdit" validator='^[^"]+$'
+                          defaulttext="Driver Name" />
+            <fielddescription>Driver Name:</fielddescription>
+        </field>
+	<field mandatory="true" name="driver_Author">
+            <fieldcontrol class="QLineEdit" validator='^[^"]+$'
+                          defaulttext="Author" />
+            <fielddescription>Author:</fielddescription>
+        </field>
+	<field mandatory="true" name="driver_Mail">
+            <fieldcontrol class="QLineEdit" validator='^[^"]+$'
+                          defaulttext="user@mail" />
+            <fielddescription>Mail:</fielddescription>
+        </field>
+	<field mandatory="true" name="driver_Version">
+            <fieldcontrol class="QLineEdit" validator='^[^"]+$'
+                          defaulttext="0.0.1" />
+            <fielddescription>Driver Version:</fielddescription>
+        </field>
+	<field mandatory="true" name="driver_Description">
+            <fieldcontrol class="QLineEdit" validator='^[^"]+$'
+                          defaulttext="Driver description" />
+            <fielddescription>Driver description:</fielddescription>
+        </field>
+	<field name="ISROOT">
+		<fieldcontrol class="QCheckBox" truevalue="1" falsevalue="0"/>
+		<fielddescription>This driver can be a root driver</fielddescription>
+	</field>
+	<field name="ISCHILD">
+		<fieldcontrol class="QCheckBox" truevalue="1" falsevalue="0"/>
+		<fielddescription>This driver can be a child driver</fielddescription>
+	</field>
+	<field name="driver_VID">
+		<fieldcontrol class="QLineEdit" validator="^[0-9]+$" defaulttext="0" />
+		<fielddescription>Plugin VID:</fielddescription>
+	</field>
+	<field name="driver_PID">
+		<fieldcontrol class="QLineEdit" validator="^[0-9]+$" defaulttext="0" />
+		<fielddescription>Plugin PID:</fielddescription>
+	</field>
+    </fields>
+</wizard>
+
+
+
+
+
+
+
+
+
+
+

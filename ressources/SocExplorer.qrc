@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="logolpp.png">images/logo-lpp.png</file>
+        <file alias="logocnrs.png">images/LOGO CNRS.png</file>
+        <file alias="logoso.png">images/LOGO SO.png</file>
+        <file alias="logolppcutted.png">images/logo-lpp-cutted.png</file>
+        <file alias="trash.svg">images/Gnome-user-trash.svg</file>
+        <file alias="refresh.svg">images/Gnome-view-refresh.svg</file>
+        <file alias="open.svg">images/Gnome-document-open.svg</file>
+        <file alias="add.svg">images/Gnome-list-add.svg</file>
+        <file alias="server.svg">images/Gnome-network-server.svg</file>
+        <file alias="config.svg">images/Gnome-preferences-system.svg</file>
+        <file alias="up.svg">images/Gnome-go-up.svg</file>
+        <file alias="down.svg">images/Gnome-go-down.svg</file>
+        <file alias="icon.png">images/icon.png</file>
+    </qresource>
+    <qresource prefix="/about">
+        <file alias="about.html">txt/about.html</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file alias="SocExplorer.css">Styles/SocExplorer.css</file>
+    </qresource>
+</RCC>

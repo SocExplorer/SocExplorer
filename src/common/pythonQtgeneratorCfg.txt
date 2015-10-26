@@ -1,0 +1,34 @@
+<typesystem package="PySocExplorer" default-superclass="com.trolltech.qt.QtJambiObject">
+    <load-typesystem name=":/trolltech/generator/typesystem_core.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_gui.txt" generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_network.txt" generate="no" />
+
+    <object-type name="QHexSpinBox"/>
+    <object-type name="MemSizeWdgt" />
+    <object-type name="QHexEdit" />
+    <object-type name="XByteArray" />
+    <object-type name="SocExplorerPlot" />
+    <object-type name="TCP_Terminal_Client" />
+    <object-type name="codeFragment" />
+    <object-type name="srecFile" />
+    <object-type name="binaryFile" />
+    <rejection class="Elf_Section"/>
+    <object-type name="elfparser" />
+    <interface-type name="abstractBinFile"/>
+    <object-type name="ElfFile"/>
+    <interface-type name="abstractBinFileWidget"/>
+    <object-type name="elfFileWidget"/>
+    <object-type name="srecFileWidget"/>
+    <object-type name="binaryFileWidget"/>
+    <object-type name="elfInfoWdgt"/>
+    <object-type name="genericBinaryFileWidget"/>
+
+</typesystem>
+
+
+
+
+
+
+
+
