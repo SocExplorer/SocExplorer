@@ -21,42 +21,271 @@
  </peripheral>
  <peripheral vid="25" name="LPP_LFR_MANAGEMENT" pid="34">
    <register name="CONTROL" addOffset="0">
-     <bitField size="1" offset="0" name="ctrl" mode="3" desc="NC"/>
-     <bitField size="1" offset="1" name="Soft Reset" mode="3" desc="NC  "/>
-     <bitField name="LFR Soft Reset" offset="5" size="1" mode="3" desc="NC"/>
+     <bitField size="1" offset="0" name="SWTick" mode="3" desc="Time Management Software tick."/>
+     <bitField size="1" offset="1" name="Soft Reset" mode="3" desc="Time Management Software Reset."/>
+     <bitField size="1" offset="2" name="LFR Soft Reset" mode="3" desc="LFR SubSystem soft Reset."/>
    </register>
-   <register name="COARSE TIME LOAD" addOffset="4">
-     <bitField size="31" offset="0" name="Coarse Time Load" mode="3" desc="NC"/>
+   <register name="TIME_LOAD" addOffset="4">
+     <bitField size="31" offset="0" name="Coarse Time Next" mode="3" desc="If modified, will set the next value of the coarse time."/>
    </register>
-   <register name="COARSE TIME" addOffset="8">
-     <bitField size="31" offset="0" name="Coarse Time" mode="1" desc="NC"/>
+   <register name="TIME_COARS" addOffset="8">
+     <bitField size="31" offset="0" name="Coarse Time" mode="1" desc="Current coars time."/>
+     <bitField size="1" offset="31" name="UnSychronized" mode="1" desc="Tels if LFR is synchronyzed."/>
    </register>
-   <register name="TEMP0" addOffset="12">
+   <register name="TIME_FINE" addOffset="12">
+     <bitField size="31" offset="0" name="Fine Time" mode="1" desc="Current fine time."/>
+   </register>
+   <register name="HK_TEMP_0" addOffset="16">
      <bitField size="16" offset="0" name="HK Temperature 0" mode="1" desc="NC"/>
    </register>
-   <register name="TEMP1" addOffset="16">
+   <register name="HK_TEMP_1" addOffset="20">
      <bitField size="16" offset="0" name="HK Temperature 1" mode="1" desc="NC"/>
    </register>
-   <register name="TEMP2" addOffset="20">
+   <register name="HK_TEMP_2" addOffset="24">
      <bitField size="16" offset="0" name="HK Temperature 2" mode="1" desc="NC"/>
    </register>
-   <register name="DAC Control" addOffset="24">
-     <bitField size="2" offset="0" name="Dac config" mode="3" desc="Set the two configuration bits of the DAC ‘00’ mean normal operation, ‘01’ mean 1kOhms connected to GND, ‘10’ mean 100kOhms connected to GND, ‘11’ mean high impedance"/>
-     <bitField size="1" offset="4" name="Reload" mode="3" desc="Reload freq divider to the value N, can be used also to stop dac"/>
-     <bitField name="Interleavde" offset="5" size="1" mode="3" desc="Set interleaved mode"/>
-     <bitField name="Enable" offset="6" size="1" mode="3" desc="Scm cal enable, drives the multiplexer"/>
+   <register name="DAC_CONTROL" addOffset="28">
+     <bitField size="2" offset="0" name="DAC_CFG" mode="3" desc="Set the two configuration bits of the DAC ‘00’ mean normal operation, ‘01’ mean 1kOhms connected to GND, ‘10’ mean 100kOhms connected to GND, ‘11’ mean high impedance"/>
+     <bitField size="1" offset="4" name="Reload mode enable" mode="3" desc="Reload freq divider to the value N, can be used also to stop dac"/>
+     <bitField size="1" offset="5" name="Interleaved mode enable" mode="3" desc="Set interleaved mode"/>
+     <bitField size="1" offset="6" name="DAC calibration enable" mode="3" desc="SCM CAL enable, drives the LFR CAL multiplexer"/>
    </register>
-   <register name="Prescaller" addOffset="28">
-     <bitField size="32" offset="0" name="Pre" mode="3" desc="Set the prescaller division"/>
+   <register name="DAC_PRE" addOffset="32">
+     <bitField size="8" offset="0" name="Pre" mode="3" desc="Set the prescaller division"/>
    </register>
-   <register name="Div" addOffset="32">
-     <bitField size="32" offset="0" name="N" mode="3" desc="Set the division factor"/>
+   <register name="DAC_N" addOffset="36">
+     <bitField size="16" offset="0" name="N" mode="3" desc="Set the division factor"/>
    </register>
-   <register name="Address" addOffset="36">
-     <bitField size="32" offset="0" name="Address" mode="3" desc="Set the DAC RAM buffer address pointer"/>
+   <register name="DAC_ADDRESS" addOffset="40">
+     <bitField size="32" offset="0" name="DAC_ADDRESS" mode="3" desc="Set the DAC RAM buffer address pointer, auto incremented."/>
    </register>
-   <register name="DATA" addOffset="40">
+   <register name="DAC_DATA" addOffset="44">
      <bitField size="32" offset="0" name="DATA" mode="3" desc="DATA to be written in the DAC RAM buffer"/>
+   </register>
+ </peripheral>
+ <peripheral vid="25" name="LPP_LFR" pid="25">
+   <register name="SPECTRAL_MATRIX_CONFIG" addOffset="0">
+     <bitField size="1" offset="0" name="ERR_IRQ_EN" mode="3" desc="Actives interruption generation when a error occurs."/>
+     <bitField size="1" offset="1" name="COMP_IRQ_EN" mode="3" desc="Actives interruption generation when a new Matrix is completely sent in Memory."/>
+     <bitField size="1" offset="2" name="SM_EN" mode="3" desc="Enables the Spectral matrix module."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_STATUS" addOffset="4">
+     <bitField size="1" offset="0" name="F0_B0_READY" mode="1" desc="Set when a matrix at f0 is ready into buffer 0."/>
+     <bitField size="1" offset="1" name="F0_B1_READY" mode="1" desc="Set when a matrix at f0 is ready into buffer 1."/>
+     <bitField size="1" offset="2" name="F1_B0_READY" mode="1" desc="Set when a matrix at f1 is ready into buffer 0."/>
+     <bitField size="1" offset="3" name="F1_B1_READY" mode="1" desc="Set when a matrix at f1 is ready into buffer 1."/>
+     <bitField size="1" offset="4" name="F2_B0_READY" mode="1" desc="Set when a matrix at f2 is ready into buffer 0."/>
+     <bitField size="1" offset="5" name="F2_B1_READY" mode="1" desc="Set when a matrix at f2 is ready into buffer 1."/>
+
+     <bitField size="1" offset="7" name="ERR_BUFFER_FULL" mode="1" desc="Set when an error “Buffer Full” occurs."/>
+     <bitField size="1" offset="8" name="ERR_FULL_FIFO0" mode="1" desc="Set when an error “write into Full FIFO_0” occurs."/>
+     <bitField size="1" offset="9" name="ERR_FULL_FIFO1" mode="1" desc="Set when an error “write into Full FIFO_1” occurs."/>
+     <bitField size="1" offset="10" name="ERR_FULL_FIFO2" mode="1" desc="Set when an error “write into Full FIFO_2” occurs."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_ADDRESS_F0_0" addOffset="8">
+     <bitField size="32" offset="0" name="ADDRESS_F0_0" mode="3" desc="Base address of the first buffer where the Spectral Matrix must write the next Spectral Matrix F0."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_ADDRESS_F0_1" addOffset="12">
+     <bitField size="32" offset="0" name="ADDRESS_F0_1" mode="3" desc="Base address of the second buffer where the Spectral Matrix must write the next Spectral Matrix F0."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_ADDRESS_F1_0" addOffset="16">
+     <bitField size="32" offset="0" name="ADDRESS_F1_0" mode="3" desc="Base address of the first buffer where the Spectral Matrix must write the next Spectral Matrix F1."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_ADDRESS_F1_1" addOffset="20">
+     <bitField size="32" offset="0" name="ADDRESS_F1_1" mode="3" desc="Base address of the second buffer where the Spectral Matrix must write the next Spectral Matrix F1."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_ADDRESS_F2_0" addOffset="24">
+     <bitField size="32" offset="0" name="ADDRESS_F2_0" mode="3" desc="Base address of the first buffer where the Spectral Matrix must write the next Spectral Matrix F2."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_ADDRESS_F2_1" addOffset="28">
+     <bitField size="32" offset="0" name="ADDRESS_F2_1" mode="3" desc="Base address of the second buffer where the Spectral Matrix must write the next Spectral Matrix F2."/>
+   </register>
+
+   <register name="SPECTRAL_MATRIX_COARSETIME_F0_0" addOffset="32">
+     <bitField size="32" offset="0" name="COARSETIME_F0_0" mode="1" desc="CoarseTime of the first data of the first buffer Spectral Matrix F0."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_FINETIME_F0_0" addOffset="36">
+     <bitField size="16" offset="0" name="FINETIME_F0_0" mode="1" desc="FineTime of the first data of the first buffer Spectral Matrix F0."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_COARSETIME_F0_1" addOffset="40">
+     <bitField size="32" offset="0" name="COARSETIME_F0_1" mode="1" desc="CoarseTime of the first data of the second buffer Spectral Matrix F0."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_FINETIME_F0_1" addOffset="44">
+     <bitField size="16" offset="0" name="FINETIME_F0_1" mode="1" desc="FineTime of the first data of the second buffer Spectral Matrix F0."/>
+   </register>
+
+   <register name="SPECTRAL_MATRIX_COARSETIME_F1_0" addOffset="48">
+     <bitField size="32" offset="0" name="COARSETIME_F1_0" mode="1" desc="CoarseTime of the first data of the first buffer Spectral Matrix F1."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_FINETIME_F1_0" addOffset="52">
+     <bitField size="16" offset="0" name="FINETIME_F1_0" mode="1" desc="FineTime of the first data of the first buffer Spectral Matrix F1."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_COARSETIME_F1_1" addOffset="56">
+     <bitField size="32" offset="0" name="COARSETIME_F1_1" mode="1" desc="CoarseTime of the first data of the second buffer Spectral Matrix F1."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_FINETIME_F1_1" addOffset="60">
+     <bitField size="16" offset="0" name="FINETIME_F1_0" mode="1" desc="FineTime of the first data of the second buffer Spectral Matrix F1."/>
+   </register>
+
+   <register name="SPECTRAL_MATRIX_COARSETIME_F2_0" addOffset="64">
+     <bitField size="32" offset="0" name="COARSETIME_F2_0" mode="1" desc="CoarseTime of the first data of the first buffer Spectral Matrix F2."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_FINETIME_F2_0" addOffset="68">
+     <bitField size="16" offset="0" name="FINETIME_F2_0" mode="1" desc="FineTime of the first data of the first buffer Spectral Matrix F2."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_COARSETIME_F2_1" addOffset="72">
+     <bitField size="32" offset="0" name="COARSETIME_F2_1" mode="1" desc="CoarseTime of the first data of the second buffer Spectral Matrix F2."/>
+   </register>
+   <register name="SPECTRAL_MATRIX_FINETIME_F2_1" addOffset="76">
+     <bitField size="16" offset="0" name="FINETIME_F2_0" mode="1" desc="FineTime of the first data of the second buffer Spectral Matrix F2."/>
+   </register>
+
+   <register name="SPECTRAL_MATRIX_LENGTH" addOffset="80">
+     <bitField size="26" offset="0" name="LENGTH" mode="3" desc="Length of each spectral matrix buffer in 32 bit words. Length(Bytes) = LENGTH x 4."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_DATASHAPING" addOffset="84">
+     <bitField size="1" offset="0" name="BW" mode="3" desc="Set the data shaping Parameter BW."/>
+     <bitField size="1" offset="1" name="SP0" mode="3" desc="Set the data shaping Parameter SP0."/>
+     <bitField size="1" offset="2" name="SP1" mode="3" desc="Set the data shaping Parameter SP1."/>
+     <bitField size="1" offset="3" name="R0" mode="3" desc="Set the data shaping Parameter R0."/>
+     <bitField size="1" offset="4" name="R1" mode="3" desc="Set the data shaping Parameter R1."/>
+     <bitField size="1" offset="5" name="R2" mode="3" desc="Set the data shaping Parameter R2."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_CONTROL" addOffset="88">
+     <bitField size="1" offset="0" name="WF_F0_EN" mode="3" desc="Enable acquisition of Data at f0."/>
+     <bitField size="1" offset="1" name="WF_F1_EN" mode="3" desc="Enable acquisition of Data at f1."/>
+     <bitField size="1" offset="2" name="WF_F2_EN" mode="3" desc="Enable acquisition of Data at f2."/>
+     <bitField size="1" offset="3" name="WF_F3_EN" mode="3" desc="Enable acquisition of Data at f3."/>
+     <bitField size="1" offset="4" name="WF_F0_BURST_EN" mode="3" desc="Enable Burst mode for Data at f0."/>
+     <bitField size="1" offset="5" name="WF_F1_BURST_EN" mode="3" desc="Enable Burst mode for Data at f1."/>
+     <bitField size="1" offset="6" name="WF_F2_BURST_EN" mode="3" desc="Enable Burst mode for Data at f2."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_ADDRESS_F0_0" addOffset="92">
+     <bitField size="32" offset="0" name="ADDRESS_F0_0" mode="3" desc="Base address of the 1rst buffer where the Waveform Picker must write the next Data at f0."/>
+   </register>
+   <register name="WAVEFORM_PICKER_ADDRESS_F0_1" addOffset="96">
+     <bitField size="32" offset="0" name="ADDRESS_F0_1" mode="3" desc="Base address of the 2nd buffer where the Waveform Picker must write the next Data at f0."/>
+   </register>
+   <register name="WAVEFORM_PICKER_ADDRESS_F1_0" addOffset="100">
+     <bitField size="32" offset="0" name="ADDRESS_F1_0" mode="3" desc="Base address of the 1rst buffer where the Waveform Picker must write the next Data at f1."/>
+   </register>
+   <register name="WAVEFORM_PICKER_ADDRESS_F1_1" addOffset="104">
+     <bitField size="32" offset="0" name="ADDRESS_F1_1" mode="3" desc="Base address of the 2nd buffer where the Waveform Picker must write the next Data at f1."/>
+   </register>
+   <register name="WAVEFORM_PICKER_ADDRESS_F2_0" addOffset="108">
+     <bitField size="32" offset="0" name="ADDRESS_F2_0" mode="3" desc="Base address of the 1rst buffer where the Waveform Picker must write the next Data at f2."/>
+   </register>
+   <register name="WAVEFORM_PICKER_ADDRESS_F2_1" addOffset="112">
+     <bitField size="32" offset="0" name="ADDRESS_F2_1" mode="3" desc="Base address of the 2nd buffer where the Waveform Picker must write the next Data at f2."/>
+   </register>
+   <register name="WAVEFORM_PICKER_ADDRESS_F3_0" addOffset="116">
+     <bitField size="32" offset="0" name="ADDRESS_F3_0" mode="3" desc="Base address of the 1rst buffer where the Waveform Picker must write the next Data at f3."/>
+   </register>
+   <register name="WAVEFORM_PICKER_ADDRESS_F3_1" addOffset="120">
+     <bitField size="32" offset="0" name="ADDRESS_F3_1" mode="3" desc="Base address of the 2nd buffer where the Waveform Picker must write the next Data at f3."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_STATUS" addOffset="124">
+     <bitField size="8" offset="0" name="FULL" mode="1" desc="Vector of Full Status bits for each data buffer f0_0 to f3_1. Set when Waveform Buffer of Data is full. Each bit is automatically cleared after read."/>
+     <bitField size="4" offset="8" name="ERR_FULL" mode="1" desc="Vector of Full Error bits for Data buffer f0_0 to.f3_0. The bit 0 is for full error of data f0_0, etc. Set when Waveform Buffer of Data is full and that a new data should be writing. Those bits are automatically cleared after read."/>
+     <bitField size="4" offset="12" name="ERR_NEW" mode="1" desc="Vector of New Error bits for Data f0 to f3. The bit 0 is for new error of data f0, etc. Set when internal buffer (FIFO) is full and a new data should be writing. Those bits are automatically reset after read."/>
+   </register>
+   <register name="WAVEFORM_PICKER_DELTASNAPSHOT" addOffset="128">
+     <bitField size="32" offset="0" name="DELTASNAPSHOT" mode="3" desc="DeltaSnapshot parameter."/>
+   </register>
+   <register name="WAVEFORM_PICKER_DELTA_f0" addOffset="132">
+     <bitField size="32" offset="0" name="DELTA_f0" mode="3" desc="Delta_f0 parameter."/>
+   </register>
+   <register name="WAVEFORM_PICKER_DELTA_f0_2" addOffset="136">
+     <bitField size="7" offset="0" name="DELTA_f0_2" mode="3" desc="Delta_f0_2 parameter."/>
+   </register>
+   <register name="WAVEFORM_PICKER_DELTA_f1" addOffset="140">
+     <bitField size="32" offset="0" name="DELTA_f1" mode="3" desc="Delta_f1 parameter."/>
+   </register>
+   <register name="WAVEFORM_PICKER_DELTA_f2" addOffset="144">
+     <bitField size="32" offset="0" name="DELTA_f2" mode="3" desc="Delta_f2 parameter."/>
+   </register>
+   <register name="WAVEFORM_PICKER_NBDATABYBUFFER" addOffset="148">
+     <bitField size="32" offset="0" name="NBDATABYBUFFER" mode="3" desc="Number of data by buffer (one data is 6*2B)."/>
+   </register>
+   <register name="WAVEFORM_PICKER_NBSNAPSHOT" addOffset="152">
+     <bitField size="32" offset="0" name="FULL" mode="3" desc="Nb_snapshot_param parameter."/>
+   </register>
+   <register name="WAVEFORM_PICKER_START_DATE" addOffset="156">
+     <bitField size="32" offset="0" name="START_DATE" mode="3" desc="The start date. When this date is equal or lesser than the time management date, the waveform starts"/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_COARSETIME_F0_0" addOffset="160">
+     <bitField size="32" offset="0" name="COARSETIME_F0_0" mode="1" desc="CoarseTime of the first data of the first WaveFormPicker buffer F0."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F0_0" addOffset="164">
+     <bitField size="16" offset="0" name="FINETIME_F0_0" mode="1" desc="FineTime of the first data of the first WaveFormPicker buffer F0."/>
+   </register>
+   <register name="WAVEFORM_PICKER_COARSETIME_F0_1" addOffset="168">
+     <bitField size="32" offset="0" name="COARSETIME_F0_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F0."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F0_1" addOffset="172">
+     <bitField size="32" offset="0" name="FINETIME_F0_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F0."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_COARSETIME_F1_0" addOffset="176">
+     <bitField size="32" offset="0" name="COARSETIME_F1_0" mode="1" desc="CoarseTime of the first data of the first WaveFormPicker buffer F1."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F1_0" addOffset="180">
+     <bitField size="16" offset="0" name="FINETIME_F1_0" mode="1" desc="FineTime of the first data of the first WaveFormPicker buffer F1."/>
+   </register>
+   <register name="WAVEFORM_PICKER_COARSETIME_F1_1" addOffset="184">
+     <bitField size="32" offset="0" name="COARSETIME_F1_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F1."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F1_1" addOffset="188">
+     <bitField size="32" offset="0" name="FINETIME_F1_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F1."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_COARSETIME_F2_0" addOffset="192">
+     <bitField size="32" offset="0" name="COARSETIME_F2_0" mode="1" desc="CoarseTime of the first data of the first WaveFormPicker buffer F2."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F2_0" addOffset="196">
+     <bitField size="16" offset="0" name="FINETIME_F2_0" mode="1" desc="FineTime of the first data of the first WaveFormPicker buffer F2."/>
+   </register>
+   <register name="WAVEFORM_PICKER_COARSETIME_F2_1" addOffset="200">
+     <bitField size="32" offset="0" name="COARSETIME_F2_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F2."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F2_1" addOffset="204">
+     <bitField size="32" offset="0" name="FINETIME_F2_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F2."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_COARSETIME_F3_0" addOffset="208">
+     <bitField size="32" offset="0" name="COARSETIME_F3_0" mode="1" desc="CoarseTime of the first data of the first WaveFormPicker buffer F3."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F3_0" addOffset="212">
+     <bitField size="16" offset="0" name="FINETIME_F3_0" mode="1" desc="FineTime of the first data of the first WaveFormPicker buffer F3."/>
+   </register>
+   <register name="WAVEFORM_PICKER_COARSETIME_F3_1" addOffset="216">
+     <bitField size="32" offset="0" name="COARSETIME_F3_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F3."/>
+   </register>
+   <register name="WAVEFORM_PICKER_FINETIME_F3_1" addOffset="220">
+     <bitField size="32" offset="0" name="FINETIME_F3_1" mode="1" desc="CoarseTime of the first data of the 2nd WaveFormPicker buffer F3."/>
+   </register>
+
+   <register name="WAVEFORM_PICKER_BUFFER_LENGTH" addOffset="224">
+     <bitField size="26" offset="0" name="BUFFER_LENGTH" mode="3" desc="Nb_word_by_buffer parameter. Indicates the buffer’s size in words (4B)."/>
+   </register>
+   <register name="V_F3" addOffset="228">
+     <bitField size="16" offset="0" name="V_F3" mode="3" desc="Current V value (from F3 channel)."/>
+   </register>
+   <register name="E1_F3" addOffset="232">
+     <bitField size="16" offset="0" name="E1_F3" mode="3" desc="Current E1 value (from F3 channel)."/>
+   </register>
+   <register name="E2_F3" addOffset="236">
+     <bitField size="16" offset="0" name="E2_F3" mode="3" desc="Current E2 value (from F3 channel)."/>
+   </register>
+   <register name="LFR_RTL_VERSION" addOffset="240">
+     <bitField size="8" offset="0" name="MINOR" mode="3" desc="Minor version."/>
+     <bitField size="8" offset="8" name="MAJOR" mode="3" desc="Major version."/>
+     <bitField size="8" offset="16" name="BOARD" mode="3" desc="Current board&#xa;0 => mini-LFR&#xa;1 => LFR-em&#xa;2 => LFR-EQM with A3PE3000L FPGA&#xa;3 => LFR-EQM/FM with RTAX FPGA"/>
    </register>
  </peripheral>
 </soc>
