@@ -1,8 +1,8 @@
-%global upstream_name socexplorer-0.6-3
+%global upstream_name socexplorer-0.6-4
 
 Name:           socexplorer
 Version:        0.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SocExplorer is an open source generic System On Chip testing software/framework.
 Group:          Development/Tools
 License:        GPLv2+
@@ -20,7 +20,12 @@ BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  elfutils-libelf-devel
 BuildRequires:  qt5-pythonqt-devel
 BuildRequires:  mercurial
+%if 0%{?fedora} <= 22
 BuildRequires:  appdata-tools
+%endif
+%if 0%{?fedora} >= 23
+BuildRequires:  libappstream-glib
+%endif
 BuildRequires:  desktop-file-utils
 
 Requires(post): python2
@@ -31,8 +36,7 @@ Requires(post): qt5-qtxmlpatterns
 Requires(post): elfutils-libelf
 Requires(post): qt5-pythonqt
 
-Provides:  socexplorer = 0.6-3
-Obsoletes: socexplorer < 0.6-2
+Provides:  socexplorer = 0.6-4
 
 %description
 SocExplorer is an open source generic System On Chip testing software/framework. We write this software for the development and the validation of our instrument, the Low Frequency Receiver(LFR) for the Solar Orbiter mission. This instrument is based on an actel FPGA hosting a LEON3FT processor and some peripherals. To make it more collaborative, we use a plugin based system, the main executable is SocExplorer then all the functionality are provided by plugins. Like this everybody can provide his set of plugins to handle a new SOC or just a new peripheral. SocExplorer uses PythonQt to allow user to automate some tasks such as loading some plugins, configuring them and talking with his device.
@@ -52,7 +56,12 @@ Requires:  qt5-qtmultimedia-devel
 Requires:  elfutils-libelf-devel
 Requires:  qt5-pythonqt-devel
 Requires:  mercurial
+%if 0%{?fedora} <= 22
 Requires:  appdata-tools
+%endif
+%if 0%{?fedora} >= 23
+Requires:  libappstream-glib
+%endif
 Requires:  desktop-file-utils
 
 %description devel
@@ -70,7 +79,7 @@ make %{?_smp_mflags}
 
 %install
 make install INSTALL_ROOT=%{buildroot}
-appdata-validate --nonet %{buildroot}/%{_datadir}/appdata/socexplorer.appdata.xml
+appstream-util validate-relax %{buildroot}/%{_datadir}/appdata/socexplorer.appdata.xml
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/socexplorer.desktop
 
 %post -p /sbin/ldconfig
@@ -317,6 +326,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/socexplorer.deskto
 
 
 %changelog
+* Fri Jan 22  2016 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.6
+- Added Fedora 23 support.
+
 * Mon Oct 26  2015 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.6
 - Updated LPP IPs registers definition list(LPP.xml).
 
