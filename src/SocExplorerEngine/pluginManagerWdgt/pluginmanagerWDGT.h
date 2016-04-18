@@ -66,11 +66,7 @@ signals:
     void pluginselected(const QString& instanceName);
 
 public slots:
-    //void libselected(int row);
-    void addPlugin();
-    void removePlugin();
-    void loadplugin();
-    //void loadplugin(QListWidgetItem*);
+
 
 private:
 

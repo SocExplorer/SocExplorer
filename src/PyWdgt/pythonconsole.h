@@ -49,8 +49,6 @@ public:
 signals:
     void rootDriverDelete();
 public slots:
-    void setBussDriver(socexplorerplugin* driver);
-    void removeBussDriver();
     void removeDriver(const QString& instanceName);
     void pyConsoleRunFiles(const QStringList&);
     void pyConsoleRunFile(const QString& fileName);
@@ -63,11 +61,9 @@ protected:
 
 private:
     QHBoxLayout* mainlayout;
-    socexplorerplugin* bussdriver;
     PythonQtScriptingConsoleDandD* console;
     PythonQtObjectPtr*  mainContext;
     socexplorerproxy* proxy;
-    //LPMONMainWindow* mainwin;
 };
 
 #endif // PYTHONCONSOLE_H

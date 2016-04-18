@@ -8,7 +8,7 @@ GenericName=Soc Explorer
 
 Comment=Software to monitor and explore Soc devices.
 
-Exec=socexplorer -e %U
+Exec=socexplorer %U
 Icon=/usr/share/SocExplorer/icon.png
 Terminal=false
 
