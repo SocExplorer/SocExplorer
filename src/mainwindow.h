@@ -38,17 +38,21 @@
 #include "aboutsocexplorer.h"
 #include "toolbar.h"
 #include "regsExplorer/regsexplorer.h"
+#include "socexplorergui.h"
+#include "sessionmanagerdialog.h"
 
 class SocExplorerMainWindow : public QMainWindow
 {
     Q_OBJECT
 
+
 public:
     SocExplorerMainWindow(QString ScriptToEval,QWidget *parent = 0);
     ~SocExplorerMainWindow();
-    QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction;
+    QAction* Quit,*LoadPlugin,*ManagePlugins,*help,*regsManager,*exploreRegs,*about,*translateAction,*sessionManagerAction;
+    QActionGroup*sessionsActions;
     QActionGroup*langActionGrp;
-    QMenu* FileMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu;
+    QMenu* FileMenu,*SettingsMenu,*PluginsMenu,*ToolsMenu,*langMenu,*helpMenu,*SessionsMenu;
     QTranslator* appTranslator;
     void createLangMenu();
     void closeEvent(QCloseEvent *event);
@@ -64,7 +68,12 @@ public slots:
     void setLangage(QAction* action);
     void showAboutBox();
     void pluginselected(const QString& instanceName);
-
+    void setActiveSession(const QString & session);
+    void setActiveSession(QAction* session);
+    void showSessionManager(bool);
+    void renameSession(const QString& oldName,const QString& newName);
+    void addSession(const QString& newSession);
+    void removeSession(const QString& session);
 signals:
     void translateSig();
     void registerObject(QObject* object,const QString& instanceName);
@@ -74,6 +83,10 @@ private:
     void makeLayout();
     void makeConnections();
     void makeMenu();
+    void loadSessions();
+    void savePlugins();
+    void saveCurrentSession();
+    void loadCurrentSession();
     QMainWindow* pluginsDockContainer;
     QSplitter* mainWidget;
     PythonConsole* PythonConsoleInst;
@@ -81,6 +94,9 @@ private:
     RegsExplorer* regExplorer;
     aboutsocexplorer* p_about;
     QList<QDockWidget*>* p_pluginGUIlist;
+    QStringList p_Sessions;
+    QString p_currentSession;
+    SessionManagerDialog* p_SessionManagerDialog;
 };
 
 #endif // MAINWINDOW_H

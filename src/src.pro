@@ -73,7 +73,9 @@ SOURCES += main.cpp\
     toolbar.cpp \
     toolbarcontainer.cpp \
     aboutsocexplorer.cpp \
-    regsExplorer/regsexplorer.cpp
+    regsExplorer/regsexplorer.cpp \
+    socexplorercoresettingsgui.cpp \
+    sessionmanagerdialog.cpp
 
 HEADERS  += mainwindow.h \
     PyWdgt/pythonconsole.h \
@@ -84,7 +86,9 @@ HEADERS  += mainwindow.h \
     socexplorer.h \
     SocExplorerEngine/plugins/socexplorerplugin.h \
     aboutsocexplorer.h \
-    regsExplorer/regsexplorer.h
+    regsExplorer/regsexplorer.h \
+    socexplorercoresettingsgui.h \
+    sessionmanagerdialog.h
 
 
 include ( NicePyConsole/NicePyConsole.pri)
@@ -101,7 +105,9 @@ TRANSLATIONS = ../translations/socexplorer_fr.ts \
     ../translations/socexplorer_en.ts
 
 FORMS += \
-    regsExplorer/regsexplorernew.ui
+    regsExplorer/regsexplorernew.ui \
+    socexplorercoresettingsgui.ui \
+    sessionmanagerdialog.ui
 
 DISTFILES += \
     ../doc/PythonExamples/LEON3_LOAD.py \

@@ -21,12 +21,17 @@
 ----------------------------------------------------------------------------*/
 #include "socexplorerengine.h"
 #include <proxy/socexplorerproxy.h>
+#include <socexplorersettings.h>
+#include <socexplorercoresettingsgui.h>
+#include <socexplorerconfigkeys.h>
 
 SocExplorerEngine* SocExplorerEngine::_self = NULL;
 socExplorerXmlModel* SocExplorerEngine::p_xmlmodel=NULL;
 QMainWindow* SocExplorerEngine::mainWindow=NULL;
 QList<SOCModel*>* SocExplorerEngine::SOCs=NULL;
+QSettings* SocExplorerEngine::m_settings=NULL;
 int SocExplorerEngine::loglvl=1;
+
 
 SocExplorerEngine::SocExplorerEngine(QObject *parent) :
     QObject(parent)
@@ -35,7 +40,9 @@ SocExplorerEngine::SocExplorerEngine(QObject *parent) :
     {
         SOCs = new QList<SOCModel*>;
     }
-
+    m_settings = new QSettings();
+    SocExplorerCoreSettingsGUI* cfggui=new SocExplorerCoreSettingsGUI();
+    SocExplorerSettings::registerConfigEntry(cfggui,QIcon(":/images/config.svg"),"SocExplorer Core");
 }
 
 
@@ -87,6 +94,14 @@ QStringList SocExplorerEngine::pluginFolders()
                 }
             }
         }
+    }
+    QStringList localCfg = SocExplorerSettings::value(SOCEXPLORERENGINE_SETTINGS_SCOPE,SOCEXPLORERENGINE_SETTINGS_PLUGINS_LOOKUP_PATH).toString().split(";");
+    QString dir;
+    foreach (dir, localCfg)
+    {
+        QDir plugDir(dir);
+        if(plugDir.exists())
+            folders.append(dir);
     }
     return folders;
 }
@@ -274,13 +289,29 @@ void SocExplorerEngine::removeSOC(socexplorerplugin *rootPlugin)
     delete soc;
 }
 
+
 void SocExplorerEngine::message(socexplorerplugin *sender, const QString &message, int debugLevel)
 {
+    if(!_self)
+        init();
+     SocExplorerEngine::message(sender->instanceName(),message,debugLevel);
+}
+
+void SocExplorerEngine::message(QObject *sender, const QString &message, int debugLevel)
+{
+    if(!_self)
+        init();
+     SocExplorerEngine::message(sender->objectName(),message,debugLevel);
+}
+
+void SocExplorerEngine::message(const QString &sender, const QString &message, int debugLevel)
+{
     // TODO add multi output message manager IE also log in files
+    static QTextStream SocExplorerEngineStdout(stdout);
     if(!_self)
         init();
     if(loglvl>=debugLevel)
-        qDebug()<< QTime::currentTime().toString()+" " + sender->instanceName()+":"+message;
+        SocExplorerEngineStdout << QTime::currentTime().toString()+" " + sender+":"+message << endl;
 }
 
 void SocExplorerEngine::setLogLevel(int level)

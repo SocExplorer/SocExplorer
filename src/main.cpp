@@ -29,61 +29,98 @@
 #include <QStyleFactory>
 #include <QStringList>
 #include <QFile>
+#include <QCommandLineOption>
+#include <QCommandLineParser>
 
-void usage();
+
+QCommandLineOption executeOption = QCommandLineOption (
+            QStringList() << "e" << "execute",
+            QCoreApplication::translate("main", "Execute given script <script>."),
+            QCoreApplication::translate("main", "script"));
+
+QCommandLineOption debugLevelOption = QCommandLineOption (
+            QStringList() << "d" << "debug-level",
+            QCoreApplication::translate("main", "Sets debug level to <level>, higher the level is more verbose the application will be."),
+            QCoreApplication::translate("main", "level"),
+            "1");
+
+QCommandLineOption noGUIOption = QCommandLineOption (
+            QStringList() << "n" << "no-gui",
+            QCoreApplication::translate("main", "Starts SocExplorer in batch mode[not fully implemented yet!]."));
+
+const char* socexplorerDesc="\
+SocExplorer is an open source generic System On Chip testing software/framework.\
+ We write this software for the development and the validation of our instrument,\
+ the Low Frequency Receiver(LFR) for the Solar Orbiter mission. This instrument is\
+ based on an actel FPGA hosting a LEON3FT processor and some peripherals. To make\
+ it more collaborative, we use a plugin based system, the main executable is SocExplorer\
+ then all the functionality are provided by plugins. Like this everybody can provide\
+ his set of plugins to handle a new SOC or just a new peripheral. SocExplorer uses\
+ PythonQt to allow user to automate some tasks such as loading some plugins, configuring\
+ them and talking with his device. SocExplorer is provided under the terms of the GNU\
+ General Public License as published by the Free Software Foundation; either version 2\
+ of the License, or (at your option) any later version.";
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QString scriptToEval;
-    QStringList args= a.arguments();
+    QApplication::setOrganizationName("LPP");
+    QApplication::setOrganizationDomain("lpp.fr");
+    QApplication::setApplicationName("SocExplorer");
+    QCommandLineParser parser;
+    parser.setApplicationDescription(socexplorerDesc);
+    parser.addHelpOption();
+    parser.addVersionOption();
     bool noGUI=false;
-    for(int i=0;i<=args.count()-1;i++)
+    parser.addPositionalArgument("file", QCoreApplication::translate("main", "The Python file to execute."));
+    parser.addOption(executeOption);
+    parser.addOption(debugLevelOption);
+    parser.addOption(noGUIOption);
+    parser.process(a);
+    if(parser.isSet(executeOption))
     {
-        if(((args.at(i).compare("-e")==0) || (args.at(i).compare("--execute")==0)) && (i<(args.count()-1)))
+        scriptToEval = parser.value(executeOption);
+        if(!QFile::exists(scriptToEval))
         {
-            scriptToEval = args.at(i+1);
+            scriptToEval.clear();
+        }
+    }
+    else
+    {
+        QStringList posArgs = parser.positionalArguments();
+        if(posArgs.count())
+        {
+            scriptToEval = posArgs.first();
             if(!QFile::exists(scriptToEval))
             {
                 scriptToEval.clear();
             }
-            else
-                qDebug() << "Will execute" << scriptToEval;
-            break;
-        }
-        if(((args.at(i).compare("-d")==0) || (args.at(i).compare("--debug-level")==0)) && (i<(args.count()-1)))
-        {
-            bool success;
-            int lvl;
-            lvl = args.at(i+1).toInt(&success,10);
-            if(success)
-            {
-                SocExplorerEngine::setLogLevel(lvl);
-            }
-        }
-        if((args.at(i).compare("--no-gui")==0))
-        {
-            noGUI = true;
-            qDebug() << "CLI mode";
         }
     }
-
+    if(parser.isSet(debugLevelOption))
+    {
+        bool success;
+        int lvl;
+        lvl = parser.value(debugLevelOption).toInt(&success,10);
+        if(success)
+        {
+            SocExplorerEngine::setLogLevel(lvl);
+        }
+    }
+    if(parser.isSet(noGUIOption))
+    {
+        noGUI = true;
+        qDebug() << "CLI mode";
+    }
     SocExplorerMainWindow w(scriptToEval);
     if(!noGUI)
-      {
-
+    {
         w.show();
-      }
+    }
     else
-      {
+    {
 
-      }
+    }
     return a.exec();
-}
-
-
-void usage()
-{
-    // TODO respect usual Linux Cli interface, socexplore [OPTION]...FILES...
-    // TODO write an usage helper.
 }

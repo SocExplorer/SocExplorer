@@ -108,6 +108,7 @@ void socexplorerplugin::setInstanceName(const QString &newName)
   if(this->menu)
     this->menu->setTitle(this->_instanceName);
   this->setWindowTitle(newName);
+  this->setObjectName(newName);
 }
 
 bool socexplorerplugin::dumpMemory(unsigned int address, unsigned int count, QString file)
@@ -260,5 +261,4 @@ bool socexplorerplugin::dumpMemory(unsigned int address, unsigned int count, QSt
     }
   return false;
 }
-
 
