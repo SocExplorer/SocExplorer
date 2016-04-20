@@ -1,8 +1,8 @@
-%global upstream_name socexplorer-0.6-4
+%global upstream_name socexplorer-0.7-0
 
 Name:           socexplorer
-Version:        0.6
-Release:        4%{?dist}
+Version:        0.7
+Release:        0%{?dist}
 Summary:        SocExplorer is an open source generic System On Chip testing software/framework.
 Group:          Development/Tools
 License:        GPLv2+
@@ -36,7 +36,7 @@ Requires(post): qt5-qtxmlpatterns
 Requires(post): elfutils-libelf
 Requires(post): qt5-pythonqt
 
-Provides:  socexplorer = 0.6-4
+Provides:  socexplorer = 0.7-0
 
 %description
 SocExplorer is an open source generic System On Chip testing software/framework. We write this software for the development and the validation of our instrument, the Low Frequency Receiver(LFR) for the Solar Orbiter mission. This instrument is based on an actel FPGA hosting a LEON3FT processor and some peripherals. To make it more collaborative, we use a plugin based system, the main executable is SocExplorer then all the functionality are provided by plugins. Like this everybody can provide his set of plugins to handle a new SOC or just a new peripheral. SocExplorer uses PythonQt to allow user to automate some tasks such as loading some plugins, configuring them and talking with his device.
@@ -326,6 +326,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/socexplorer.deskto
 
 
 %changelog
+* Tue Apr 19  2016 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.7
+- Updated to 0.7 version.
+
 * Fri Jan 22  2016 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.6
 - Added Fedora 23 support.
 
