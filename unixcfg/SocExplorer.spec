@@ -67,6 +67,7 @@ Requires:  desktop-file-utils
 %description devel
 Header files and development libraries for SocExplorer package. SocExplorer is an open source generic System On Chip testing software/framework.
 
+%global debug_package %{nil}
 %prep
 %setup -q -n %{upstream_name}
 
