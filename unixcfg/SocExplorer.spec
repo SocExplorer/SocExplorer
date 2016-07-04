@@ -1,8 +1,8 @@
-%global upstream_name socexplorer-0.7-0
+%global upstream_name socexplorer-0.7-1
 
 Name:           socexplorer
 Version:        0.7
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        SocExplorer is an open source generic System On Chip testing software/framework.
 Group:          Development/Tools
 License:        GPLv2+
@@ -327,6 +327,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/socexplorer.deskto
 
 
 %changelog
+* Mon Jun 04  2016 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.7
+- -1 Fixed bugs.
+
 * Tue Apr 19  2016 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 0.7
 - Updated to 0.7 version.
 
