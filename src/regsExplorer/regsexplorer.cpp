@@ -18,7 +18,7 @@ RegsExplorer::~RegsExplorer()
 
 void RegsExplorer::addDev(socExplorerEnumDevice *device)
 {
-    if((delegate.device->sameSoc(device))||(delegate.device==NULL))
+    if((delegate.device==NULL)||(delegate.device->sameSoc(device)))
     {
         delegate.device = device;
         peripheralWidget* peripheral=new peripheralWidget(device->name(),device->baseAddress(),&delegate,this);
