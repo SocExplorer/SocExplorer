@@ -1,0 +1,66 @@
+
+DEFINES += driver_Version="\"\\\"$$VERSION"\\\"\"
+
+win32 {
+    DEFINES += WIN32
+    DEFINES += WINTRANSLATIONPATH
+    DEFINES += SOCEXPLORER_TRANSLATION_PATH="\"\\\"./translations"\\\"\"
+    SOCEXPLORER_TRANSLATION_INSTALL_PATH = translations
+    SOCEXPLORER_INSTALL_PATH =
+    SOCEXPLORER_PLUGINS_INSTALL_PATH = $$SOCEXPLORER_PLUGIN_PATH
+}
+
+unix {
+    DEFINES += UNIX
+    DEFINES += UNIXTRANSLATIONPATH
+    DEFINES += SOCEXPLORER_TRANSLATION_PATH="\"\\\"/etc/SocExplorer/translations"\\\"\"
+    SOCEXPLORER_TRANSLATION_INSTALL_PATH = /etc/SocExplorer/translations
+    SOCEXPLORER_INSTALL_PATH = /usr/local/SocExplorer
+    SOCEXPLORER_PLUGINS_INSTALL_PATH = $$[QT_INSTALL_LIBS]"/SocExplorer/plugins"
+    DEFINES += SOCEXPLORER_CONFIG_PATH="\"\\\"/etc/SocExplorer"\\\"\"
+    DEFINES += SOCEXPLORER_SHARE_PATH="\"\\\"/usr/share/SocExplorer"\\\"\"
+    SOCEXPLORER_CONFIG_PATH=/etc/SocExplorer
+}
+
+isEmpty( SOCEXPLORER_SDK_BUILD ){
+    message( "building a plugin" )
+    QT += core gui xml
+    contains(QT_MAJOR_VERSION, 5) {
+        QT += widgets
+    }
+    CONFIG += pythonqt
+    TEMPLATE = lib
+    win32:CONFIG += dll
+    win32:CONFIG -= static
+    OBJECTS_DIR = obj
+    MOC_DIR = moc
+    DESTDIR = bin
+    unix{
+        target.path    = $${SOCEXPLORER_PLUGINS_INSTALL_PATH}
+        INSTALLS += target
+        LIBS+= -lsocexplorerengine$${DEBUG_EXT} -lsocexplorercommon$${DEBUG_EXT}
+    }
+    win32{
+        INCLUDEPATH += $$[QT_INSTALL_HEADERS]/SocExplorer/common/libelf
+        LIBS+=$$[QT_INSTALL_LIBS]/socexplorerengine$${DEBUG_EXT}.dll $$[QT_INSTALL_LIBS]/socexplorercommon$${DEBUG_EXT}.dll
+    }
+    DEFINES += SOCEXPLORER_LIBRARY
+
+    SOURCES += \
+        $$[QT_INSTALL_HEADERS]/SocExplorer/pluginsInterface/socexplorerplugininterface.cpp
+
+    HEADERS += \
+        $$[QT_INSTALL_HEADERS]/SocExplorer/socexplorerplugin.h
+
+    INCLUDEPATH += $$[QT_INSTALL_HEADERS]/SocExplorer/common \
+                     $$[QT_INSTALL_HEADERS]/SocExplorer \
+                    $$[QT_INSTALL_HEADERS]/SocExplorer/pluginsInterface
+
+
+}else{
+    message( "building SocExplorer" )
+    HEADERS += \
+        $$[QT_INSTALL_HEADERS]/SocExplorer/socexplorerplugin.h
+}
+
+

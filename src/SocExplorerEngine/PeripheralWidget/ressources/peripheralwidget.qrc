@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>Gnome-list-add.svg</file>
+        <file>Gnome-list-remove.svg</file>
+    </qresource>
+</RCC>

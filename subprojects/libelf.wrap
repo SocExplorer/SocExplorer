@@ -1,0 +1,11 @@
+[wrap-file]
+directory = libelf-0.8.13
+
+source_url = http://www.mr511.de/software/libelf-0.8.13.tar.gz
+source_filename = libelf-0.8.13.tar.gz
+source_hash = 591a9b4ec81c1f2042a97aa60564e0cb79d041c52faa7416acb38bc95bd2c76d
+
+patch_url = file:///home/jeandet/Téléchargements/test/libelf-wrap-0.8.13.zip
+patch_filename = libelf-wrap-0.8.13.zip
+patch_hash = 37c3a3a47240e4fb06400263b8e2183333f5f9ef405dfcc28074da269e191f73
+

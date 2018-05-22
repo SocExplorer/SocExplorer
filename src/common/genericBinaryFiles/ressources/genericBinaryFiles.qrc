@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>Gnome-list-add.png</file>
+        <file>Gnome-user-trash.png</file>
+        <file>Gnome-emblem-unreadable.png</file>
+    </qresource>
+</RCC>
